@@ -12,6 +12,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
