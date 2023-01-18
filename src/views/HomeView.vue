@@ -5,7 +5,7 @@
       <RouterLink to="/discover">Discover</RouterLink>
       <RouterLink to="/mixer">Mixer</RouterLink>
     </nav>
-    <button @click="logout">Logout</button>
+    <button @click="logout">Log Out</button>
   </header>
   <main></main>
   <RouterView />
