@@ -7,7 +7,17 @@
 </template>
 
 <script setup lang="ts">
-import { authRequest } from '@/services/authorization'
+import { authRequest, getAccessToken } from '@/services/authorization'
+import { onBeforeMount } from 'vue'
+
+const params = new URLSearchParams(window.location.search)
+const codeQuery = params.get('code')
+
+onBeforeMount(() => {
+  if (codeQuery) {
+    getAccessToken(codeQuery)
+  }
+})
 </script>
 
 <style lang="scss"></style>

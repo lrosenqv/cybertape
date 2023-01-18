@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AuthView from '@/views/AuthView.vue'
 import HomeView from '@/views/HomeView.vue'
 import StartView from '@/views/StartView.vue'
 
@@ -9,7 +8,8 @@ const router = createRouter({
     {
       path: '/login',
       name: 'start',
-      component: StartView
+      component: StartView,
+      props: (route) => ({ code: route.query.code, state: <string>route.query.state })
     },
     {
       path: '/',
@@ -25,30 +25,13 @@ const router = createRouter({
       path: '/mixer',
       name: 'mixer',
       component: () => import('@/views/MixerView.vue')
-    },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: AuthView,
-      props: (route) => ({ code: route.query.code, state: <string>route.query.state })
     }
   ]
 })
 
-/* router.afterEach((to, from, failure) => {
-  if (to.name === 'auth') {
-    if (to.query.error) router.go(-1)
-    else {
-      isAuthenticated = true
-    }
-  }
-}) */
-
-/* router.beforeResolve((to, from) => {
-  const isAuthenticated = localStorage.getItem('access_token')
-  if (to.name !== 'start' && !isAuthenticated) {
-    return { name: 'start' }
-  }
-}) */
-
+router.beforeEach(async (to) => {
+  const isAuhenticated = localStorage.getItem('access_token')
+  if (to.name !== 'start' && !isAuhenticated) return { name: 'start' }
+  if (to.name === 'start' && isAuhenticated) return { name: 'home' }
+})
 export default router
