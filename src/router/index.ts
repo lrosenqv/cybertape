@@ -14,17 +14,19 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/discover',
-      name: 'discover',
-      component: () => import('@/views/DiscoverView.vue')
-    },
-    {
-      path: '/mixer',
-      name: 'mixer',
-      component: () => import('@/views/MixerView.vue')
+      component: HomeView,
+      children: [
+        {
+          path: '/discover',
+          name: 'discover',
+          component: () => import('@/views/DiscoverView.vue')
+        },
+        {
+          path: '/mixer',
+          name: 'mixer',
+          component: () => import('@/views/MixerView.vue')
+        }
+      ]
     }
   ]
 })
