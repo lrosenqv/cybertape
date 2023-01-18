@@ -94,7 +94,7 @@ function authRequest() {
 } */
 
 function logout() {
-  localStorage.clear()
+  sessionStorage.clear()
   router.go(0)
 }
 export { authRequest, getAccessToken, logout }
