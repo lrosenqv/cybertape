@@ -32,6 +32,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
+  const expires_at = localStorage.getItem('expires_at') || null
+  const t = new Date()
+
   const isAuhenticated = localStorage.getItem('access_token')
   if (to.name !== 'start' && !isAuhenticated) return { name: 'start' }
   if (to.name === 'start' && isAuhenticated) return { name: 'home' }

@@ -56,9 +56,9 @@ function handleTokenResponse(data: any) {
   const t = new Date()
   const expires_at = t.setSeconds(t.getSeconds() + data.expires_in)
 
-  localStorage.setItem('access_token', access_token)
-  localStorage.setItem('refresh_token', refresh_token)
-  localStorage.setItem('expires_at', expires_at.toString())
+  sessionStorage.setItem('access_token', access_token)
+  sessionStorage.setItem('refresh_token', refresh_token)
+  sessionStorage.setItem('expires_at', expires_at.toString())
 }
 // Requests authorization
 function authRequest() {
@@ -90,7 +90,7 @@ function authRequest() {
       grant_type: 'refresh_token',
       refresh_token
     })
-  }).then(processTokenResponse)
+  }).then(handleTokenResponse)
 } */
 
 function logout() {
