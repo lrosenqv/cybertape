@@ -1,3 +1,5 @@
+import type { ITracks } from './ITrack'
+
 export interface IPlaylist {
   collaborative: boolean
   description: string
@@ -8,7 +10,7 @@ export interface IPlaylist {
   owner: { display_name: string; href: string; id: string; type: string; uri: string }
   primary_color: string
   snapshot_id: string
-  tracks: { href: string; total: number }
+  tracks: ITracks
   type: string
   uri: string
 }
