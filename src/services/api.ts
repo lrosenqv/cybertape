@@ -1,7 +1,6 @@
 import type { ICategories } from '@/models/ICategory'
 import type { IPlaylist, IPlaylistResponse } from '@/models/IPlaylist'
 import type { ISearch } from '@/models/ISearch'
-import type { ISeed } from '@/models/ISeed'
 import axios from 'axios'
 
 const baseUrl = 'https://api.spotify.com/v1/'
@@ -42,22 +41,25 @@ async function searchTracks(query: string) {
   const response = await axios.get<ISearch>(baseUrl + `search?type=track&q=${query}`, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  console.log(response.data)
   return response.data.tracks
 }
 
-async function getArtistSeeds(ids: string) {
-  const response = await axios.get<ISeed>(baseUrl + `recommendations?seed_artists=${ids}`, {
+async function getRecommendations(seed_artists: string, seed_genres: string) {
+  const body = new URLSearchParams({
+    seed_artists,
+    seed_genres
+  })
+  const response = await axios.get(baseUrl + 'recommendations?' + body, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
   return response.data
 }
 
 async function getGenreSeeds() {
-  const response = await axios.get<String[]>(baseUrl + 'recommendations/available-genre-seeds', {
+  const response = await axios.get(baseUrl + 'recommendations/available-genre-seeds', {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  return response.data
+  return response.data.genres
 }
 
 export {
@@ -66,6 +68,6 @@ export {
   getPlaylistById,
   searchArtist,
   searchTracks,
-  getArtistSeeds,
-  getGenreSeeds
+  getGenreSeeds,
+  getRecommendations
 }
