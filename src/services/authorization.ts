@@ -32,7 +32,6 @@ function generateUrlWithSearchParams(url: string, params: any) {
 // Request to get accessToken from response of authRequest
 async function getAccessToken(code: string) {
   const code_verifier = localStorage.getItem('code_verifier') || ''
-
   const body = new URLSearchParams({
     client_id,
     grant_type: 'authorization_code',
@@ -78,23 +77,23 @@ function authRequest() {
   })
 }
 // Get refreshToken
-/* function refreshToken() {
-  const refresh_token = localStorage.getItem('refresh_token') || ''
-  fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    },
-    body: new URLSearchParams({
-      client_id,
-      grant_type: 'refresh_token',
-      refresh_token
-    })
-  }).then(handleTokenResponse)
-} */
+async function refreshToken() {
+  const refresh_token = sessionStorage.getItem('refresh_token') || ''
+
+  const body = new URLSearchParams({
+    client_id,
+    grant_type: 'refresh_token',
+    refresh_token
+  })
+
+  const res = await axios.post('https://accounts.spotify.com/api/token', body, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
+  })
+  handleTokenResponse(res.data)
+}
 
 function logout() {
   sessionStorage.clear()
   router.go(0)
 }
-export { authRequest, getAccessToken, logout }
+export { authRequest, getAccessToken, logout, refreshToken }

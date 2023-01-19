@@ -32,7 +32,8 @@ async function searchForText() {
 }
 
 function selectResult(artist: IArtist) {
-  selectedIds.value.push(artist)
+  if (selectedIds.value.length < 5) selectedIds.value.push(artist)
+  else return
 }
 function removeSelected(indexToDelete: number) {
   selectedIds.value.splice(indexToDelete, 1)
