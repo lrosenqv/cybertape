@@ -3,6 +3,7 @@
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
+      <RouterLink to="/browse">Browse</RouterLink>
       <RouterLink to="/mixer">Mixer</RouterLink>
     </nav>
     <button @click="logout">Log Out</button>
