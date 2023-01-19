@@ -1,6 +1,7 @@
-import type { IArtists } from '@/models/IArtist'
 import type { ICategories } from '@/models/ICategory'
 import type { IPlaylist, IPlaylistResponse } from '@/models/IPlaylist'
+import type { ISearch } from '@/models/ISearch'
+import type { ISeed } from '@/models/ISeed'
 import axios from 'axios'
 
 const baseUrl = 'https://api.spotify.com/v1/'
@@ -31,17 +32,40 @@ async function getCategories() {
 }
 
 async function searchArtist(query: string) {
-  const response = await axios.get<IArtists>(baseUrl + `search?type=artist&q=${query}`, {
+  const response = await axios.get<ISearch>(baseUrl + `search?type=artist&q=${query}`, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
   return response.data.artists
 }
 
-async function getArtistSeeds(id: string) {
-  const response = await axios.get<IArtists>(baseUrl + `artists/${id}/related-artists`, {
+async function searchTracks(query: string) {
+  const response = await axios.get<ISearch>(baseUrl + `search?type=track&q=${query}`, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  return response.data.artists
+  console.log(response.data)
+  return response.data.tracks
 }
 
-export { getCategoryPlaylists, getCategories, getPlaylistById, searchArtist, getArtistSeeds }
+async function getArtistSeeds(ids: string) {
+  const response = await axios.get<ISeed>(baseUrl + `recommendations?seed_artists=${ids}`, {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  })
+  return response.data
+}
+
+async function getGenreSeeds() {
+  const response = await axios.get<String[]>(baseUrl + 'recommendations/available-genre-seeds', {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  })
+  return response.data
+}
+
+export {
+  getCategoryPlaylists,
+  getCategories,
+  getPlaylistById,
+  searchArtist,
+  searchTracks,
+  getArtistSeeds,
+  getGenreSeeds
+}

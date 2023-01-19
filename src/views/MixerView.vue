@@ -7,7 +7,8 @@
       </div>
     </div>
     <button @click="createPlaylist">Get playlist</button>
-    <input v-model="inputSearch" placeholder="Search" @input="searchForText" />
+    <input v-model="inputSearch" placeholder="Search Artist" @input="searchForText" />
+    <input v-model="trackSearch" placeholder="Search Tracks" @input="searchForTrack" />
     <div v-if="inputSearch.length > 1">
       <ul>
         <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
@@ -20,15 +21,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { searchArtist, getArtistSeeds } from '@/services/api'
+import { searchArtist, getGenreSeeds, searchTracks } from '@/services/api'
 import type { IArtist } from '@/models/IArtist'
 const inputSearch = ref('')
+const trackSearch = ref('')
 const searchResults = ref<IArtist[]>([])
 const selectedIds = ref<IArtist[]>([])
 
 async function searchForText() {
   const result = await searchArtist(inputSearch.value)
-  searchResults.value = result.items
+  // searchResults.value = result
+}
+async function searchForTrack() {
+  const result = await searchTracks(trackSearch.value)
+  // console.log(result)
 }
 
 function selectResult(artist: IArtist) {
@@ -39,11 +45,9 @@ function removeSelected(indexToDelete: number) {
   selectedIds.value.splice(indexToDelete, 1)
 }
 async function createPlaylist() {
-  const playlist = selectedIds.value.map(async (selected) => {
-    const res = await getArtistSeeds(selected.id)
-    console.log(res)
-  })
-  console.log(playlist)
+  const idList = selectedIds.value.map((selected) => selected.id).toString()
+  // const seeds = await getArtistSeeds(idList)
+  const genres = await getGenreSeeds()
 }
 </script>
 

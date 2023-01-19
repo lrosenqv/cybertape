@@ -12,5 +12,6 @@ export interface IArtist {
   id: string
   name: string
   popularity: number
+  type: string
   uri: string
 }

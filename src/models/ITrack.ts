@@ -2,7 +2,7 @@ import type { IArtist } from './IArtist'
 
 export interface ITracks {
   href: string
-  items: ITrackItem[]
+  tracks: ITrackItem[]
 }
 
 export interface ITrackItem {
@@ -26,5 +26,6 @@ export interface ITrack {
   id: string
   name: string
   popularity: number
+  type: string
   uri: string
 }
