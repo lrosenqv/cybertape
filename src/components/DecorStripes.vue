@@ -11,17 +11,14 @@
 </template>
 
 <style lang="scss" scoped>
+@use '@/style/variables.scss';
 .stripes-container {
-  bottom: 0;
   display: flex;
   flex-direction: column;
-  height: 50vh;
   justify-content: space-between;
-  position: absolute;
-  width: 100vw;
 
   .stripe {
-    background-color: #252525;
+    background-color: variables.$color-neutral__dark;
     width: 100%;
 
     &__one {

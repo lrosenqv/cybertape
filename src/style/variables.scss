@@ -8,7 +8,7 @@ $color-neutral__dark: #2A2827;
 $color-neutral__greige-dark: #5A5654;
 $color-neutral__greige: #BCB7B3;
 $color-neutral__greige-light: #EDE8E3;
-$color-neutral__greige-light: #F8F5F4;
+$color-neutral__light: #F8F5F4;
 
 $color__blue-dark: #31475B;
 $color__blue: #44627E;
@@ -37,7 +37,9 @@ $font-size-paragraph__small: 16px;
 $font-size-caption: 12px;
 
 // grid
-$grid-template-standard: repeat (12, 1fr);
+$grid-template-standard: repeat(12, 1fr);
+$grid-template-standard__row: repeat(10, 65px);
+$column-gap-standard: 30px;
 
 // margins & paddings
 $margin-x-small: 4px;
@@ -60,3 +62,25 @@ $shadow-1: 2px 3px 6px rgba(90, 86, 84, 0.2), 0px 4px 4px rgba(0, 0, 0, 0.25);
 $shadow-2: 0px 2px 2px rgba(33, 37, 41, 0.06), 0px 0px 1px rgba(33, 37, 41, 0.08);
 
 // transitions
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    -webkit-transform: rotate3d(0, 0, 1, 180deg);
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    -webkit-transform: rotate3d(0, 0, 1, 270deg);
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
