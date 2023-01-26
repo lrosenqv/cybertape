@@ -1,22 +1,35 @@
 <template>
   <header>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/">CyberTape</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
       <RouterLink to="/browse">Browse</RouterLink>
       <RouterLink to="/mixer">Mixer</RouterLink>
     </nav>
-    <button @click="logout">Log Out</button>
+    <!-- <button @click="logout">Log Out</button> -->
   </header>
   <main>
-    <button @click="refreshToken">Refresh</button>
     <RouterView />
+
+    <DecorStripes />
   </main>
   <footer></footer>
 </template>
 
 <script setup lang="ts">
-import { logout, refreshToken } from '@/services/authorization'
+import DecorStripes from '@/components/DecorStripes.vue'
+import { logout } from '@/services/authorization'
 </script>
 
-<style lang="ts"></style>
+<style lang="scss">
+nav {
+  position: absolute;
+  top: 0;
+  z-index: 999;
+}
+main {
+  background-color: #ede8e3;
+  height: 100vh;
+  border-radius: 40px 40px 0 0;
+}
+</style>
