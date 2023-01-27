@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import BaseLayout from '@/views/BaseLayout.vue'
 import StartView from '@/views/StartView.vue'
 import { refreshToken } from '@/services/authorization'
 
@@ -14,9 +14,15 @@ const router = createRouter({
     },
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'base',
+      component: BaseLayout,
+      redirect: { name: 'home' },
       children: [
+        {
+          path: '/',
+          name: 'home',
+          component: () => import('@/views/HomeView.vue')
+        },
         {
           path: '/discover',
           name: 'discover',

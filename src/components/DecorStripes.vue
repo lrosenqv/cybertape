@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 90%;
 
   .stripe {
     background-color: variables.$color-neutral__dark;

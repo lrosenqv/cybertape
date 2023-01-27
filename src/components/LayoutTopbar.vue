@@ -31,7 +31,7 @@ const currentUser = computed(() => store.state.currentUser)
   color: variables.$color-neutral__dark;
   display: grid;
   font-size: variables.$font-size-paragraph;
-  gap: 20px;
+  // gap: 20px;
   grid-template-columns: variables.$grid-template-standard;
   padding: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
   position: fixed;
@@ -40,7 +40,7 @@ const currentUser = computed(() => store.state.currentUser)
 
   &-logo {
     &__link {
-      grid-column: 1 / 6;
+      grid-column: 1 / 5;
       position: relative;
     }
 
@@ -67,39 +67,49 @@ const currentUser = computed(() => store.state.currentUser)
   &-nav {
     align-items: center;
     display: flex;
-    grid-column: 6 / 8;
-    justify-content: space-between;
+    grid-column: 5 / 9;
+    text-align: center;
+
+    a {
+      width: 100%;
+      text-align: center;
+    }
 
     a:not(:last-of-type) {
-      align-items: center;
-      justify-content: space-between;
-      display: flex;
-      gap: 5px;
-
-      &::after {
-        background-color: variables.$color-neutral__greige-dark;
-        content: '';
-        display: block;
-        width: 2px;
-        height: 20px;
-      }
+      border-right: 2px solid variables.$color-neutral__greige-dark;
     }
   }
 
-  &-divider {
+  /* &-divider {
     background-color: variables.$color-neutral__greige-dark;
     content: '';
     display: inline-block;
     height: 2px;
-    grid-column: 8 / 12;
-  }
+    grid-column: 9 / 12;
+  } */
 
   &-user {
+    align-self: stretch;
     cursor: pointer;
-    grid-column: 12;
+    grid-column: 9 / 13;
+    grid-row: 1;
+    line-height: 1;
+    margin-right: 12px;
+    text-align: end;
 
     &:hover {
       color: variables.$color__blue;
+    }
+
+    &::before {
+      background-color: variables.$color-neutral__greige-dark;
+      content: '';
+      display: inline-block;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      width: 100%;
     }
   }
 }

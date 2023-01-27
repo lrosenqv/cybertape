@@ -6,6 +6,7 @@
   font-weight: normal;
   padding: 0;
   position: relative;
+  scrollbar-width: none;
 }
 
 a {
@@ -19,22 +20,50 @@ a {
 
 body {
   color: white;
-  background: variables.$color-neutral__dark;
+  background: #151515;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  min-height: 100vh;
+  height: 100vh;
   max-width: 100vw;
+  overflow: hidden;
   text-rendering: optimizeLegibility;
   transition: color 0.5s, background-color 0.5s;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+#app {
+  height: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+
+  header {
+    scroll-snap-align: center;
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
 button {
   border: none;
   cursor: pointer;
+}
+
+h2 {
+  font-size: variables.$font-size-h2;
+  margin: 0;
+}
+h3 {
+  font-size: variables.$font-size-h3;
+  margin: 0;
+}
+p {
+  font-size: variables.$font-size-paragraph;
+  margin: 0;
 }
 
 ul {
