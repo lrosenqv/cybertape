@@ -21,7 +21,7 @@
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 
-svg {
-  // animation: rotate 20s normal linear infinite;
-}
+// svg {
+// animation: rotate 20s normal linear infinite;
+// }
 </style>

@@ -1,14 +1,11 @@
 <template>
   <header>
-    <nav>
-      <RouterLink to="/">CyberTape</RouterLink>
-      <RouterLink to="/discover">Discover</RouterLink>
-      <RouterLink to="/browse">Browse</RouterLink>
-      <RouterLink to="/mixer">Mixer</RouterLink>
-    </nav>
-    <!-- <button @click="logout">Log Out</button> -->
+    <KeepAlive>
+      <LayoutTopbar class="topbar" />
+    </KeepAlive>
   </header>
   <main>
+    <button class="logout-btn" @click="logout">Log Out</button>
     <RouterView />
 
     <div class="circle circle__left">
@@ -26,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import LayoutTopbar from '@/components/LayoutTopbar.vue'
 import DecorStripes from '@/components/DecorStripes.vue'
 import CircleSubjective from '@/assets/CircleSubjective.vue'
 import CircleBangers from '@/assets/CircleBangers.vue'
@@ -35,14 +33,6 @@ import { logout } from '@/services/authorization'
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
-
-header {
-  nav {
-    position: absolute;
-    top: 0;
-    z-index: 999;
-  }
-}
 
 main {
   align-items: flex-end;
@@ -105,6 +95,11 @@ main {
   .stripes {
     grid-column: 1 / -1;
     grid-row: 3 / 7;
+  }
+
+  .logout-btn {
+    grid-row: 2;
+    // position: absolute;
   }
 }
 </style>
