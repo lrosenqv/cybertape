@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
-import { getUser } from '@/services/playlist'
 import { store } from '@/store/store'
+import type { IUser } from '@/models/IUser'
 const client_id = import.meta.env.VITE_CLIENT_ID
 const redirect_uri = import.meta.env.VITE_REDIRECT_URI
 
@@ -76,18 +76,6 @@ function handleTokenResponse(data: any) {
   const t = new Date()
   const expires_at = t.setSeconds(t.getSeconds() + data.expires_in)
 
-  axios
-    .get('https://api.spotify.com/v1/me', {
-      headers: { Authorization: 'Bearer ' + access_token }
-    })
-    .then((res) => {
-      store.commit('setCurrentUser', res.data.id)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-    .then()
-
   sessionStorage.setItem('access_token', access_token)
   sessionStorage.setItem('refresh_token', refresh_token)
   sessionStorage.setItem('expires_at', expires_at.toString())
@@ -105,9 +93,20 @@ async function refreshToken() {
   })
   handleTokenResponse(res.data)
 }
-
+function getUserName(accessToken: string) {
+  axios
+    .get<IUser>('https://api.spotify.com/v1/me', {
+      headers: { Authorization: 'Bearer ' + accessToken }
+    })
+    .then((res) => {
+      store.commit('setCurrentUser', res.data.id)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 function logout() {
   sessionStorage.clear()
   router.go(0)
 }
-export { authRequest, getAccessToken, logout, refreshToken }
+export { authRequest, getAccessToken, logout, refreshToken, getUserName }

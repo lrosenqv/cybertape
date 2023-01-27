@@ -28,7 +28,18 @@ import DecorStripes from '@/components/DecorStripes.vue'
 import CircleSubjective from '@/assets/CircleSubjective.vue'
 import CircleBangers from '@/assets/CircleBangers.vue'
 import CircleOnly from '@/assets/CircleOnly.vue'
-import { logout } from '@/services/authorization'
+import { getUserName, logout } from '@/services/authorization'
+import { onMounted, onBeforeUpdate } from 'vue'
+
+onMounted(() => {
+  const accessToken = sessionStorage.getItem('access_token') || ''
+  if (accessToken) getUserName(accessToken)
+})
+
+/* onBeforeUpdate(() => {
+  const accessToken = sessionStorage.getItem('accessToken') || ''
+  console.log('updated', accessToken)
+}) */
 </script>
 
 <style lang="scss" scoped>

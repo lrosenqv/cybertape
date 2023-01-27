@@ -10,7 +10,6 @@ const store = createStore({
       return (state.codeVerifier = payload)
     },
     setCurrentUser(state, payload) {
-      console.log(payload)
       return (state.currentUser = payload)
     }
   }
