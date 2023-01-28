@@ -1,5 +1,5 @@
 <template>
-  <LayoutTopbar class="topbar" />
+  <LayoutTopbar />
   <RouterView />
   <footer>
     <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import LayoutTopbar from '@/components/LayoutTopbar.vue'
 import { getUserName } from '@/services/authorization'
-import { onMounted, onBeforeUpdate } from 'vue'
+import { onMounted, onBeforeUpdate, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
@@ -21,7 +21,6 @@ onMounted(() => {
 
 onBeforeUpdate(() => {
   const currentRoute = router.currentRoute
-  console.log(currentRoute)
 })
 </script>
 

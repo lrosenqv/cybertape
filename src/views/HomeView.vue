@@ -46,23 +46,9 @@ import DecorStripes from '@/components/DecorStripes.vue'
 import CircleSubjective from '@/assets/CircleSubjective.vue'
 import CircleBangers from '@/assets/CircleBangers.vue'
 import CircleOnly from '@/assets/CircleOnly.vue'
-import { getUserName, logout } from '@/services/authorization'
-import { onMounted, onBeforeUpdate } from 'vue'
-import { useRouter } from 'vue-router'
+import { logout } from '@/services/authorization'
+
 import FlipTile from '@/components/FlipTile.vue'
-const router = useRouter()
-
-function scrollBtnClick() {}
-
-onMounted(() => {
-  const accessToken = sessionStorage.getItem('access_token') || ''
-  if (accessToken) getUserName(accessToken)
-})
-
-onBeforeUpdate(() => {
-  const currentRoute = router.currentRoute
-  console.log(currentRoute)
-})
 </script>
 
 <style lang="scss" scoped>
