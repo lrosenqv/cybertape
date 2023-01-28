@@ -15,12 +15,8 @@
     <input v-model="inputSearch" placeholder="Search Artist" @input="searchForText" />
     <input v-model="trackSearch" placeholder="Search Tracks" @input="searchForTrack" />
     <div>{{ selectedGenre }}</div>
-    <select v-model="selectedGenre">
-      <option disabled value="">Select Genre</option>
-      <option v-for="(genre, index) in genres" :key="index" :value="genre">
-        {{ genre }}
-      </option>
-    </select>
+
+    <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
     <div v-if="inputSearch.length > 1">
       <ul>
         <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
@@ -37,6 +33,7 @@ import { searchArtist, getGenreSeeds, searchTracks, getRecommendations } from '@
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
+import SelectDropdown from '@/components/icons/atoms/SelectDropdown.vue'
 const inputSearch = ref('')
 const trackSearch = ref('')
 const searchResults = ref<IArtist[]>([])
@@ -46,11 +43,28 @@ const selectedGenre = ref('')
 const overlayOpen = ref<boolean>(false)
 const generatedPlaylist = ref<ITrack[]>([])
 
+const selections = ref({
+  seed_artists: '',
+  seed_genres: '',
+  seed_tracks: '',
+  limit: 0,
+  max_acousticness: 0,
+  max_danceability: 0,
+  max_energy: 0,
+  max_mode: 0,
+  max_popularity: 0,
+  max_tempo: 0,
+  max_valence: 0
+})
+
 onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
 })
 
+function onSelectGenre(text: string) {
+  selections.value.seed_genres = text
+}
 async function searchForText() {
   const result = await searchArtist(inputSearch.value)
   searchResults.value = result.items
