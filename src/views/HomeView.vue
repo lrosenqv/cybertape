@@ -18,18 +18,24 @@
       Getting tired of listening to the same old songs in your playlists? Does Spotify’s algorithms
       not quite work out the way you want? Is finding new music too time consuming?
     </p>
-
-    <div class="home-main-infobox infobox-1">
-      <h3>discover <span>categories</span></h3>
-    </div>
-
-    <div class="home-main-infobox infobox-2">
-      <h3>browse <span>favorites</span></h3>
-    </div>
-
-    <div class="home-main-infobox infobox-3">
-      <h3>create <span>mixes</span></h3>
-    </div>
+    <section class="flip-tile-container">
+      <FlipTile
+        title="discover"
+        subtitle="new categories"
+        text="Create a playlist by selecting one of the pre-defined categories"
+      />
+      <FlipTile
+        title="browse"
+        subtitle="your favorites"
+        text="Select a favorite track, album or artist as a starting point to find related music"
+        :invert-style="true"
+      />
+      <FlipTile
+        title="create"
+        subtitle="a mixtape"
+        text="Create a new mix of tracks based on your selections"
+      />
+    </section>
   </main>
 </template>
 
@@ -41,6 +47,7 @@ import CircleOnly from '@/assets/CircleOnly.vue'
 import { getUserName, logout } from '@/services/authorization'
 import { onMounted, onBeforeUpdate } from 'vue'
 import { useRouter } from 'vue-router'
+import FlipTile from '@/components/FlipTile.vue'
 const router = useRouter()
 
 onMounted(() => {
@@ -82,12 +89,12 @@ header {
     align-self: center;
     align-items: center;
     aspect-ratio: 1 / 1;
-    display: flex;
-    justify-content: center;
     background-color: variables.$color-neutral__greige-light;
     background-image: url('@/assets/Background-Light.jpg');
     border-radius: 100%;
+    display: flex;
     grid-row: 2 / 5;
+    justify-content: center;
     position: relative;
     z-index: 2;
 
@@ -99,6 +106,7 @@ header {
     &__right {
       grid-column: 8 / 11;
       box-sizing: border-box;
+      justify-self: right;
       width: 85%;
     }
 
@@ -129,9 +137,9 @@ header {
   box-shadow: variables.$shadow-1;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 20vh auto auto 1fr;
-  height: 85vh;
-  scroll-snap-align: start;
+  grid-template-rows: 15vh auto auto 1fr;
+  height: 80vh;
+  scroll-snap-align: start none;
 
   &-title {
     grid-column: 3 / 5;
@@ -142,25 +150,21 @@ header {
     grid-row: 3;
     line-height: 161.8%;
   }
-  &-infobox {
+
+  .flip-tile-container {
     display: flex;
+    flex-direction: column;
+    grid-column: 8 / 11;
+    grid-row: 2 / 5;
+    row-gap: 16px;
 
-    &.infobox-1 {
-      grid-column: 8 / 11;
-      grid-row: 2;
+    .flip-tile:nth-child(1) {
+      align-self: center;
+      border-radius: 10px;
     }
-
-    &.infobox-2 {
-      grid-column: 9 / 12;
-      grid-row: 3;
+    .flip-tile:nth-child(2) {
+      align-self: flex-end;
     }
-    &.infobox-3 {
-      grid-column: 8 / 11;
-      grid-row: 4;
-    }
-  }
-  h3 span {
-    font-size: variables.$font-size-subtitle;
   }
 }
 </style>

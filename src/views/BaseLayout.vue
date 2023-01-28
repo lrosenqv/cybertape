@@ -29,10 +29,12 @@ onBeforeUpdate(() => {
 @use '@/style/variables.scss';
 
 footer {
+  color: variables.$color-neutral__greige-light;
   display: flex;
   flex-direction: column;
-  height: 15vh;
-  padding: variables.$padding-medium variables.$padding-body;
+  gap: 16px;
+  height: 20vh;
+  padding: variables.$padding-body 48px;
 
   a {
     color: variables.$color__green-light;
@@ -40,6 +42,9 @@ footer {
     &:hover {
       color: variables.$color__green;
     }
+  }
+  p {
+    font-size: variables.$font-size-paragraph__small;
   }
 }
 </style>
