@@ -1,5 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
+import { store } from '@/store/store'
+import type { IUser } from '@/models/IUser'
 const client_id = import.meta.env.VITE_CLIENT_ID
 const redirect_uri = import.meta.env.VITE_REDIRECT_URI
 
@@ -91,9 +93,20 @@ async function refreshToken() {
   })
   handleTokenResponse(res.data)
 }
-
+function getUserName(accessToken: string) {
+  axios
+    .get<IUser>('https://api.spotify.com/v1/me', {
+      headers: { Authorization: 'Bearer ' + accessToken }
+    })
+    .then((res) => {
+      store.commit('setCurrentUser', res.data.id)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 function logout() {
   sessionStorage.clear()
   router.go(0)
 }
-export { authRequest, getAccessToken, logout, refreshToken }
+export { authRequest, getAccessToken, logout, refreshToken, getUserName }
