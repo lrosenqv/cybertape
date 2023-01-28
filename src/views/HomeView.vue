@@ -9,7 +9,9 @@
       <CircleOnly class="circle-text circle-text__second" />
     </div>
     <DecorStripes class="stripes" />
-    <img class="arrow-icon" src="@/assets/Arrow.svg" />
+    <div class="home-header-scroll-mouse">
+      <div class="home-header-scroll-mouse__wheel"></div>
+    </div>
   </header>
 
   <main class="home-main">
@@ -50,6 +52,8 @@ import { useRouter } from 'vue-router'
 import FlipTile from '@/components/FlipTile.vue'
 const router = useRouter()
 
+function scrollBtnClick() {}
+
 onMounted(() => {
   const accessToken = sessionStorage.getItem('access_token') || ''
   if (accessToken) getUserName(accessToken)
@@ -64,7 +68,7 @@ onBeforeUpdate(() => {
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 
-header {
+.home-header {
   align-items: flex-end;
   justify-content: center;
   background-color: variables.$color-neutral__greige-light;
@@ -75,14 +79,25 @@ header {
   grid-template-rows: 30% repeat(5, 1fr);
   height: 100vh;
 
-  .arrow-icon {
+  &-scroll-mouse {
+    align-self: center;
+    border: 1px solid variables.$color-neutral__greige-light;
+    border-radius: 10px;
+    justify-self: center;
+    width: 20px;
+    height: 40px;
     grid-column: 6 / 8;
     grid-row: 6;
-    align-self: center;
-    justify-self: center;
-    margin-bottom: variables.$margin-x-large;
-    position: relative;
-    z-index: 3;
+    &__wheel {
+      animation: elasticus 2s cubic-bezier(0.6, 0.02, 1, 0.8) infinite;
+      background-color: variables.$color-neutral__greige-light;
+      border-radius: 10px;
+      height: 8px;
+      margin: 4px auto;
+      position: relative;
+      top: 0;
+      width: 8px;
+    }
   }
 
   .circle {
@@ -165,6 +180,30 @@ header {
     .flip-tile:nth-child(2) {
       align-self: flex-end;
     }
+  }
+}
+
+@keyframes elasticus {
+  0% {
+    opacity: 0;
+    top: 0;
+  }
+  40% {
+    opacity: 1;
+    height: 18px;
+    top: 24%;
+  }
+  50% {
+    height: 8px;
+    top: 50%;
+  }
+  70% {
+    opacity: 0;
+    top: 50%;
+  }
+  100% {
+    opacity: 0;
+    top: 0%;
   }
 }
 </style>
