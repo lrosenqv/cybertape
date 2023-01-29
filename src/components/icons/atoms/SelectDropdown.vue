@@ -1,8 +1,13 @@
 <template>
   <div class="select">
-    <select v-model="selectedOption">
-      <option disabled value="">{{ placeholder }}</option>
-      <option v-for="(option, index) in options" :key="index" :value="option">{{ option }}</option>
+    <select
+      v-model="selectedOption"
+      :class="selectedOption === '' ? 'select-placeholder__disabled' : 'select-placeholder'"
+    >
+      <option selected disabled value="" class="select-option__first">{{ placeholder }}</option>
+      <option v-for="(option, index) in options" :key="index" :value="option" class="select-option">
+        {{ option }}
+      </option>
     </select>
     <IconChevron class="select-arrow" />
   </div>
@@ -34,7 +39,7 @@ watch(selectedOption, (newVal) => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '@/style/variables.scss';
 
 .select {
@@ -45,6 +50,29 @@ watch(selectedOption, (newVal) => {
   width: 250px;
   padding: variables.$padding-small;
 
+  select {
+    appearance: none;
+    background-color: transparent;
+    border-radius: variables.$border-radius-small;
+    border: 1px solid variables.$color-neutral__light;
+    cursor: pointer;
+    font-size: variables.$font-size-paragraph;
+    font-weight: 500;
+    margin-left: variables.$margin-medium;
+    outline: none;
+    padding: variables.$padding-x-small variables.$padding-medium;
+    position: relative;
+    z-index: 1;
+
+    &.select-placeholder {
+      color: variables.$color-neutral__light;
+      &__disabled {
+        color: variables.$color-neutral__greige;
+        font-style: italic;
+      }
+    }
+  }
+
   &-arrow {
     justify-self: end;
     margin-right: variables.$margin-medium;
@@ -54,20 +82,5 @@ watch(selectedOption, (newVal) => {
 select,
 .select-arrow {
   grid-area: select;
-}
-select {
-  appearance: none;
-  background-color: transparent;
-  border-radius: variables.$border-radius-small;
-  border: 1px solid variables.$color-neutral__light;
-  color: variables.$color-neutral__light;
-  cursor: pointer;
-  font-size: variables.$font-size-paragraph;
-  font-weight: 500;
-  margin-left: variables.$margin-medium;
-  outline: none;
-  padding: variables.$padding-x-small variables.$padding-medium;
-  position: relative;
-  z-index: 1;
 }
 </style>
