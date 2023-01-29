@@ -1,32 +1,40 @@
 <template>
-  <div class="mixer">
+  <header class="header-mixer">
+    <h2>Playlist mixer</h2>
+  </header>
+  <main class="main-mixer">
     <PreviewPlaylist
       v-if="overlayOpen"
       :tracks="generatedPlaylist"
       @closeComponent="overlayOpen = false"
     />
-    <h3>Selected:</h3>
-    <div class="selectedList">
-      <div class="selected" v-for="(id, index) in selectedIds" :key="id.id">
-        {{ id.name }}<button @click="removeSelected(index)">X</button>
+
+    <section class="main-mixer-section main-mixer-section__left">
+      <h3>Selected:</h3>
+      <div class="selectedList">
+        <div class="selected" v-for="(id, index) in selectedIds" :key="id.id">
+          {{ id.name }}<button @click="removeSelected(index)">X</button>
+        </div>
       </div>
-    </div>
-    <button @click="createPlaylist">Get playlist</button>
+      <button @click="createPlaylist">Get playlist</button>
 
-    <TextInput placeholder="Search artists" @stringInput="searchForArtist" />
-    <TextInput placeholder="Search tracks" @stringInput="searchForTrack" />
+      <TextInput placeholder="Search artists" @stringInput="searchForArtist" />
+      <TextInput placeholder="Search tracks" @stringInput="searchForTrack" />
+      <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
 
-    <div>{{ selectedGenre }}</div>
+      <div v-if="searchResults.length > 1">
+        <ul>
+          <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
+            {{ result.name }}
+          </li>
+        </ul>
+      </div>
+    </section>
 
-    <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
-    <div v-if="inputSearch.length > 1">
-      <ul>
-        <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
-          {{ result.name }}
-        </li>
-      </ul>
-    </div>
-  </div>
+    <section class="main-mixer-section main-mixer-section__right">
+      <RangeSlider />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -35,11 +43,11 @@ import { searchArtist, getGenreSeeds, searchTracks, getRecommendations } from '@
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
-import SelectDropdown from '@/components/icons/atoms/SelectDropdown.vue'
-import TextInput from '@/components/icons/atoms/TextInput.vue'
-const inputSearch = ref('')
-const trackSearch = ref('')
+import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
+import TextInput from '@/components/atoms/TextInput.vue'
+import RangeSlider from '@/components/atoms/RangeSlider.vue'
 const searchResults = ref<IArtist[]>([])
+const results_tracks = ref<ITrack[]>([])
 const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
 const selectedGenre = ref('')
@@ -73,14 +81,14 @@ async function searchForArtist(searchString: string) {
   if (searchString.length > 2) {
     const result = await searchArtist(searchString)
     searchResults.value = result.items
-  } else return
+  } else searchResults.value = []
 }
 
 async function searchForTrack(searchString: string) {
   if (searchString.length > 2) {
-    const result = await searchArtist(searchString)
-    searchResults.value = result.items
-  } else return
+    const result = await searchTracks(searchString)
+    results_tracks.value = result.items
+  } else results_tracks.value = []
 }
 
 function selectResult(artist: IArtist) {
@@ -99,6 +107,48 @@ async function createPlaylist() {
 </script>
 
 <style lang="scss">
+@use '@/style/variables.scss';
+.header-mixer {
+  background-color: variables.$color__blue;
+  background-image: url('@/assets/BackgroundBlue.jpg');
+  border-radius: 40px 40px 0 0;
+  display: grid;
+  grid-template-columns: variables.$grid-template-standard;
+  grid-template-rows: 20vh auto;
+
+  h2 {
+    grid-column: 2 / 8;
+    grid-row: 2;
+  }
+}
+.main-mixer {
+  background-color: variables.$color__blue-light;
+  background-image: url('@/assets/BackgroundBlue.jpg');
+  column-gap: 24px;
+  display: grid;
+  grid-template-columns: variables.$grid-template-standard;
+  grid-template-rows: 60vh 20vh;
+
+  &-section {
+    border-radius: variables.$border-radius-medium;
+    box-shadow: variables.$shadow-1;
+    grid-row: 1;
+    padding: variables.$padding-medium;
+
+    &__left {
+      background-color: variables.$color-neutral__greige-light;
+      color: variables.$color-neutral__greige-dark;
+      grid-column: 2 / 7;
+    }
+
+    &__right {
+      background-color: variables.$color-neutral__dark;
+      background-image: url('@/assets/TextureLeather.jpg');
+      background-size: cover;
+      grid-column: 7 / 12;
+    }
+  }
+}
 li {
   cursor: pointer;
   &:hover {

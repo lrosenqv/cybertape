@@ -18,7 +18,7 @@ import { ref, onMounted } from 'vue'
 import { getCategories, getCategoryPlaylists, getPlaylistById } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
-import GeneratedPlaylist from '@/components/icons/atoms/molecules/GeneratedPlaylist.vue'
+import GeneratedPlaylist from '@/components/molecules/GeneratedPlaylist.vue'
 
 const categories = ref<ICategory>({ href: '', items: [], next: '' })
 const generatedPlaylist = ref<ITrack[]>([])

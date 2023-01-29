@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ITrack } from '@/models/ITrack'
+import type { ITrack } from '../../models/ITrack'
 import { toRefs } from 'vue'
 
 const props = defineProps({
