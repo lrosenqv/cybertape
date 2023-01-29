@@ -12,8 +12,10 @@
       </div>
     </div>
     <button @click="createPlaylist">Get playlist</button>
-    <input v-model="inputSearch" placeholder="Search Artist" @input="searchForText" />
-    <input v-model="trackSearch" placeholder="Search Tracks" @input="searchForTrack" />
+
+    <TextInput placeholder="Search artists" @stringInput="searchForArtist" />
+    <TextInput placeholder="Search tracks" @stringInput="searchForTrack" />
+
     <div>{{ selectedGenre }}</div>
 
     <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
@@ -34,6 +36,7 @@ import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import SelectDropdown from '@/components/icons/atoms/SelectDropdown.vue'
+import TextInput from '@/components/icons/atoms/TextInput.vue'
 const inputSearch = ref('')
 const trackSearch = ref('')
 const searchResults = ref<IArtist[]>([])
@@ -65,12 +68,19 @@ onMounted(async () => {
 function onSelectGenre(text: string) {
   selections.value.seed_genres = text
 }
-async function searchForText() {
-  const result = await searchArtist(inputSearch.value)
-  searchResults.value = result.items
+
+async function searchForArtist(searchString: string) {
+  if (searchString.length > 2) {
+    const result = await searchArtist(searchString)
+    searchResults.value = result.items
+  } else return
 }
-async function searchForTrack() {
-  const result = await searchTracks(trackSearch.value)
+
+async function searchForTrack(searchString: string) {
+  if (searchString.length > 2) {
+    const result = await searchArtist(searchString)
+    searchResults.value = result.items
+  } else return
 }
 
 function selectResult(artist: IArtist) {
