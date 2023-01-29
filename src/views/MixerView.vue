@@ -32,7 +32,10 @@
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
-      <RangeSlider />
+      <div id="sliders">
+        <RangeSlider title="Acousticness" />
+        <RangeSlider title="Tempo" />
+      </div>
     </section>
   </main>
 </template>
@@ -111,41 +114,50 @@ async function createPlaylist() {
 .header-mixer {
   background-color: variables.$color__blue;
   background-image: url('@/assets/BackgroundBlue.jpg');
+  background-position: center;
   border-radius: 40px 40px 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: 20vh auto;
+  padding: 0 calc(2 * #{variables.$padding-body});
 
   h2 {
-    grid-column: 2 / 8;
+    grid-column: 1 / -1;
     grid-row: 2;
   }
 }
 .main-mixer {
   background-color: variables.$color__blue-light;
   background-image: url('@/assets/BackgroundBlue.jpg');
+  background-position: center;
   column-gap: 24px;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: 60vh 20vh;
+  padding: 0 calc(2 * #{variables.$padding-body});
 
   &-section {
     border-radius: variables.$border-radius-medium;
     box-shadow: variables.$shadow-1;
     grid-row: 1;
-    padding: variables.$padding-medium;
+    padding: variables.$padding-large calc(2 * #{variables.$padding-x-large});
 
     &__left {
       background-color: variables.$color-neutral__greige-light;
       color: variables.$color-neutral__greige-dark;
-      grid-column: 2 / 7;
+      grid-column: 1 / 6;
     }
 
     &__right {
       background-color: variables.$color-neutral__dark;
       background-image: url('@/assets/TextureLeather.jpg');
       background-size: cover;
-      grid-column: 7 / 12;
+      grid-column: 6 / 13;
+
+      #sliders {
+        column-gap: 60px;
+        display: flex;
+      }
     }
   }
 }
@@ -159,7 +171,7 @@ li {
   background-color: cornflowerblue;
   width: fit-content;
   height: fit-content;
-  padding: 6px;
+  padding: variables.$padding-small;
   &List {
     display: flex;
     gap: 10px;

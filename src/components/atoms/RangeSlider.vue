@@ -1,12 +1,42 @@
 <template>
   <div class="slider-wrapper">
     <span class="slider-wrapper-line"></span>
-    <input type="range" name="acousticness" min="0" max="100" class="slider" orient="vertical" />
+    <input
+      v-model="rangeValue"
+      type="range"
+      :id="title"
+      min="0"
+      max="1"
+      step="0.01"
+      class="slider"
+      orient="vertical"
+      @change="selectLimit"
+    />
+    <label :for="title">{{ title }}</label>
     <span class="slider-wrapper-line"></span>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, toRefs } from 'vue'
+
+const rangeValue = ref<number>(0)
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  }
+})
+const emits = defineEmits<{
+  (e: 'rangeValue', value: number): void
+}>()
+
+const { title } = toRefs(props)
+
+function selectLimit() {
+  emits('rangeValue', rangeValue.value)
+}
+</script>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
@@ -63,6 +93,7 @@
     flex-direction: column;
     height: 225px;
     justify-content: center;
+    margin-top: 30px;
     width: 50px;
 
     &-line {
@@ -78,6 +109,13 @@
       &:last-of-type {
         align-self: flex-end;
       }
+    }
+
+    label {
+      color: variables.$color-neutral__greige-light;
+      font-size: variables.$font-size-paragraph__small;
+      position: absolute;
+      top: -30px;
     }
   }
 }
