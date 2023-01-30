@@ -36,6 +36,8 @@
         <RangeSlider title="Acousticness" />
         <RangeSlider title="Tempo" />
       </div>
+
+      <RotationKnob />
     </section>
   </main>
 </template>
@@ -49,6 +51,7 @@ import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
 import TextInput from '@/components/atoms/TextInput.vue'
 import RangeSlider from '@/components/atoms/RangeSlider.vue'
+import RotationKnob from '@/components/atoms/RotationKnob.vue'
 const searchResults = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const selectedIds = ref<IArtist[]>([])
