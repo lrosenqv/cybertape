@@ -28,13 +28,13 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'rangeValue', value: number): void
+  (e: 'rangeValue', value: number, title: string): void
 }>()
 
 const { title } = toRefs(props)
 
 function selectLimit() {
-  emits('rangeValue', rangeValue.value)
+  emits('rangeValue', rangeValue.value, title.value)
 }
 </script>
 

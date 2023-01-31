@@ -33,11 +33,13 @@
 
     <section class="main-mixer-section main-mixer-section__right">
       <div id="sliders">
-        <RangeSlider title="Acousticness" />
-        <RangeSlider title="Tempo" />
+        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
+        <RangeSlider title="Tempo" @range-value="onSliderChange" />
       </div>
-
-      <RotationKnob />
+      <div id="knobs">
+        <RotationKnob title="danceability" @knob-value="onKnobChange" />
+        <RotationKnob title="valence" @knob-value="onKnobChange" />
+      </div>
     </section>
   </main>
 </template>
@@ -78,11 +80,9 @@ onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
 })
-
 function onSelectGenre(text: string) {
   selections.value.seed_genres = text
 }
-
 async function searchForArtist(searchString: string) {
   if (searchString.length > 2) {
     const result = await searchArtist(searchString)
@@ -90,13 +90,18 @@ async function searchForArtist(searchString: string) {
   } else searchResults.value = []
 }
 
+function onSliderChange(value: number, title: string) {
+  // console.log(value, title)
+}
+function onKnobChange(value: string, title: string) {
+  // console.log(value, title)
+}
 async function searchForTrack(searchString: string) {
   if (searchString.length > 2) {
     const result = await searchTracks(searchString)
     results_tracks.value = result.items
   } else results_tracks.value = []
 }
-
 function selectResult(artist: IArtist) {
   if (selectedIds.value.length < 5) selectedIds.value.push(artist)
   else return
@@ -159,6 +164,10 @@ async function createPlaylist() {
 
       #sliders {
         column-gap: 60px;
+        display: flex;
+      }
+      #knobs {
+        column-gap: 30px;
         display: flex;
       }
     }
