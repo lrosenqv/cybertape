@@ -2,14 +2,13 @@
   <div class="slider-wrapper">
     <span class="slider-wrapper-line"></span>
     <input
-      v-model="rangeValue"
+      v-model="rangeSlider"
       type="range"
       :id="title"
       min="0"
       max="1"
       step="0.01"
       class="slider"
-      orient="vertical"
       @change="selectLimit"
     />
     <label :for="title">{{ title }}</label>
@@ -20,7 +19,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 
-const rangeValue = ref<number>(0)
+const rangeSlider = ref<number>(0)
 const props = defineProps({
   title: {
     type: String,
@@ -34,7 +33,7 @@ const emits = defineEmits<{
 const { title } = toRefs(props)
 
 function selectLimit() {
-  emits('rangeValue', rangeValue.value, title.value)
+  emits('rangeValue', rangeSlider.value, title.value)
 }
 </script>
 
@@ -50,7 +49,7 @@ function selectLimit() {
   position: relative;
   transform: rotate(270deg);
   z-index: 2;
-  width: 215px;
+  width: 200px;
   -moz-transform: rotate(270deg);
 
   &::-webkit-slider-thumb {
@@ -64,7 +63,7 @@ function selectLimit() {
     filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.29));
     height: 35px;
     transform: rotate(90deg);
-    width: 45px;
+    width: 41px;
     -webkit-appearance: none;
   }
 
@@ -91,16 +90,16 @@ function selectLimit() {
     box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.26);
     display: flex;
     flex-direction: column;
-    height: 225px;
+    height: 210px;
     justify-content: center;
     margin-top: 30px;
-    width: 50px;
+    width: 45px;
 
     &-line {
       background-color: variables.$color-neutral__greige;
-      height: 1px;
+      height: 1.5px;
       position: absolute;
-      width: 33%;
+      width: 30%;
       z-index: 1;
 
       &:first-of-type {
@@ -115,7 +114,7 @@ function selectLimit() {
       color: variables.$color-neutral__greige-light;
       font-size: variables.$font-size-paragraph__small;
       position: absolute;
-      top: -30px;
+      top: -25px;
     }
   }
 }

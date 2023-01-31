@@ -32,14 +32,22 @@
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
-      <div id="sliders">
-        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
-        <RangeSlider title="Tempo" @range-value="onSliderChange" />
-      </div>
       <div id="knobs">
         <RotationKnob title="danceability" @knob-value="onKnobChange" />
         <RotationKnob title="valence" @knob-value="onKnobChange" />
+        <RotationKnob title="danceability" @knob-value="onKnobChange" />
+        <RotationKnob title="valence" @knob-value="onKnobChange" />
       </div>
+
+      <div id="sliders">
+        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
+        <RangeSlider title="Tempo" @range-value="onSliderChange" />
+        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
+      </div>
+      <div id="toggle">
+        <ToggleSlider @toggle-value="onToggleChange" />
+      </div>
+      <button>Mix</button>
     </section>
   </main>
 </template>
@@ -54,6 +62,8 @@ import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
 import TextInput from '@/components/atoms/TextInput.vue'
 import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
+import ToggleSlider from '@/components/atoms/ToggleSlider.vue'
+
 const searchResults = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const selectedIds = ref<IArtist[]>([])
@@ -96,6 +106,10 @@ function onSliderChange(value: number, title: string) {
 function onKnobChange(value: string, title: string) {
   // console.log(value, title)
 }
+function onToggleChange(value: number) {
+  // console.log(value)
+}
+
 async function searchForTrack(searchString: string) {
   if (searchString.length > 2) {
     const result = await searchTracks(searchString)
@@ -160,15 +174,34 @@ async function createPlaylist() {
       background-color: variables.$color-neutral__dark;
       background-image: url('@/assets/TextureLeather.jpg');
       background-size: cover;
+      display: grid;
+      column-gap: 20px;
       grid-column: 6 / 13;
+      grid-template-columns: inherit;
+      grid-template-rows: repeat(6, 1fr);
 
       #sliders {
         column-gap: 60px;
         display: flex;
+        grid-column: 1 / 3;
+        grid-row: 3 / 7;
       }
       #knobs {
+        align-items: flex-start;
         column-gap: 30px;
         display: flex;
+        grid-column: 1 / -1;
+        grid-row: 1 / 3;
+        justify-content: space-around;
+      }
+      #toggle {
+        grid-column: 9 / 13;
+        grid-row: 4 / 6;
+        justify-self: flex-end;
+      }
+      button {
+        grid-column: 12;
+        grid-row: 6;
       }
     }
   }
