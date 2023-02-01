@@ -33,7 +33,7 @@ function onHover() {
 
   &-text {
     background-color: variables.$color-neutral__light;
-    border-radius: 12px;
+    border-radius: variables.$border-radius-small;
     position: absolute;
     left: -91px;
     top: 28px;

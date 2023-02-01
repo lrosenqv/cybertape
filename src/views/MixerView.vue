@@ -17,18 +17,11 @@
         </div>
       </div>
       <button @click="createPlaylist">Get playlist</button>
-
       <TextInput placeholder="Search artists" @stringInput="searchForArtist" />
       <TextInput placeholder="Search tracks" @stringInput="searchForTrack" />
       <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
 
-      <div v-if="searchResults.length > 1">
-        <ul>
-          <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
-            {{ result.name }}
-          </li>
-        </ul>
-      </div>
+      <SearchResults v-if="searchResults.length > 1" :list="searchResults" />
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
@@ -88,6 +81,7 @@ import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
 import ToggleSlider from '@/components/atoms/ToggleSlider.vue'
 import MixerButton from '@/components/atoms/MixerButton.vue'
+import SearchResults from '@/components/atoms/SearchResults.vue'
 
 const searchResults = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
@@ -214,6 +208,7 @@ async function createPlaylist() {
       grid-template-rows: repeat(6, 1fr);
 
       h3 {
+        color: variables.$color-neutral__greige-light;
         grid-column: 1 / -1;
       }
 
@@ -249,12 +244,6 @@ async function createPlaylist() {
         }
       }
     }
-  }
-}
-li {
-  cursor: pointer;
-  &:hover {
-    outline: 1px solid red;
   }
 }
 .selected {

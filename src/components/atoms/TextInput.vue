@@ -32,11 +32,10 @@ const emits = defineEmits<{
   appearance: none;
   background-color: transparent;
   border-radius: variables.$border-radius-small;
-  border: 1px solid variables.$color-neutral__light;
+  border: 1.5px solid variables.$color-neutral__greige;
   color: variables.$color-neutral__light;
   font-size: variables.$font-size-paragraph;
   font-weight: 500;
-  margin-left: variables.$margin-medium;
   outline: none;
   padding: variables.$padding-x-small variables.$padding-medium;
 
