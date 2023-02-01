@@ -99,12 +99,12 @@ watch(dragging_knob, (isDragging) => {
     flex-direction: column;
     justify-content: center;
     row-gap: 10px;
+    text-align: center;
     width: fit-content;
 
     label {
       color: variables.$color-neutral__greige-light;
       font-size: variables.$font-size-paragraph__small;
-      width: fit-content;
     }
   }
 }

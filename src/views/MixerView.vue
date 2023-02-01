@@ -33,21 +33,24 @@
 
     <section class="main-mixer-section main-mixer-section__right">
       <div id="knobs">
+        <RotationKnob title="Danceability" @knob-value="onKnobChange" />
+        <RotationKnob title="Energy" @knob-value="onKnobChange" />
         <RotationKnob title="danceability" @knob-value="onKnobChange" />
-        <RotationKnob title="valence" @knob-value="onKnobChange" />
-        <RotationKnob title="danceability" @knob-value="onKnobChange" />
-        <RotationKnob title="valence" @knob-value="onKnobChange" />
+        <RotationKnob title="Valence" @knob-value="onKnobChange" />
       </div>
 
       <div id="sliders">
-        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
+        <RangeSlider title="Acoustic" @range-value="onSliderChange" />
+        <RangeSlider title="Instrumental" @range-value="onSliderChange" />
+        <RangeSlider title="Popularity" @range-value="onSliderChange" />
         <RangeSlider title="Tempo" @range-value="onSliderChange" />
-        <RangeSlider title="Acousticness" @range-value="onSliderChange" />
       </div>
       <div id="toggle">
         <ToggleSlider @toggle-value="onToggleChange" />
       </div>
-      <button>Mix</button>
+      <div id="buttons">
+        <MixerButton text="Mix" @emit-click="onMixBtnClick" />
+      </div>
     </section>
   </main>
 </template>
@@ -63,6 +66,7 @@ import TextInput from '@/components/atoms/TextInput.vue'
 import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
 import ToggleSlider from '@/components/atoms/ToggleSlider.vue'
+import MixerButton from '@/components/atoms/MixerButton.vue'
 
 const searchResults = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
@@ -107,7 +111,10 @@ function onKnobChange(value: string, title: string) {
   // console.log(value, title)
 }
 function onToggleChange(value: number) {
-  // console.log(value)
+  selections.value.limit = value
+}
+function onMixBtnClick() {
+  console.log('clicked!')
 }
 
 async function searchForTrack(searchString: string) {
@@ -183,8 +190,9 @@ async function createPlaylist() {
       #sliders {
         column-gap: 60px;
         display: flex;
-        grid-column: 1 / 3;
+        grid-column: 1 / 9;
         grid-row: 3 / 7;
+        justify-content: space-around;
       }
       #knobs {
         align-items: flex-start;
@@ -192,16 +200,16 @@ async function createPlaylist() {
         display: flex;
         grid-column: 1 / -1;
         grid-row: 1 / 3;
-        justify-content: space-around;
+        justify-content: space-between;
       }
       #toggle {
         grid-column: 9 / 13;
-        grid-row: 4 / 6;
+        grid-row: 3 / 5;
         justify-self: flex-end;
       }
-      button {
-        grid-column: 12;
-        grid-row: 6;
+      #buttons {
+        grid-column: 10 / 13;
+        grid-row: 5 / 7;
       }
     }
   }

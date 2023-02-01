@@ -44,7 +44,7 @@ function selectLimit() {
   appearance: none;
   background: #0f0f0f;
   border-radius: 4px;
-  height: 13px;
+  height: 14px;
   outline: none;
   position: relative;
   transform: rotate(270deg);
