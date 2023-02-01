@@ -21,7 +21,7 @@ export interface ISearch {
     previous: string
     total: number
   }
-  playlists: {
+  albums: {
     href: string
     items: IPlaylist[]
     limit: number

@@ -7,8 +7,8 @@
         class="search-results__item"
         @click="emits('selectItem', item)"
       >
-        {{ item.name }}
-        <span>({{ item.type }})</span>
+        <p>{{ item.name }}</p>
+        <span v-if="showSubtitles">{{ item.artists[0].name }}</span>
       </li>
     </ul>
   </div>
@@ -23,6 +23,10 @@ const props = defineProps({
   list: {
     type: Array as PropType<ITrack[] | IArtist[]>,
     required: true
+  },
+  showSubtitles: {
+    type: Boolean,
+    default: false
   }
 })
 const emits = defineEmits<{
@@ -39,6 +43,7 @@ const { list } = toRefs(props)
   height: 100%;
   margin: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-bottom: variables.$padding-medium;
   scrollbar-width: thin;
 
@@ -55,10 +60,19 @@ const { list } = toRefs(props)
   &__item {
     cursor: pointer;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     padding: variables.$padding-x-small variables.$padding-medium;
+
     &:hover {
       background-color: variables.$color__green;
+    }
+    p {
+      display: inline-block;
+      font-size: variables.$font-size-paragraph__small;
+      width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     span {
       font-style: italic;
@@ -69,7 +83,7 @@ const { list } = toRefs(props)
     background-color: variables.$color-neutral__light;
     border-radius: variables.$border-radius-small;
     height: 300px;
-    width: 256px;
+    width: 350px;
     padding: variables.$padding-medium variables.$padding-small;
   }
 }

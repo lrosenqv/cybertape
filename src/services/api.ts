@@ -2,6 +2,7 @@ import type { ICategories } from '@/models/ICategory'
 import type { IPlaylist, IPlaylistResponse } from '@/models/IPlaylist'
 import type { ISearch } from '@/models/ISearch'
 import axios from 'axios'
+import { stringSimilarity } from 'string-similarity-js'
 
 const baseUrl = 'https://api.spotify.com/v1/'
 const accessToken = sessionStorage.getItem('access_token')
@@ -41,6 +42,7 @@ async function searchTracks(query: string) {
   const response = await axios.get<ISearch>(baseUrl + `search?type=track&q=${query}`, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
+  console.log(response.data.tracks)
   return response.data.tracks
 }
 

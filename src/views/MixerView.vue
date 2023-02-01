@@ -21,7 +21,12 @@
       <TextInput placeholder="Search tracks" @stringInput="searchForTrack" />
       <SelectDropdown :options="genres" placeholder="Select Genre" @selectOption="onSelectGenre" />
 
-      <SearchResults v-if="searchResults.length > 1" :list="searchResults" />
+      <SearchResults v-if="results_artists.length > 1" :list="results_artists" />
+      <SearchResults
+        v-if="results_tracks.length > 1"
+        :list="results_tracks"
+        :show-subtitles="true"
+      />
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
@@ -83,7 +88,7 @@ import ToggleSlider from '@/components/atoms/ToggleSlider.vue'
 import MixerButton from '@/components/atoms/MixerButton.vue'
 import SearchResults from '@/components/atoms/SearchResults.vue'
 
-const searchResults = ref<IArtist[]>([])
+const results_artists = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
@@ -115,10 +120,15 @@ function onSelectGenre(text: string) {
 async function searchForArtist(searchString: string) {
   if (searchString.length > 2) {
     const result = await searchArtist(searchString)
-    searchResults.value = result.items
-  } else searchResults.value = []
+    results_artists.value = result.items
+  } else results_artists.value = []
 }
-
+async function searchForTrack(searchString: string) {
+  if (searchString.length > 2) {
+    const result = await searchTracks(searchString)
+    results_tracks.value = result.items
+  } else results_tracks.value = []
+}
 function onSliderChange(value: number, title: string) {
   // console.log(value, title)
 }
@@ -133,13 +143,6 @@ function onMixBtnClick() {
 }
 function resetSelection() {
   // console.log('clicked!')
-}
-
-async function searchForTrack(searchString: string) {
-  if (searchString.length > 2) {
-    const result = await searchTracks(searchString)
-    results_tracks.value = result.items
-  } else results_tracks.value = []
 }
 function selectResult(artist: IArtist) {
   if (selectedIds.value.length < 5) selectedIds.value.push(artist)
