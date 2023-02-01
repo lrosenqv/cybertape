@@ -10,7 +10,7 @@
     />
 
     <section class="main-mixer-section main-mixer-section__left">
-      <h3>Selected:</h3>
+      <h3>Search</h3>
       <div class="selectedList">
         <div class="selected" v-for="(id, index) in selectedIds" :key="id.id">
           {{ id.name }}<button @click="removeSelected(index)">X</button>
@@ -32,10 +32,15 @@
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
+      <h3>Settings</h3>
       <div id="knobs">
-        <RotationKnob title="Danceability" @knob-value="onKnobChange" />
+        <RotationKnob
+          title="Danceability"
+          description="How suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity."
+          @knob-value="onKnobChange"
+        />
         <RotationKnob title="Energy" @knob-value="onKnobChange" />
-        <RotationKnob title="danceability" @knob-value="onKnobChange" />
+        <RotationKnob title="Danceability" @knob-value="onKnobChange" />
         <RotationKnob title="Valence" @knob-value="onKnobChange" />
       </div>
 
@@ -45,10 +50,26 @@
         <RangeSlider title="Popularity" @range-value="onSliderChange" />
         <RangeSlider title="Tempo" @range-value="onSliderChange" />
       </div>
-      <div id="toggle">
-        <ToggleSlider @toggle-value="onToggleChange" />
+      <div id="toggles">
+        <ToggleSlider
+          title="Nmbr of tracks"
+          :min="10"
+          :max="20"
+          :steps="5"
+          :step-labels="['10', '15', '20']"
+          @toggle-value="onToggleChange"
+        />
+        <ToggleSlider
+          title="Mode"
+          :min="0"
+          :max="1"
+          :steps="1"
+          :step-labels="['Minor', 'Major']"
+          @toggle-value="onToggleChange"
+        />
       </div>
       <div id="buttons">
+        <MixerButton text="reset" size="_small" color="_red" @emit-click="resetSelection" />
         <MixerButton text="Mix" @emit-click="onMixBtnClick" />
       </div>
     </section>
@@ -114,7 +135,10 @@ function onToggleChange(value: number) {
   selections.value.limit = value
 }
 function onMixBtnClick() {
-  console.log('clicked!')
+  // console.log('clicked!')
+}
+function resetSelection() {
+  // console.log('clicked!')
 }
 
 async function searchForTrack(searchString: string) {
@@ -159,17 +183,19 @@ async function createPlaylist() {
   background-color: variables.$color__blue-light;
   background-image: url('@/assets/BackgroundBlue.jpg');
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   column-gap: 24px;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 60vh 20vh;
+  grid-template-rows: 65vh 15vh;
   padding: 0 calc(2 * #{variables.$padding-body});
 
   &-section {
     border-radius: variables.$border-radius-medium;
     box-shadow: variables.$shadow-1;
     grid-row: 1;
-    padding: variables.$padding-large calc(2 * #{variables.$padding-x-large});
+    padding: calc(2 * #{variables.$padding-x-large}) calc(3 * #{variables.$padding-x-large});
 
     &__left {
       background-color: variables.$color-neutral__greige-light;
@@ -182,34 +208,45 @@ async function createPlaylist() {
       background-image: url('@/assets/TextureLeather.jpg');
       background-size: cover;
       display: grid;
-      column-gap: 20px;
+      gap: 20px;
       grid-column: 6 / 13;
       grid-template-columns: inherit;
       grid-template-rows: repeat(6, 1fr);
+
+      h3 {
+        grid-column: 1 / -1;
+      }
 
       #sliders {
         column-gap: 60px;
         display: flex;
         grid-column: 1 / 9;
-        grid-row: 3 / 7;
+        grid-row: 4 / 7;
         justify-content: space-around;
       }
       #knobs {
-        align-items: flex-start;
         column-gap: 30px;
         display: flex;
-        grid-column: 1 / -1;
-        grid-row: 1 / 3;
+        grid-column: 1 / 9;
+        grid-row: 2 / 4;
         justify-content: space-between;
       }
-      #toggle {
+      #toggles {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
         grid-column: 9 / 13;
-        grid-row: 3 / 5;
+        grid-row: 2 / 6;
         justify-self: flex-end;
       }
       #buttons {
+        display: flex;
         grid-column: 10 / 13;
-        grid-row: 5 / 7;
+        grid-row: 6 / 7;
+        justify-content: space-between;
+        button {
+          margin-top: auto;
+        }
       }
     }
   }

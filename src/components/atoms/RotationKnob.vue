@@ -1,20 +1,29 @@
 <template>
-  <div class="knob-wrapper">
+  <div class="rotation-knob">
     <label>{{ title }}</label>
-    <div ref="knob" class="knob" @mousedown="drag_start" @mouseup="drag_end">
-      <KnobSVG />
+    <div class="knob-wrapper">
+      <div ref="knob" class="knob" @mousedown="drag_start" @mouseup="drag_end">
+        <KnobSVG />
+      </div>
     </div>
+    <InfoTooltip v-if="description.length" :text="description" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, toRefs } from 'vue'
 import KnobSVG from '@/components/atoms/KnobSVG.vue'
+import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
 const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  description: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 const emits = defineEmits<{
@@ -24,7 +33,7 @@ const emits = defineEmits<{
 const knob = ref<HTMLElement>()
 const current_rotation = ref<string>('')
 const dragging_knob = ref<boolean>(false)
-const { title } = toRefs(props)
+const { title, description } = toRefs(props)
 
 function drag_start() {
   dragging_knob.value = true
@@ -78,17 +87,20 @@ watch(dragging_knob, (isDragging) => {
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
+.rotation-knob {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  label {
+    color: variables.$color-neutral__greige-light;
+    font-size: variables.$font-size-paragraph__small;
+  }
+}
 .knob {
-  background: linear-gradient(
-    270.57deg,
-    rgba(54, 54, 54, 0.2475) -28.6%,
-    rgba(29, 28, 28, 0.0726) -1.86%,
-    rgba(11, 11, 11, 0.2904) 58.5%,
-    rgba(27, 26, 26, 0.0726) 105.93%,
-    rgba(29, 29, 29, 0.0726) 136.97%
-  );
+  @include variables.backdrop-gradient;
   border-radius: 50% 50%;
-  box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.26);
   cursor: grab;
   display: inline-block;
   height: 72px;
@@ -101,11 +113,6 @@ watch(dragging_knob, (isDragging) => {
     row-gap: 10px;
     text-align: center;
     width: fit-content;
-
-    label {
-      color: variables.$color-neutral__greige-light;
-      font-size: variables.$font-size-paragraph__small;
-    }
   }
 }
 </style>

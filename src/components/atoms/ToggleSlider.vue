@@ -1,45 +1,70 @@
 <template>
-  <div class="toggle-wrapper">
-    <div class="toggle-indicator">
-      <div class="toggle-indicator__numbers">
-        <span>10</span>
-        <span>15</span>
-        <span>20</span>
+  <div class="toggle-slider">
+    <label>{{ title }}</label>
+    <div class="toggle-wrapper">
+      <div class="toggle-indicator">
+        <div class="toggle-indicator__numbers">
+          <span v-for="label in stepLabels" :key="label">{{ label }}</span>
+        </div>
+        <div v-if="stepLabels.length === 3" class="toggle-indicator__graphics">
+          <svg viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="37" cy="5" r="1" fill="white" />
+            <circle cx="51" cy="5" r="1" fill="white" />
+            <circle cx="65" cy="5" r="1" fill="white" />
+            <g stroke="white" stroke-width="1">
+              <line x1="18.5" x2="18.5" y1="2" y2="5" />
+              <line x1="18" x2="30" y1="5" y2="5" />
+              <line x1="70" x2="82" y1="5" y2="5" />
+              <line x1="81.5" x2="81.5" y1="2" y2="5" />
+            </g>
+          </svg>
+        </div>
       </div>
-      <div class="toggle-indicator__graphics">
-        <svg viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="35" cy="8" r="1" fill="white" />
-          <circle cx="50" cy="8" r="1" fill="white" />
-          <circle cx="65" cy="8" r="1" fill="white" />
-          <g stroke="white" stroke-width="1">
-            <line x1="18.5" x2="18.5" y1="2" y2="8" />
-            <line x1="18" x2="30" y1="8" y2="8" />
-            <line x1="70" x2="82" y1="8" y2="8" />
-            <line x1="81.5" x2="81.5" y1="2" y2="8" />
-          </g>
-        </svg>
-      </div>
+      <input
+        class="toggle"
+        v-model="toggleSlider"
+        type="range"
+        :min="min"
+        :max="max"
+        :step="steps"
+        @change="toggleSelection"
+      />
     </div>
-    <input
-      class="toggle"
-      v-model="toggleSlider"
-      type="range"
-      min="10"
-      max="20"
-      step="5"
-      @change="toggleSelection"
-    />
-    <label>Nmbr of tracks</label>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
+import type { PropType } from 'vue'
 
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  stepLabels: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+    required: true
+  },
+  min: {
+    type: Number,
+    required: true
+  },
+  max: {
+    type: Number,
+    required: true
+  },
+  steps: {
+    type: Number,
+    required: true
+  }
+})
 const emits = defineEmits<{
   (e: 'toggleValue', value: number): void
 }>()
 const toggleSlider = ref<number>(10)
+const { title, stepLabels, min, max, steps } = toRefs(props)
 
 function toggleSelection() {
   emits('toggleValue', toggleSlider.value)
@@ -82,6 +107,12 @@ function toggleSelection() {
     width: 27px;
   }
 
+  &-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   &-indicator {
     height: 40%;
     width: 100%;
@@ -101,28 +132,18 @@ function toggleSelection() {
   &-wrapper {
     align-items: center;
     background-color: transparent;
-    background: linear-gradient(
-      270.57deg,
-      rgba(54, 54, 54, 0.2475) -28.6%,
-      rgba(29, 28, 28, 0.0726) -1.86%,
-      rgba(11, 11, 11, 0.2904) 58.5%,
-      rgba(27, 26, 26, 0.0726) 105.93%,
-      rgba(29, 29, 29, 0.0726) 136.97%
-    );
-    border-radius: 7px;
-    box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.26);
     display: flex;
     flex-direction: column;
-    height: 70px;
+    height: 80px;
     justify-content: center;
-    margin-top: 30px;
-    width: 120px;
+    row-gap: 2px;
+    padding: variables.$padding-small variables.$padding-x-small;
+    width: 130px;
+    @include variables.backdrop-gradient;
   }
 }
 label {
   color: variables.$color-neutral__greige-light;
   font-size: variables.$font-size-paragraph__small;
-  position: absolute;
-  top: -25px;
 }
 </style>
