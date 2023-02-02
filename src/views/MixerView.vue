@@ -118,7 +118,7 @@ async function createPlaylist() {
     border-radius: variables.$border-radius-medium;
     box-shadow: variables.$shadow-1;
     grid-row: 1;
-    padding: calc(2 * #{variables.$padding-x-large}) calc(3 * #{variables.$padding-x-large});
+    padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
 
     &__left {
       background-color: variables.$color-neutral__greige-light;
@@ -130,13 +130,10 @@ async function createPlaylist() {
       background-color: variables.$color-neutral__dark;
       background-image: url('@/assets/TextureLeather.jpg');
       background-size: cover;
-      // display: grid;
       display: flex;
       flex-direction: column;
       gap: 20px;
       grid-column: 6 / 13;
-      // grid-template-columns: inherit;
-      // grid-template-rows: repeat(6, 1fr);
 
       #mixer-settings {
         display: block;

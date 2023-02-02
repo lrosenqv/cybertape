@@ -1,10 +1,15 @@
 <template>
   <div class="dropdown">
-    <IconChevron class="dropdown-arrow" @click="toggleDropdown" />
+    <IconChevron
+      class="dropdown-arrow"
+      :class="{ 'dropdown-arrow_up': show_dropdown_results }"
+      @click="toggleDropdown(!show_dropdown_results)"
+    />
     <div class="dropdown-content">
       <SearchInput
         :placeholder="placeholder"
         @focusInput="toggleDropdown(true)"
+        @blurInput="toggleDropdown(false)"
         @stringInput="searchInDropdown"
       />
       <SearchResults v-if="show_dropdown_results" :list="results" @selectItem="onSelect" />
@@ -37,11 +42,13 @@ const emits = defineEmits<{
 const { options, placeholder } = toRefs(props)
 const results = ref<LIST_ITEM[]>(options.value)
 const show_dropdown_results = ref<boolean>(false)
+const focused_input = ref<boolean>(false)
 
 function onSelect(option: LIST_ITEM) {
   emits('selectOption', option)
   toggleDropdown(false)
 }
+
 function toggleDropdown(val: boolean) {
   show_dropdown_results.value = val
 }
@@ -66,18 +73,31 @@ watch(
 
 .dropdown {
   align-items: center;
-  display: grid;
-  grid-template-areas: 'select';
+  display: flex;
+  flex-direction: column;
   height: 35px;
   margin: 0;
+  width: 100%;
 
   &-arrow {
     cursor: pointer;
-    justify-self: end;
     margin-right: variables.$margin-medium;
     position: absolute;
     z-index: 2;
+    right: 0;
     bottom: 35%;
+    transition: all 0.3s;
+
+    &_up {
+      transform: rotateX(180deg);
+      bottom: 40%;
+    }
+  }
+  &-content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 }
 </style>

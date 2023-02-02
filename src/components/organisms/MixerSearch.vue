@@ -1,11 +1,11 @@
 <template>
   <div id="mixer-search">
     <div id="mixer-search__artists">
-      <SearchInput placeholder="Search artists" @stringInput="searchForArtist" />
+      <SearchInput placeholder="...artists" @stringInput="searchForArtist" />
       <SearchResults v-if="show_results_artists" :list="resultsArtists" @selectItem="onSelect" />
     </div>
     <div id="mixer-search__tracks">
-      <SearchInput placeholder="Search tracks" @stringInput="searchForTrack" />
+      <SearchInput placeholder="...tracks" @stringInput="searchForTrack" />
       <SearchResults
         v-if="show_results_tracks"
         :list="resultsTracks"
@@ -14,7 +14,7 @@
       />
     </div>
     <div id="mixer-search__genres">
-      <SelectDropdown :options="results_genres" placeholder="Genres" @selectOption="onSelect" />
+      <SelectDropdown :options="results_genres" placeholder="...genres" @selectOption="onSelect" />
     </div>
   </div>
   <div id="mixer-search__selected">
@@ -130,9 +130,9 @@ const resultsTracks = computed(() => {
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 #mixer-search {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   column-gap: 12px;
+  grid-template-columns: variables.$grid-template-standard;
   height: 30%;
 
   &__artists,
@@ -140,6 +140,15 @@ const resultsTracks = computed(() => {
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+  &__artists {
+    grid-column: 1 / 5;
+  }
+  &__tracks {
+    grid-column: 5 / 10;
+  }
+  &__genres {
+    grid-column: 10 / 13;
   }
   &__selected {
     display: flex;

@@ -45,6 +45,13 @@ const { item } = toRefs(props)
   color: white;
   padding: variables.$padding-small;
   width: fit-content;
+
+  button {
+    background-color: transparent;
+    color: white;
+    font-weight: 800;
+    padding-left: 8px;
+  }
 }
 .artist {
   background-color: variables.$color__blue;

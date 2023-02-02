@@ -47,11 +47,17 @@ function blurInput() {
   font-weight: 500;
   outline: none;
   padding: variables.$padding-x-small variables.$padding-medium;
-  width: 250px;
+  width: 100%;
 
   &::placeholder {
     color: variables.$color-neutral__greige;
     font-style: italic;
+  }
+  &:focus {
+    border-color: variables.$color-neutral__greige-dark;
+    &::placeholder {
+      color: transparent;
+    }
   }
 }
 </style>

@@ -50,12 +50,12 @@ const { list } = toRefs(props)
   &::-webkit-scrollbar {
     appearance: none;
     border-radius: variables.$border-radius-large;
-    width: 4px;
+    width: 3px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: variables.$color-neutral__greige;
     border-radius: variables.$border-radius-large;
-    width: 4px;
+    width: 3px;
   }
   &__item {
     cursor: pointer;
@@ -63,7 +63,7 @@ const { list } = toRefs(props)
     flex-direction: column;
     padding-block: variables.$padding-x-small;
     padding-inline: variables.$padding-large;
-    width: 250px;
+    width: 100%;
 
     &:hover {
       background-color: variables.$color__green;
@@ -72,7 +72,7 @@ const { list } = toRefs(props)
       font-size: variables.$font-size-paragraph__small;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 220px;
+      width: 100%;
       white-space: nowrap;
     }
     span {
@@ -83,8 +83,10 @@ const { list } = toRefs(props)
   &-wrapper {
     background-color: variables.$color-neutral__light;
     border-radius: variables.$border-radius-small;
+    box-shadow: variables.$shadow-2;
     height: 300px;
     padding-top: variables.$padding-large;
+    width: 100%;
   }
 }
 </style>
