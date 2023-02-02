@@ -92,6 +92,7 @@ watch(dragging_knob, (isDragging) => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: fit-content;
 
   label {
     color: variables.$color-neutral__greige-light;

@@ -28,8 +28,12 @@ function onHover() {
 @use '@/style/variables.scss';
 
 .infobox {
+  bottom: 0;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+  height: 18px;
+  right: -12px;
+  width: 18px;
 
   &-text {
     background-color: variables.$color-neutral__light;

@@ -8,12 +8,13 @@
 </template>
 
 <script setup lang="ts">
-import type { ITrack } from '../../models/ITrack'
+import type { ITrack } from '@/models/ITrack'
+import type { PropType } from 'vue'
 import { toRefs } from 'vue'
 
 const props = defineProps({
   tracks: {
-    type: Array<ITrack>,
+    type: Array as PropType<ITrack[]>,
     required: true
   }
 })

@@ -2,26 +2,25 @@
   <div class="search-results-wrapper">
     <ul class="search-results">
       <li
-        v-for="item in list"
-        :key="item.id"
+        v-for="(item, index) in list"
+        :key="item.id ? item.id : index"
         class="search-results__item"
         @click="emits('selectItem', item)"
       >
-        <p>{{ item.name }}</p>
-        <span v-if="showSubtitles">{{ item.artists[0].name }}</span>
+        <p>{{ item.title }}</p>
+        <span v-if="item.subtitle">{{ item.subtitle }}</span>
       </li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
-import type { IArtist } from '@/models/IArtist'
-import type { ITrack } from '@/models/ITrack'
 import type { PropType } from 'vue'
+import type { LIST_ITEM } from '@/models/LIST_ITEM'
 import { toRefs } from 'vue'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<ITrack[] | IArtist[]>,
+    type: Array as PropType<LIST_ITEM[]>,
     required: true
   },
   showSubtitles: {
@@ -30,7 +29,7 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'selectItem', item: ITrack | IArtist): void
+  (e: 'selectItem', item: LIST_ITEM): void
 }>()
 
 const { list } = toRefs(props)
@@ -40,12 +39,13 @@ const { list } = toRefs(props)
 @use '@/style/variables.scss';
 
 .search-results {
-  height: 100%;
+  height: 270px;
   margin: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: variables.$padding-medium;
+  position: absolute;
   scrollbar-width: thin;
+  width: 100%;
 
   &::-webkit-scrollbar {
     appearance: none;
@@ -61,17 +61,18 @@ const { list } = toRefs(props)
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    padding: variables.$padding-x-small variables.$padding-medium;
+    padding-block: variables.$padding-x-small;
+    padding-inline: variables.$padding-large;
+    width: 250px;
 
     &:hover {
       background-color: variables.$color__green;
     }
     p {
-      display: inline-block;
       font-size: variables.$font-size-paragraph__small;
-      width: 300px;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 220px;
       white-space: nowrap;
     }
     span {
@@ -83,8 +84,7 @@ const { list } = toRefs(props)
     background-color: variables.$color-neutral__light;
     border-radius: variables.$border-radius-small;
     height: 300px;
-    width: 350px;
-    padding: variables.$padding-medium variables.$padding-small;
+    padding-top: variables.$padding-large;
   }
 }
 </style>

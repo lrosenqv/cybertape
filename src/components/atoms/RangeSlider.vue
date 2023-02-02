@@ -88,7 +88,12 @@ function selectLimit() {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: fit-content;
     position: relative;
+
+    .infobox {
+      right: -25px;
+    }
 
     label {
       color: variables.$color-neutral__greige-light;

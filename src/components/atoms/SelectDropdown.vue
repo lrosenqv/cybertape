@@ -1,25 +1,28 @@
 <template>
-  <div class="select">
-    <select
-      v-model="selectedOption"
-      :class="selectedOption === '' ? 'select-placeholder__disabled' : 'select-placeholder'"
-    >
-      <option selected disabled value="" class="select-option__first">{{ placeholder }}</option>
-      <option v-for="(option, index) in options" :key="index" :value="option" class="select-option">
-        {{ option }}
-      </option>
-    </select>
-    <IconChevron class="select-arrow" />
+  <div class="dropdown">
+    <IconChevron class="dropdown-arrow" @click="toggleDropdown" />
+    <div class="dropdown-content">
+      <SearchInput
+        :placeholder="placeholder"
+        @focusInput="toggleDropdown(true)"
+        @stringInput="searchInDropdown"
+      />
+      <SearchResults v-if="show_dropdown_results" :list="results" @selectItem="onSelect" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, ref, watch } from 'vue'
+import type { PropType } from 'vue'
 import IconChevron from '@/components/icons/IconChevron.vue'
+import SearchInput from '@/components/atoms/SearchInput.vue'
+import SearchResults from '@/components/atoms/SearchResults.vue'
+import type { LIST_ITEM } from '@/models/LIST_ITEM'
 
 const props = defineProps({
   options: {
-    type: Array<String>,
+    type: Array as PropType<LIST_ITEM[]>,
     required: true
   },
   placeholder: {
@@ -28,59 +31,53 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'selectOption', option: string): void
+  (e: 'selectOption', option: LIST_ITEM): void
 }>()
 
 const { options, placeholder } = toRefs(props)
-const selectedOption = ref('')
+const results = ref<LIST_ITEM[]>(options.value)
+const show_dropdown_results = ref<boolean>(false)
 
-watch(selectedOption, (newVal) => {
-  emits('selectOption', newVal)
-})
+function onSelect(option: LIST_ITEM) {
+  emits('selectOption', option)
+  toggleDropdown(false)
+}
+function toggleDropdown(val: boolean) {
+  show_dropdown_results.value = val
+}
+function searchInDropdown(searchString: string) {
+  const newResult = options.value.filter((option) => {
+    return option.title.toLowerCase().includes(searchString.toLowerCase())
+  })
+  results.value = newResult
+}
+
+watch(
+  options,
+  (array) => {
+    results.value = array
+  },
+  { immediate: true }
+)
 </script>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 
-.select {
+.dropdown {
   align-items: center;
   display: grid;
   grid-template-areas: 'select';
   height: 35px;
-  width: 250px;
-  padding: variables.$padding-small;
-
-  select {
-    appearance: none;
-    background-color: transparent;
-    border-radius: variables.$border-radius-small;
-    border: 1px solid variables.$color-neutral__light;
-    cursor: pointer;
-    font-size: variables.$font-size-paragraph;
-    font-weight: 500;
-    margin-left: variables.$margin-medium;
-    outline: none;
-    padding: variables.$padding-x-small variables.$padding-medium;
-    position: relative;
-    z-index: 1;
-
-    &.select-placeholder {
-      color: variables.$color-neutral__light;
-      &__disabled {
-        color: variables.$color-neutral__greige;
-        font-style: italic;
-      }
-    }
-  }
+  margin: 0;
 
   &-arrow {
+    cursor: pointer;
     justify-self: end;
     margin-right: variables.$margin-medium;
-    position: relative;
+    position: absolute;
+    z-index: 2;
+    bottom: 35%;
   }
-}
-select,
-.select-arrow {
-  grid-area: select;
 }
 </style>

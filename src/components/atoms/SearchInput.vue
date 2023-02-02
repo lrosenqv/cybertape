@@ -5,6 +5,8 @@
       class="input"
       type="text"
       :placeholder="placeholder"
+      @focus="emits('focusInput')"
+      @blur="blurInput"
       @input="emits('stringInput', stringInput)"
     />
   </div>
@@ -23,7 +25,14 @@ const props = defineProps({
 const { placeholder } = toRefs(props)
 const emits = defineEmits<{
   (e: 'stringInput', string: string): void
+  (e: 'focusInput'): void
+  (e: 'blurInput'): void
 }>()
+
+function blurInput() {
+  stringInput.value = ''
+  emits('blurInput')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -33,11 +42,12 @@ const emits = defineEmits<{
   background-color: transparent;
   border-radius: variables.$border-radius-small;
   border: 1.5px solid variables.$color-neutral__greige;
-  color: variables.$color-neutral__light;
+  color: variables.$color-neutral__greige-dark;
   font-size: variables.$font-size-paragraph;
   font-weight: 500;
   outline: none;
   padding: variables.$padding-x-small variables.$padding-medium;
+  width: 250px;
 
   &::placeholder {
     color: variables.$color-neutral__greige;

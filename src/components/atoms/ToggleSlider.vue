@@ -30,12 +30,14 @@
         @change="toggleSelection"
       />
     </div>
+    <InfoTooltip v-if="description.length" :text="description" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
+import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
 const props = defineProps({
   title: {
@@ -58,6 +60,11 @@ const props = defineProps({
   steps: {
     type: Number,
     required: true
+  },
+  description: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 const emits = defineEmits<{
@@ -111,6 +118,10 @@ function toggleSelection() {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    .infobox {
+      right: -25px;
+    }
   }
 
   &-indicator {

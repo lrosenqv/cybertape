@@ -1,0 +1,43 @@
+{
+  "knobs": [
+    {
+      "title": "Danceability",
+      "description":
+        "How suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity."
+    },
+    { "title": "Energy", "description": "" },
+    { "title": "Danceability", "description": "" },
+    { "title": "Valence", "description": "" }
+  ],
+  "sliders": [
+    {
+      "title": "Acousticness",
+      "description": ""
+    },
+    { "title": "Instrumental", "description": "" },
+    { "title": "Popularity", "description": "" },
+    {
+      "title": "Tempo",
+      "description": "The overall estimated tempo of a track in beats per minute (BPM)"
+    }
+  ], 
+  "toggles": [
+    {
+      "title": "# of tracks",
+      "min": 10,
+      "max": 20,
+      "steps": 5,
+      "step_labels": ["10", "15", "20"],
+      "description": "Choose how many tracks to add to your mix from the recommendations."
+    },
+    {
+      "title": "Mode",
+      "min": 0,
+      "max": 2,
+      "steps": 1,
+      "step_labels": ["Minor", "Major"],
+      "description":
+        "The modality of a track, the type of scale from which its melodic content is derived."
+    }
+  ]
+}
