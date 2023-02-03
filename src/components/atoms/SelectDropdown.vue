@@ -9,10 +9,15 @@
       <SearchInput
         :placeholder="placeholder"
         @focusInput="toggleDropdown(true)"
-        @blurInput="toggleDropdown(false)"
         @stringInput="searchInDropdown"
       />
-      <SearchResults v-if="show_dropdown_results" :list="results" @selectItem="onSelect" />
+      <SearchResults
+        class="dropdown-content-list"
+        v-if="show_dropdown_results"
+        :list="results"
+        @selectItem="onSelect"
+        @closeOverlay="toggleDropdown(false)"
+      />
     </div>
   </div>
 </template>
@@ -42,21 +47,23 @@ const emits = defineEmits<{
 const { options, placeholder } = toRefs(props)
 const results = ref<LIST_ITEM[]>(options.value)
 const show_dropdown_results = ref<boolean>(false)
-const focused_input = ref<boolean>(false)
 
 function onSelect(option: LIST_ITEM) {
   emits('selectOption', option)
   toggleDropdown(false)
 }
 
-function toggleDropdown(val: boolean) {
-  show_dropdown_results.value = val
+function toggleDropdown(show: boolean) {
+  show_dropdown_results.value = show
+  if (show) results.value = options.value
 }
 function searchInDropdown(searchString: string) {
-  const newResult = options.value.filter((option) => {
-    return option.title.toLowerCase().includes(searchString.toLowerCase())
-  })
-  results.value = newResult
+  if (searchString.length >= 2) {
+    const newResult = options.value.filter((option) => {
+      return option.title.toLowerCase().includes(searchString.toLowerCase())
+    })
+    results.value = newResult
+  } else results.value = options.value
 }
 
 watch(
@@ -94,10 +101,14 @@ watch(
     }
   }
   &-content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    position: relative;
+
+    input {
+      position: relative;
+    }
+    &-list {
+      position: relative;
+    }
   }
 }
 </style>

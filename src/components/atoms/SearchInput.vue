@@ -6,8 +6,8 @@
       type="text"
       :placeholder="placeholder"
       @focus="emits('focusInput')"
-      @blur="blurInput"
       @input="emits('stringInput', stringInput)"
+      @blur="blurInput"
     />
   </div>
 </template>
@@ -22,16 +22,15 @@ const props = defineProps({
     required: true
   }
 })
+
 const { placeholder } = toRefs(props)
 const emits = defineEmits<{
   (e: 'stringInput', string: string): void
   (e: 'focusInput'): void
-  (e: 'blurInput'): void
 }>()
 
 function blurInput() {
   stringInput.value = ''
-  emits('blurInput')
 }
 </script>
 

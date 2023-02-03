@@ -44,7 +44,6 @@ const { item } = toRefs(props)
   border-radius: 8px;
   color: white;
   padding: variables.$padding-small;
-  width: fit-content;
 
   button {
     background-color: transparent;

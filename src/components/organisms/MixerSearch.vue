@@ -1,39 +1,51 @@
 <template>
-  <div id="mixer-search">
-    <div id="mixer-search__artists">
-      <SearchInput placeholder="...artists" @stringInput="searchForArtist" />
-      <SearchResults v-if="show_results_artists" :list="resultsArtists" @selectItem="onSelect" />
+  <div id="mixer-search" @click="show_results_artists = false">
+    <div id="mixer-search-input-wrapper">
+      <div id="mixer-search-input__artists">
+        <SearchInput placeholder="...artists" @stringInput="searchForArtist" />
+        <SearchResults
+          v-if="show_results_artists"
+          :list="resultsArtists"
+          @selectItem="onSelect"
+          @close-overlay="show_results_artists = false"
+        />
+      </div>
+      <div id="mixer-search-input__tracks">
+        <SearchInput placeholder="...tracks" @stringInput="searchForTrack" />
+        <SearchResults
+          v-if="show_results_tracks"
+          :list="resultsTracks"
+          :show-subtitles="true"
+          @selectItem="onSelect"
+          @close-overlay="show_results_tracks = false"
+        />
+      </div>
+      <div id="mixer-search-input__genres">
+        <SelectDropdown
+          :options="results_genres"
+          placeholder="...genres"
+          @selectOption="onSelect"
+        />
+      </div>
     </div>
-    <div id="mixer-search__tracks">
-      <SearchInput placeholder="...tracks" @stringInput="searchForTrack" />
-      <SearchResults
-        v-if="show_results_tracks"
-        :list="resultsTracks"
-        :show-subtitles="true"
-        @selectItem="onSelect"
+    <div id="mixer-search__selected">
+      <SelectedItem
+        v-for="(item, index) in selected"
+        :key="index"
+        :item="item"
+        @removeItem="updateList(index)"
       />
     </div>
-    <div id="mixer-search__genres">
-      <SelectDropdown :options="results_genres" placeholder="...genres" @selectOption="onSelect" />
+    <div id="mixer-search__guide">
+      <div><span class="artist"></span>Artist</div>
+      <div><span class="track"></span> Track</div>
+      <div><span class="genre"></span> Genre</div>
     </div>
-  </div>
-  <div id="mixer-search__selected">
-    <SelectedItem
-      v-for="(item, index) in selected"
-      :key="index"
-      :item="item"
-      @removeItem="updateList(index)"
-    />
-  </div>
-  <div id="mixer-search__guide">
-    <div><span class="artist"></span>Artist</div>
-    <div><span class="track"></span> Track</div>
-    <div><span class="genre"></span> Genre</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed } from 'vue'
+import { ref, toRefs, computed, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
@@ -62,7 +74,7 @@ const results_artists = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const show_results_artists = ref<boolean>(false)
 const show_results_tracks = ref<boolean>(false)
-
+const search_string = ref<string>('')
 const { genres } = toRefs(props)
 const selected = ref<any[]>([])
 
@@ -76,6 +88,7 @@ const results_genres = computed(() => {
 })
 // Functions
 async function searchForArtist(searchString: string) {
+  search_string.value = searchString
   if (searchString.length >= 2) {
     const result = await searchArtist(searchString)
     results_artists.value = result.items
@@ -86,6 +99,7 @@ async function searchForArtist(searchString: string) {
   }
 }
 async function searchForTrack(searchString: string) {
+  search_string.value = searchString
   if (searchString.length >= 2) {
     const result = await searchTracks(searchString)
     results_tracks.value = result.items
@@ -95,11 +109,10 @@ async function searchForTrack(searchString: string) {
     show_results_tracks.value = false
   }
 }
-
 function onSelect(item: any) {
-  console.log(item)
-  if (selected.value.length < 5) selected.value.push(item)
-  else return
+  if (selected.value.length < 5) {
+    selected.value.push(item)
+  } else return
   show_results_tracks.value = false
   show_results_artists.value = false
 }
@@ -130,25 +143,18 @@ const resultsTracks = computed(() => {
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 #mixer-search {
-  display: grid;
-  column-gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
   grid-template-columns: variables.$grid-template-standard;
-  height: 30%;
+  height: 100%;
+  position: relative;
 
-  &__artists,
-  &__tracks {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  &__artists {
-    grid-column: 1 / 5;
-  }
-  &__tracks {
-    grid-column: 5 / 10;
-  }
-  &__genres {
-    grid-column: 10 / 13;
+  &-input {
+    &-wrapper {
+      display: flex;
+      gap: 12px;
+    }
   }
   &__selected {
     display: flex;
@@ -159,7 +165,7 @@ const resultsTracks = computed(() => {
     display: flex;
     gap: 10px;
     position: absolute;
-    bottom: 40px;
+    bottom: 0;
 
     > div {
       align-items: baseline;

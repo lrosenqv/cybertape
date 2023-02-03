@@ -1,11 +1,12 @@
 <template>
   <div class="search-results-wrapper">
+    <div class="overlay" @click="emits('closeOverlay')"></div>
     <ul class="search-results">
       <li
         v-for="(item, index) in list"
         :key="item.id ? item.id : index"
         class="search-results__item"
-        @click="emits('selectItem', item)"
+        @click.stop="emits('selectItem', item)"
       >
         <p>{{ item.title }}</p>
         <span v-if="item.subtitle">{{ item.subtitle }}</span>
@@ -30,6 +31,7 @@ const props = defineProps({
 })
 const emits = defineEmits<{
   (e: 'selectItem', item: LIST_ITEM): void
+  (e: 'closeOverlay'): void
 }>()
 
 const { list } = toRefs(props)
@@ -85,8 +87,18 @@ const { list } = toRefs(props)
     border-radius: variables.$border-radius-small;
     box-shadow: variables.$shadow-2;
     height: 300px;
+    margin-top: 4px;
     padding-top: variables.$padding-large;
+    position: absolute;
+    z-index: 2;
     width: 100%;
   }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
 }
 </style>

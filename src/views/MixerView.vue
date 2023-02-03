@@ -123,6 +123,8 @@ async function createPlaylist() {
     &__left {
       background-color: variables.$color-neutral__greige-light;
       color: variables.$color-neutral__greige-dark;
+      display: flex;
+      flex-direction: column;
       grid-column: 1 / 6;
     }
 
