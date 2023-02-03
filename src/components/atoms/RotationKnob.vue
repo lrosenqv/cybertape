@@ -88,15 +88,22 @@ watch(dragging_knob, (isDragging) => {
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 .rotation-knob {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   height: fit-content;
+  row-gap: 10px;
 
   label {
     color: variables.$color-neutral__greige-light;
     font-size: variables.$font-size-paragraph__small;
+    grid-row: 1;
+    grid-column: 1 / 3;
+    justify-self: center;
+  }
+  .infobox {
+    align-self: flex-end;
+    grid-column: 3;
+    grid-row: 2;
   }
 }
 .knob {
@@ -110,7 +117,10 @@ watch(dragging_knob, (isDragging) => {
   &-wrapper {
     display: flex;
     flex-direction: column;
+    grid-column: 1 / 3;
+    grid-row: 2;
     justify-content: center;
+    justify-self: center;
     row-gap: 10px;
     text-align: center;
     width: fit-content;

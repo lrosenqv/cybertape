@@ -28,11 +28,11 @@ function onHover() {
 @use '@/style/variables.scss';
 
 .infobox {
-  bottom: 0;
+  // bottom: 0;
   cursor: pointer;
-  position: absolute;
+  // position: absolute;
   height: 18px;
-  right: -12px;
+  // right: -12px;
   width: 18px;
 
   &-text {

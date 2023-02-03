@@ -84,20 +84,24 @@ function selectLimit() {
     width: 48px;
   }
   &-range {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     height: fit-content;
-    position: relative;
+    row-gap: 10px;
 
     .infobox {
-      right: -25px;
+      align-self: flex-end;
+      grid-column: 3;
+      grid-row: 2;
     }
 
     label {
       color: variables.$color-neutral__greige-light;
       font-size: variables.$font-size-paragraph__small;
+      grid-row: 1;
+      grid-column: 1 / 3;
+      justify-self: center;
     }
     img {
       position: absolute;
@@ -110,8 +114,11 @@ function selectLimit() {
     align-items: center;
     display: flex;
     flex-direction: column;
+    grid-column: 2;
+    grid-row: 2;
     height: 200px;
     justify-content: center;
+    justify-self: center;
     width: 60px;
 
     &-line {

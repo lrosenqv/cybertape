@@ -137,11 +137,6 @@ async function createPlaylist() {
       gap: 20px;
       grid-column: 6 / 13;
 
-      #mixer-settings {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
       h3 {
         color: variables.$color-neutral__greige-light;
         grid-column: 1 / -1;

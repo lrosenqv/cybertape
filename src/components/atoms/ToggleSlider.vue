@@ -115,12 +115,16 @@ function toggleSelection() {
   }
 
   &-slider {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 10px;
+    width: fit-content;
 
     .infobox {
-      right: -25px;
+      align-self: flex-end;
+      grid-column: 2;
+      grid-row: 2;
     }
   }
 
@@ -141,11 +145,12 @@ function toggleSelection() {
     }
   }
   &-wrapper {
+    grid-column: 1;
+    grid-row: 2;
     align-items: center;
     background-color: transparent;
     display: flex;
     flex-direction: column;
-    height: 80px;
     justify-content: center;
     row-gap: 2px;
     padding: variables.$padding-small variables.$padding-x-small;

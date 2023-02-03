@@ -17,14 +17,18 @@
       />
     </div>
     <div id="mixer-settings__toggles">
-      <RangeSlider
+      <ToggleSlider
         v-for="(toggle, index) in toggles"
         :key="index"
         :title="toggle.title"
         :description="toggle.description"
+        :min="toggle.min"
+        :max="toggle.max"
+        :steps="toggle.steps"
+        :step-labels="toggle.step_labels"
       />
     </div>
-    <div id="buttons">
+    <div id="mixer-settings__buttons">
       <MixerButton text="reset" size="_small" color="_red" @emit-click="resetSelection" />
       <MixerButton text="Mix" @emit-click="onMixBtnClick" />
     </div>
@@ -37,14 +41,19 @@ import type { PropType } from 'vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
 import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import MixerButton from '@/components/atoms/MixerButton.vue'
+import ToggleSlider from '../atoms/ToggleSlider.vue'
 
 interface SETTING_ITEM {
   title: string
   description: string
-  min?: number
-  max?: number
-  steps?: number
-  step_labels?: string[]
+}
+interface SETTING_ITEM_TOGGLE {
+  title: string
+  description: string
+  min: number
+  max: number
+  steps: number
+  step_labels: string[]
 }
 // Props
 const props = defineProps({
@@ -57,7 +66,7 @@ const props = defineProps({
     required: true
   },
   toggles: {
-    type: Array as PropType<SETTING_ITEM[]>,
+    type: Array as PropType<SETTING_ITEM_TOGGLE[]>,
     required: true
   }
 })
@@ -79,4 +88,33 @@ function resetSelection() {
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
+#mixer-settings {
+  display: grid;
+  grid-template-columns: variables.$grid-template-standard;
+  grid-template-rows: repeat(6, 1fr);
+  column-gap: 25px;
+  &__knobs {
+    display: flex;
+    justify-content: space-between;
+    grid-area: 1 / 1 / 3 / 9;
+  }
+  &__sliders {
+    display: flex;
+    justify-content: space-between;
+    grid-area: 3 / 1 / 7 / 9;
+  }
+  &__toggles {
+    justify-content: space-between;
+    justify-self: end;
+    display: flex;
+    flex-direction: column;
+    grid-area: 1 / 10 / 4 / 13;
+  }
+  &__buttons {
+    align-items: flex-end;
+    display: flex;
+    gap: 24px;
+    grid-area: 5 / 10 / 6 / 13;
+  }
+}
 </style>
