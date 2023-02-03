@@ -1,12 +1,12 @@
 <template>
   <div class="input-wrapper">
     <input
-      v-model="stringInput"
+      :value="modelValue"
       class="input"
       type="text"
       :placeholder="placeholder"
       @focus="emits('focusInput')"
-      @input="emits('stringInput', stringInput)"
+      @input="(e) => onInput(e)"
       @blur="blurInput"
     />
   </div>
@@ -15,22 +15,29 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 
-const stringInput = ref<string>('')
 const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
   placeholder: {
     type: String,
     required: true
   }
 })
-
-const { placeholder } = toRefs(props)
 const emits = defineEmits<{
-  (e: 'stringInput', string: string): void
+  (e: 'update:modelValue', input: string): void
   (e: 'focusInput'): void
 }>()
 
+const stringInput = ref<string>('')
+const { placeholder, modelValue } = toRefs(props)
 function blurInput() {
   stringInput.value = ''
+}
+function onInput(e: any) {
+  const target = e.target as HTMLInputElement
+  emits('update:modelValue', target.value)
 }
 </script>
 

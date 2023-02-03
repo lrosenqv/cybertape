@@ -6,6 +6,7 @@
         :key="index"
         :title="knob.title"
         :description="knob.description"
+        @knob-value="setKnobValues"
       />
     </div>
     <div id="mixer-settings__sliders">
@@ -14,11 +15,13 @@
         :key="index"
         :title="slider.title"
         :description="slider.description"
+        @range-value="setRangeValues"
       />
     </div>
     <div id="mixer-settings__toggles">
       <ToggleSlider
         v-for="(toggle, index) in toggles"
+        :name="`target_${toggle.title}`"
         :key="index"
         :title="toggle.title"
         :description="toggle.description"
@@ -26,6 +29,7 @@
         :max="toggle.max"
         :steps="toggle.steps"
         :step-labels="toggle.step_labels"
+        @toggle-value="setToggleValue"
       />
     </div>
     <div id="mixer-settings__buttons">
@@ -36,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
 import type { PropType } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
 import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import MixerButton from '@/components/atoms/MixerButton.vue'
@@ -57,6 +61,9 @@ interface SETTING_ITEM_TOGGLE {
 }
 // Props
 const props = defineProps({
+  settingsModel: {
+    type: Object
+  },
   knobs: {
     type: Array as PropType<SETTING_ITEM[]>,
     required: true
@@ -70,17 +77,36 @@ const props = defineProps({
     required: true
   }
 })
-const { knobs, sliders, toggles } = toRefs(props)
 // Emits
-const emits = defineEmits<{}>()
-// Composables
+const emits = defineEmits<{
+  (e: 'emitSetting', name: string, value: number | number): void
+  (e: 'update:settingsModel'): void
+}>()
 
+// Composables
+const { knobs, sliders, toggles, settingsModel } = toRefs(props)
 // Functions
 function onMixBtnClick() {
   // console.log('clicked!')
 }
 function resetSelection() {
   // console.log('clicked!')
+}
+
+function setKnobValues(value: string, title: string) {
+  emits('emitSetting', `target_${title.toLowerCase()}`, Number(value))
+}
+function setRangeValues(value: number, title: string) {
+  const roundedValue = Math.round(value * 10)
+  const newVal = roundedValue / 10
+  emits('emitSetting', `target_${title.toLowerCase()}`, newVal)
+}
+function setToggleValue(value: number, title: string) {
+  if (title === '# of tracks') {
+    emits('emitSetting', 'limit', value)
+  } else {
+    emits('emitSetting', `target_${title.toLowerCase()}`, value)
+  }
 }
 
 // Watchers

@@ -2,22 +2,30 @@
   <div id="mixer-search" @click="show_results_artists = false">
     <div id="mixer-search-input-wrapper">
       <div id="mixer-search-input__artists">
-        <SearchInput placeholder="...artists" @stringInput="searchForArtist" />
+        <SearchInput
+          v-model="searchStringArtist"
+          placeholder="...artists"
+          @update:model-value="searchForArtist"
+        />
         <SearchResults
           v-if="show_results_artists"
           :list="resultsArtists"
           @selectItem="onSelect"
-          @close-overlay="show_results_artists = false"
+          @close-overlay="toggleResultList"
         />
       </div>
       <div id="mixer-search-input__tracks">
-        <SearchInput placeholder="...tracks" @stringInput="searchForTrack" />
+        <SearchInput
+          v-model="searchStringTrack"
+          placeholder="...tracks"
+          @update:model-value="searchForTrack"
+        />
         <SearchResults
           v-if="show_results_tracks"
           :list="resultsTracks"
           :show-subtitles="true"
           @selectItem="onSelect"
-          @close-overlay="show_results_tracks = false"
+          @close-overlay="toggleResultList"
         />
       </div>
       <div id="mixer-search-input__genres">
@@ -54,7 +62,6 @@ import { searchArtist, searchTracks } from '@/services/api'
 import SearchResults from '@/components/atoms/SearchResults.vue'
 import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
 import SelectedItem from '@/components/molecules/SelectedItem.vue'
-import type { LIST_ITEM } from '@/models/LIST_ITEM'
 
 // Props
 const props = defineProps({
@@ -77,6 +84,8 @@ const show_results_tracks = ref<boolean>(false)
 const search_string = ref<string>('')
 const { genres } = toRefs(props)
 const selected = ref<any[]>([])
+const searchStringArtist = ref<string>('')
+const searchStringTrack = ref<string>('')
 
 const results_genres = computed(() => {
   return genres.value.map((genre) => {
@@ -88,7 +97,6 @@ const results_genres = computed(() => {
 })
 // Functions
 async function searchForArtist(searchString: string) {
-  search_string.value = searchString
   if (searchString.length >= 2) {
     const result = await searchArtist(searchString)
     results_artists.value = result.items
@@ -108,6 +116,12 @@ async function searchForTrack(searchString: string) {
     results_tracks.value = []
     show_results_tracks.value = false
   }
+}
+function toggleResultList() {
+  show_results_artists.value = false
+  show_results_tracks.value = false
+  searchStringArtist.value = ''
+  searchStringTrack.value = ''
 }
 function onSelect(item: any) {
   if (selected.value.length < 5) {

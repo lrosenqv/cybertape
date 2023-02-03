@@ -68,13 +68,13 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'toggleValue', value: number): void
+  (e: 'toggleValue', value: number, title: string): void
 }>()
 const toggleSlider = ref<number>(10)
 const { title, stepLabels, min, max, steps } = toRefs(props)
 
 function toggleSelection() {
-  emits('toggleValue', toggleSlider.value)
+  emits('toggleValue', toggleSlider.value, title.value)
 }
 </script>
 <style lang="scss" scoped>

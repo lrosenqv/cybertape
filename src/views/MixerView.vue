@@ -10,17 +10,19 @@
     />
     <section class="main-mixer-section main-mixer-section__left">
       <h3>Search</h3>
-      <MixerSearch :genres="genres" />
+      <MixerSearch v-model="searchModel" :genres="genres" />
       <!-- <button @click="createPlaylist">Get playlist</button> -->
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
       <h3>Settings</h3>
       <MixerSettings
+        v-model="settingsModel"
         id="mixer-settings"
         :knobs="settings.knobs"
         :sliders="settings.sliders"
         :toggles="settings.toggles"
+        @emitSetting="onSettingsChange"
       />
     </section>
   </main>
@@ -43,36 +45,30 @@ const selectedGenre = ref('')
 const overlayOpen = ref<boolean>(false)
 const generatedPlaylist = ref<ITrack[]>([])
 
-const selections = ref({
+const searchModel = ref({
   seed_artists: '',
   seed_genres: '',
-  seed_tracks: '',
+  seed_tracks: ''
+})
+const settingsModel = ref({
   limit: 0,
-  max_acousticness: 0,
-  max_danceability: 0,
-  max_energy: 0,
-  max_mode: 0,
-  max_popularity: 0,
-  max_tempo: 0,
-  max_valence: 0
+  target_acousticness: 0,
+  target_danceability: 0,
+  target_energy: 0,
+  target_mode: 0,
+  target_popularity: 0,
+  target_tempo: 0,
+  target_valence: 0
 })
 
 onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
 })
-function onSelectGenre(text: string) {
-  selections.value.seed_genres = text
+function onSettingsChange(name: string, value: number) {
+  // selections.value
 }
-function onSliderChange(value: number, title: string) {
-  // console.log(value, title)
-}
-function onKnobChange(value: string, title: string) {
-  // console.log(value, title)
-}
-function onToggleChange(value: number) {
-  selections.value.limit = value
-}
+
 function selectResult(artist: IArtist) {
   if (selectedIds.value.length < 5) selectedIds.value.push(artist)
   else return

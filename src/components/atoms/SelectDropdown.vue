@@ -7,9 +7,10 @@
     />
     <div class="dropdown-content">
       <SearchInput
+        v-model="dropdownInput"
         :placeholder="placeholder"
         @focusInput="toggleDropdown(true)"
-        @stringInput="searchInDropdown"
+        @update:modelValue="searchInDropdown"
       />
       <SearchResults
         class="dropdown-content-list"
@@ -47,6 +48,7 @@ const emits = defineEmits<{
 const { options, placeholder } = toRefs(props)
 const results = ref<LIST_ITEM[]>(options.value)
 const show_dropdown_results = ref<boolean>(false)
+const dropdownInput = ref<string>('')
 
 function onSelect(option: LIST_ITEM) {
   emits('selectOption', option)
@@ -56,6 +58,7 @@ function onSelect(option: LIST_ITEM) {
 function toggleDropdown(show: boolean) {
   show_dropdown_results.value = show
   if (show) results.value = options.value
+  dropdownInput.value = ''
 }
 function searchInDropdown(searchString: string) {
   if (searchString.length >= 2) {
