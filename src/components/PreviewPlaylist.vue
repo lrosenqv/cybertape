@@ -1,29 +1,42 @@
 <template>
   <div class="overlay-modal" @click.self="handleClick">
-    <div class="playlist-preview">
-      <div class="playlist-preview-save">
-        <h3>Save to Spotify?</h3>
-        <div class="playlist-preview-save-form">
-          <SearchInput
-            v-model="playlistName"
-            class="playlist-preview-save__input"
-            placeholder="Playlist name"
-          />
-          <button @click="createList">Save</button>
-        </div>
-      </div>
-
-      <div class="playlist-preview-list-wrapper">
-        <h4>Preview</h4>
-        <ul class="playlist-preview-list">
-          <li v-for="track in tracks" :key="track.id" class="playlist-preview-list__item">
-            <img :src="track.album.images[2].url" />
-            <div class="playlist-preview-list__item-text">
-              {{ track.name }}<span>{{ track.artists[0].name }}</span>
+    <div class="playlist-preview-wrapper">
+      <template v-if="!success">
+        <div class="playlist-preview">
+          <div class="playlist-preview-save">
+            <h3>Save to Spotify?</h3>
+            <div class="playlist-preview-save-form">
+              <TextInput
+                v-model="playlistName"
+                class="playlist-preview-save__input"
+                placeholder="Playlist name"
+                :light-color="true"
+              />
+              <ButtonPrimary text="Save" @on-click="createList" />
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+
+          <div class="playlist-preview-list-wrapper">
+            <h4>Preview</h4>
+            <ul class="playlist-preview-list">
+              <li v-for="track in tracks" :key="track.id" class="playlist-preview-list__item">
+                <img :src="track.album.images[2].url" />
+                <div class="playlist-preview-list__item-text">
+                  {{ track.name }}<span>{{ track.artists[0].name }}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </template>
+      <template v-if="success">
+        <div class="playlist-preview__success">
+          <p>
+            Successfully added tracks to <span>{{ playlistName }}</span>
+          </p>
+          <a :href="playlistUrl">Listen on Spotify</a>
+        </div>
+      </template>
       <button class="playlist-preview__close-btn" @click="handleClick">X</button>
     </div>
   </div>
@@ -31,8 +44,9 @@
 <script lang="ts" setup>
 import type { ITrack } from '@/models/ITrack'
 import { createPlaylist, addTracksToPlaylist } from '@/services/playlist'
-import { ref, toRefs, onMounted } from 'vue'
-import SearchInput from './atoms/SearchInput.vue'
+import { ref, toRefs } from 'vue'
+import ButtonPrimary from '@/components/atoms/ButtonPrimary.vue'
+import TextInput from '@/components/atoms/TextInput.vue'
 
 const props = defineProps({
   tracks: {
@@ -40,15 +54,18 @@ const props = defineProps({
     required: true
   }
 })
-const { tracks } = toRefs(props)
+
 const emits = defineEmits<{
   (e: 'closeComponent'): void
 }>()
-onMounted(() => [console.log(tracks.value)])
+
 function handleClick() {
   emits('closeComponent')
 }
-const playlistName = ref('')
+const { tracks } = toRefs(props)
+const playlistName = ref<string>('')
+const playlistUrl = ref<string>('')
+const success = ref<boolean>(false)
 
 async function createList() {
   const uris = tracks.value.map((track) => {
@@ -57,7 +74,10 @@ async function createList() {
   const res = await createPlaylist(playlistName.value)
   if (res.status === 201) {
     const addTracks = await addTracksToPlaylist(res.data.id, uris)
-    console.log(addTracks)
+    if (addTracks.status === 201) {
+      success.value = true
+      playlistUrl.value = res.data.uri
+    }
   }
 }
 </script>
@@ -77,20 +97,51 @@ async function createList() {
   z-index: 999;
 }
 .playlist-preview {
-  background-color: variables.$color-neutral__dark;
-  backdrop-filter: blur(30px);
   column-gap: 40px;
-  border-radius: variables.$border-radius-medium;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
   min-height: 40vh;
   max-height: 70vh;
+  height: fit-content;
   overflow: hidden;
-  padding: calc(2 * #{variables.$padding-body});
   position: relative;
   z-index: 999;
   width: 60vw;
+  transition: all 0.2s;
+
+  &-wrapper {
+    background-color: variables.$color-neutral__dark;
+    backdrop-filter: blur(30px);
+    border-radius: variables.$border-radius-medium;
+    min-height: 20vh;
+    overflow: hidden;
+    padding: calc(2 * #{variables.$padding-body});
+  }
+  &__success {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    margin-top: auto;
+    a {
+      color: variables.$color__green;
+      font-size: variables.$font-size-label;
+      text-decoration: underline;
+      transition: all 0.2s;
+      &:hover {
+        color: variables.$color__green-light;
+      }
+    }
+    p {
+      font-size: variables.$font-size-title;
+      span {
+        color: variables.$color__yellow;
+        font-style: italic;
+      }
+    }
+  }
 
   &-save {
     align-self: center;
@@ -100,15 +151,6 @@ async function createList() {
     grid-row: 1 / -1;
     &__input {
       width: 80%;
-    }
-    button {
-      color: variables.$color__green;
-      background-color: transparent;
-      border-radius: variables.$border-radius-small;
-      border: 2px solid variables.$color__green;
-      font-size: variables.$font-size-paragraph;
-      font-weight: 600;
-      padding: variables.$padding-x-small variables.$padding-small;
     }
     &-form {
       display: flex;

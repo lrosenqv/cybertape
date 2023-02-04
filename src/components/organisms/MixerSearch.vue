@@ -2,7 +2,7 @@
   <div id="mixer-search" @click="show_results_artists = false">
     <div id="mixer-search-input-wrapper">
       <div id="mixer-search-input__artists">
-        <SearchInput
+        <TextInput
           v-model="searchStringArtist"
           placeholder="...artists"
           @update:model-value="searchForArtist"
@@ -15,7 +15,7 @@
         />
       </div>
       <div id="mixer-search-input__tracks">
-        <SearchInput
+        <TextInput
           v-model="searchStringTrack"
           placeholder="...tracks"
           @update:model-value="searchForTrack"
@@ -48,6 +48,8 @@
       <div><span class="artist"></span>Artist</div>
       <div><span class="track"></span> Track</div>
       <div><span class="genre"></span> Genre</div>
+      |
+      <p class="disclaimer">* You need to select at least one</p>
     </div>
   </div>
 </template>
@@ -57,7 +59,7 @@ import { ref, toRefs, computed } from 'vue'
 import type { PropType } from 'vue'
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
-import SearchInput from '@/components/atoms/SearchInput.vue'
+import TextInput from '@/components/atoms/TextInput.vue'
 import { searchArtist, searchTracks } from '@/services/api'
 import SearchResults from '@/components/atoms/SearchResults.vue'
 import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
@@ -194,6 +196,10 @@ const resultsTracks = computed(() => {
     gap: 10px;
     position: absolute;
     bottom: 0;
+    p {
+      font-size: variables.$font-size-paragraph__small;
+      font-style: italic;
+    }
 
     > div {
       align-items: baseline;

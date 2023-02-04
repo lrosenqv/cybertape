@@ -11,7 +11,6 @@
     <section class="main-mixer-section main-mixer-section__left">
       <h3>Search</h3>
       <MixerSearch :genres="genres" @emit-seeds="onSelectSeeds" />
-      <!-- <button @click="createPlaylist">Get playlist</button> -->
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">

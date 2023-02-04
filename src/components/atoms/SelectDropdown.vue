@@ -6,7 +6,7 @@
       @click="toggleDropdown(!show_dropdown_results)"
     />
     <div class="dropdown-content">
-      <SearchInput
+      <TextInput
         v-model="dropdownInput"
         :placeholder="placeholder"
         @focusInput="toggleDropdown(true)"
@@ -27,7 +27,7 @@
 import { toRefs, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import IconChevron from '@/components/icons/IconChevron.vue'
-import SearchInput from '@/components/atoms/SearchInput.vue'
+import TextInput from '@/components/atoms/TextInput.vue'
 import SearchResults from '@/components/atoms/SearchResults.vue'
 import type { LIST_ITEM } from '@/models/LIST_ITEM'
 

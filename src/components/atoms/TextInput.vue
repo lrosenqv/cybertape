@@ -3,6 +3,7 @@
     <input
       :value="modelValue"
       class="input"
+      :class="{ input__light: lightColor }"
       type="text"
       :placeholder="placeholder"
       @focus="emits('focusInput')"
@@ -23,6 +24,11 @@ const props = defineProps({
   placeholder: {
     type: String,
     required: true
+  },
+  lightColor: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 const emits = defineEmits<{
@@ -63,6 +69,16 @@ function onInput(e: any) {
     border-color: variables.$color-neutral__greige-dark;
     &::placeholder {
       color: transparent;
+    }
+  }
+  &__light {
+    border-color: variables.$color-neutral__greige-light;
+    color: white;
+    &::placeholder {
+      color: variables.$color-neutral__greige-light;
+    }
+    &:focus {
+      border-color: variables.$color-neutral__light;
     }
   }
 }

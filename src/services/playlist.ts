@@ -26,7 +26,7 @@ async function addTracksToPlaylist(playlist_id: string, uris: string[]) {
   const response = await axios.post(baseUrl + `playlists/${playlist_id}/tracks`, body, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  return response.data
+  return response
 }
 
 async function getUser() {
