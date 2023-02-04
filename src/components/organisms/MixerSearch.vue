@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, watch } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 import type { PropType } from 'vue'
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
@@ -70,19 +70,17 @@ const props = defineProps({
     required: true
   }
 })
-
-function updateList(indexToRemove: number) {
-  selected.value.splice(indexToRemove, 1)
-}
 // Emits
-const emits = defineEmits<{}>()
+const emits = defineEmits<{
+  (e: 'emitSeeds', artists: string[], tracks: string[], genres: string[]): void
+}>()
 // Composables
+const { genres } = toRefs(props)
 const results_artists = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const show_results_artists = ref<boolean>(false)
 const show_results_tracks = ref<boolean>(false)
 const search_string = ref<string>('')
-const { genres } = toRefs(props)
 const selected = ref<any[]>([])
 const searchStringArtist = ref<string>('')
 const searchStringTrack = ref<string>('')
@@ -124,13 +122,29 @@ function toggleResultList() {
   searchStringTrack.value = ''
 }
 function onSelect(item: any) {
+  if (selected.value.length >= 5) return
   if (selected.value.length < 5) {
     selected.value.push(item)
-  } else return
-  show_results_tracks.value = false
-  show_results_artists.value = false
+    handleSelectedList()
+  }
+  toggleResultList()
 }
+function updateList(indexToRemove: number) {
+  selected.value.splice(indexToRemove, 1)
+  handleSelectedList()
+}
+function handleSelectedList() {
+  const artistsArr: string[] = []
+  const tracksArr: string[] = []
+  const genreArr: string[] = []
 
+  selected.value.forEach((select) => {
+    if (select.type === 'artist') artistsArr.push(select.id)
+    if (select.type === 'track') tracksArr.push(select.id)
+    if (select.type === 'genre') genreArr.push(select.title)
+  })
+  emits('emitSeeds', artistsArr, tracksArr, genreArr)
+}
 const resultsArtists = computed(() => {
   return results_artists.value.map((artist) => {
     return {

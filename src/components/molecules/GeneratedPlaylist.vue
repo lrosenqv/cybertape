@@ -1,8 +1,10 @@
 <template>
-  <div class="vue-component">
-    <button @click="handleClick">Close</button>
-    <div v-for="track in tracks" :key="track.id">
-      {{ track.name }}
+  <div class="overlay-modal">
+    <div class="vue-component">
+      <button @click="handleClick">Close</button>
+      <div v-for="track in tracks" :key="track.id">
+        {{ track.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +30,10 @@ function handleClick() {
 }
 </script>
 <style lang="scss" scoped>
-.vue-component {
-  background-color: blue;
+.overlay-modal {
+  background-color: rgb(15, 15, 15);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 </style>

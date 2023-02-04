@@ -1,17 +1,17 @@
 <template>
   <div class="slider-range">
-    <label :for="title">{{ title }}</label>
+    <label :for="title">{{ title.replace('target_', '') }}</label>
     <div class="slider-wrapper">
       <span class="slider-wrapper-line"></span>
       <input
-        v-model="rangeSlider"
+        :value="modelValue"
         type="range"
         :id="title"
         min="0"
         max="1"
         step="0.01"
         class="slider"
-        @change="selectLimit"
+        @change="(e) => selectLimit(e)"
       />
       <span class="slider-wrapper-line"></span>
     </div>
@@ -23,8 +23,11 @@
 import { ref, toRefs } from 'vue'
 import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
-const rangeSlider = ref<number>(0)
 const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -36,13 +39,15 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'rangeValue', value: number, title: string): void
+  (e: 'update:modelValue', value: string): void
 }>()
 
-const { title, description } = toRefs(props)
+const { title, description, modelValue } = toRefs(props)
 
-function selectLimit() {
-  emits('rangeValue', rangeSlider.value, title.value)
+function selectLimit(e: Event) {
+  const range = e.target as HTMLInputElement
+  const rangeValue = range.valueAsNumber.toPrecision(1)
+  emits('update:modelValue', rangeValue)
 }
 </script>
 
@@ -102,6 +107,7 @@ function selectLimit() {
       grid-row: 1;
       grid-column: 1 / 3;
       justify-self: center;
+      text-transform: capitalize;
     }
     img {
       position: absolute;

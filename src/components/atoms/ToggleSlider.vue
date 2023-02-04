@@ -1,6 +1,6 @@
 <template>
   <div class="toggle-slider">
-    <label>{{ title }}</label>
+    <label>{{ title.replace('target_', '') }}</label>
     <div class="toggle-wrapper">
       <div class="toggle-indicator">
         <div class="toggle-indicator__numbers">
@@ -22,7 +22,7 @@
       </div>
       <input
         class="toggle"
-        v-model="toggleSlider"
+        :value="modelValue"
         type="range"
         :min="min"
         :max="max"
@@ -40,6 +40,10 @@ import type { PropType } from 'vue'
 import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
 const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -68,13 +72,13 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'toggleValue', value: number, title: string): void
+  (e: 'update:modelValue', value: String): void
 }>()
-const toggleSlider = ref<number>(10)
-const { title, stepLabels, min, max, steps } = toRefs(props)
+const { title, stepLabels, min, max, steps, modelValue } = toRefs(props)
 
-function toggleSelection() {
-  emits('toggleValue', toggleSlider.value, title.value)
+function toggleSelection(e: Event) {
+  const toggle = e.target as HTMLInputElement
+  emits('update:modelValue', toggle.value)
 }
 </script>
 <style lang="scss" scoped>
@@ -161,5 +165,6 @@ function toggleSelection() {
 label {
   color: variables.$color-neutral__greige-light;
   font-size: variables.$font-size-paragraph__small;
+  text-transform: capitalize;
 }
 </style>

@@ -10,7 +10,7 @@
     />
     <section class="main-mixer-section main-mixer-section__left">
       <h3>Search</h3>
-      <MixerSearch v-model="searchModel" :genres="genres" />
+      <MixerSearch :genres="genres" @emit-seeds="onSelectSeeds" />
       <!-- <button @click="createPlaylist">Get playlist</button> -->
     </section>
 
@@ -22,34 +22,33 @@
         :knobs="settings.knobs"
         :sliders="settings.sliders"
         :toggles="settings.toggles"
-        @emitSetting="onSettingsChange"
+        @emit-settings="onSettingsChange"
+        @create-mix="createMix"
       />
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getGenreSeeds, getRecommendations } from '@/services/api'
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
+import { ref, onMounted } from 'vue'
+import { getGenreSeeds, getRecommendations } from '@/services/api'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
-import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
 import MixerSettings from '@/components/organisms/MixerSettings.vue'
 import settings from '@/assets/mixer_settings.json'
 import MixerSearch from '@/components/organisms/MixerSearch.vue'
 
 const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
-const selectedGenre = ref('')
 const overlayOpen = ref<boolean>(false)
 const generatedPlaylist = ref<ITrack[]>([])
+const settingsString = ref<string>('')
 
-const searchModel = ref({
-  seed_artists: '',
-  seed_genres: '',
-  seed_tracks: ''
-})
+const seed_artists = ref<string>('')
+const seed_tracks = ref<string>('')
+const seed_genres = ref<string>('')
+
 const settingsModel = ref({
   limit: 0,
   target_acousticness: 0,
@@ -65,17 +64,26 @@ onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
 })
-function onSettingsChange(name: string, value: number) {
-  // selections.value
+function onSettingsChange(settings: String[]) {
+  settingsString.value = `&${settings.join('&')}`
 }
-
+function onSelectSeeds(artists: string[], tracks: string[], genres: string[]) {
+  // seed_artists.value = artists.map((artist) => artist.toString())
+  seed_artists.value = artists.join(',')
+  seed_tracks.value = tracks.join(',')
+  seed_genres.value = genres.join(',')
+}
 function selectResult(artist: IArtist) {
   if (selectedIds.value.length < 5) selectedIds.value.push(artist)
   else return
 }
-async function createPlaylist() {
-  const idList = selectedIds.value.map((selected) => selected.id).toString()
-  const res = await getRecommendations(idList, selectedGenre.value)
+async function createMix() {
+  const res = await getRecommendations(
+    seed_artists.value,
+    seed_tracks.value,
+    seed_genres.value,
+    settingsString.value
+  )
   generatedPlaylist.value = res.tracks
   overlayOpen.value = true
 }

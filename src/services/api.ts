@@ -46,12 +46,18 @@ async function searchTracks(query: string) {
   return response.data.tracks
 }
 
-async function getRecommendations(seed_artists: string, seed_genres: string) {
+async function getRecommendations(
+  seed_artists: string,
+  seed_tracks: string,
+  seed_genres: string,
+  settings: string
+) {
   const body = new URLSearchParams({
     seed_artists,
+    seed_tracks,
     seed_genres
   })
-  const response = await axios.get(baseUrl + 'recommendations?' + body, {
+  const response = await axios.get(baseUrl + 'recommendations?' + body + settings, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
   return response.data

@@ -1,6 +1,6 @@
 <template>
   <div class="rotation-knob">
-    <label>{{ title }}</label>
+    <label>{{ title.replace('target_', '') }}</label>
     <div class="knob-wrapper">
       <div ref="knob" class="knob" @mousedown="drag_start" @mouseup="drag_end">
         <KnobSVG />
@@ -16,6 +16,10 @@ import KnobSVG from '@/components/atoms/KnobSVG.vue'
 import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
 const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -27,7 +31,7 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'knobValue', value: string, title: string): void
+  (e: 'update:modelValue', value: string): void
 }>()
 
 const knob = ref<HTMLElement>()
@@ -68,7 +72,7 @@ function drag_rotate(e: MouseEvent | TouchEvent) {
 function setRotation(rotation: number) {
   const rotationString = rotation.toPrecision(1)
   current_rotation.value = rotationString
-  emits('knobValue', rotationString, title.value)
+  emits('update:modelValue', rotationString)
 }
 function normalize(value: number, min: number, max: number) {
   return (value - min) / (max - min)
@@ -99,6 +103,7 @@ watch(dragging_knob, (isDragging) => {
     grid-row: 1;
     grid-column: 1 / 3;
     justify-self: center;
+    text-transform: capitalize;
   }
   .infobox {
     align-self: flex-end;
