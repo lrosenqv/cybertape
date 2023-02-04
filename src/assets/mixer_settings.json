@@ -1,0 +1,38 @@
+{
+  "knobs": [
+    {
+      "title": "target_danceability",
+      "description":
+        "How suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity."
+    },
+    { "title": "target_energy", "description": "" },
+    { "title": "target_valence", "description": "" }
+  ],
+  "sliders": [
+    {
+      "title": "target_acousticness",
+      "description": ""
+    },
+    { "title": "target_instrumental", "description": "" },
+    { "title": "target_popularity", "description": "" }
+  ], 
+  "toggles": [
+    {
+      "title": "limit",
+      "min": 10,
+      "max": 20,
+      "steps": 5,
+      "step_labels": ["10", "15", "20"],
+      "description": "Choose how many tracks to add to your mix from the recommendations."
+    },
+    {
+      "title": "target_mode",
+      "min": 0,
+      "max": 2,
+      "steps": 1,
+      "step_labels": ["Minor", "Major"],
+      "description":
+        "The modality of a track, the type of scale from which its melodic content is derived."
+    }
+  ]
+}

@@ -16,6 +16,7 @@ export interface ITrack {
     avaliable_markets: string[]
     href: string
     id: string
+    images: IImage[]
     name: string
     release_date: string
     uri: string
@@ -24,8 +25,15 @@ export interface ITrack {
   avaliable_markets: string[]
   href: string
   id: string
+  images: IImage[]
   name: string
   popularity: number
   type: string
   uri: string
+}
+
+interface IImage {
+  height: number
+  url: string
+  width: number
 }
