@@ -53,12 +53,12 @@ app?.addEventListener('scroll', () => {
   align-items: center;
   color: variables.$color-neutral__dark;
   display: grid;
-  font-size: variables.$font-size-paragraph;
   grid-template-columns: variables.$grid-template-standard;
   padding: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
   position: fixed;
   width: 100vw;
   z-index: 999;
+  @include variables.font-size-paragraph;
 
   &-logo {
     display: flex;
@@ -83,10 +83,10 @@ app?.addEventListener('scroll', () => {
     }
 
     div {
-      font-size: 31px;
       line-height: 0.8;
       transition: all 0.8s;
       width: fit-content;
+      @include variables.font-size-label;
     }
 
     div:nth-child(2) {
@@ -153,8 +153,8 @@ app?.addEventListener('scroll', () => {
       }
       div {
         color: white;
-        font-size: 25px;
         width: 60%;
+        @include variables.font-size-paragraph;
       }
     }
     .topbar-nav {

@@ -55,11 +55,11 @@ function onInput(e: any) {
   border-radius: variables.$border-radius-small;
   border: 1.5px solid variables.$color-neutral__greige;
   color: variables.$color-neutral__greige-dark;
-  font-size: variables.$font-size-paragraph;
   font-weight: 500;
   outline: none;
   padding: variables.$padding-x-small variables.$padding-medium;
   width: 100%;
+  @include variables.font-size-paragraph;
 
   &::placeholder {
     color: variables.$color-neutral__greige;

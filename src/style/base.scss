@@ -5,24 +5,15 @@
   box-sizing: border-box;
   font-weight: normal;
   padding: 0;
+  margin: 0;
   position: relative;
   scrollbar-width: none;
 }
 
-a {
-  color: variables.$color-neutral__dark;
-  text-decoration: none;
-
-  &:hover {
-    color: variables.$color__blue;
-  }
-}
-
 body {
-  color: white;
+  color: variables.$color-neutral__light;
   background: #151515;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', Inter, sans-serif;
   font-size: 16px;
   line-height: 1.33;
   height: 100vh;
@@ -48,25 +39,32 @@ body {
     width: 0;
   }
 }
+a {
+  color: variables.$color-neutral__dark;
+  text-decoration: none;
 
+  &:hover {
+    color: variables.$color__blue;
+  }
+}
 button {
   border: none;
   cursor: pointer;
 }
-
-h2 {
-  font-size: variables.$font-size-h2;
-  margin: 0;
-}
-h3 {
-  font-size: variables.$font-size-h3;
-  margin: 0;
-}
-p {
-  font-size: variables.$font-size-paragraph;
-  margin: 0;
-}
-
 ul {
   list-style-type: none;
 }
+h1 {
+  @include variables.font-size-h1;
+}
+h2 {
+  @include variables.font-size-h2;
+}
+h3 {
+  @include variables.font-size-h3;
+}
+p {
+  @include variables.font-size-paragraph;
+}
+
+

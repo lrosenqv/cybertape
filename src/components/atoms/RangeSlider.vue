@@ -103,11 +103,11 @@ function selectLimit(e: Event) {
 
     label {
       color: variables.$color-neutral__greige-light;
-      font-size: variables.$font-size-paragraph__small;
       grid-row: 1;
       grid-column: 1 / 3;
       justify-self: center;
       text-transform: capitalize;
+      @include variables.font-size-paragraph__small;
     }
     img {
       position: absolute;

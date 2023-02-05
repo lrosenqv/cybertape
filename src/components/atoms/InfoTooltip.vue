@@ -28,11 +28,8 @@ function onHover() {
 @use '@/style/variables.scss';
 
 .infobox {
-  // bottom: 0;
   cursor: pointer;
-  // position: absolute;
   height: 18px;
-  // right: -12px;
   width: 18px;
 
   &-text {
@@ -46,9 +43,9 @@ function onHover() {
 
     p {
       color: variables.$color-neutral__dark;
-      font-size: 13px;
       font-weight: 400;
       padding: variables.$padding-medium;
+      @include variables.font-size-paragraph__small;
       &::after {
         content: '';
         display: block;

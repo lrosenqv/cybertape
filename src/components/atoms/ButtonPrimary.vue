@@ -19,12 +19,12 @@ const emits = defineEmits<{
 @use '@/style/variables.scss';
 
 button {
-  color: variables.$color__green;
   background-color: transparent;
   border-radius: variables.$border-radius-small;
   border: 2px solid variables.$color__green;
-  font-size: variables.$font-size-paragraph;
+  color: variables.$color__green;
   font-weight: 600;
   padding: variables.$padding-x-small variables.$padding-small;
+  @include variables.font-size-paragraph;
 }
 </style>

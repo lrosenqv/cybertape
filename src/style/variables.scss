@@ -26,16 +26,55 @@ $color__yellow-light: #EDBE87;
 
 // flex
 
-// font
-$font-size-h1: 105px;
-$font-size-h2: 80px;
-$font-size-h3: 61px;
-$font-size-title: 47px;
-$font-size-subtitle: 36px;
-$font-size-label: 27px;
-$font-size-paragraph: 21px;
-$font-size-paragraph__small: 16px;
-$font-size-caption: 12px;
+//font mixins
+@mixin font-size-h1 {
+  font-size: 5.6rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 7.5rem;
+  }
+}
+@mixin font-size-h2 {
+  font-size: 4.1rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 5.6rem;
+  }
+}
+@mixin font-size-h3 {
+  font-size: 3.1rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 4.1rem;
+  }
+}
+@mixin font-size-title {
+  font-size: 2.35rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 3.1rem;
+  }
+}
+@mixin font-size-subtitle {
+  font-size: 1.75rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 2.35rem;
+  }
+}
+@mixin font-size-label {
+  font-size: 1.3rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 1.75rem;
+  }
+}
+@mixin font-size-paragraph {
+  font-size: 1rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 1.3rem;
+  }
+}
+@mixin font-size-paragraph__small {
+  font-size: 0.75rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 1rem;
+  }
+}
 
 // grid
 $grid-template-standard: repeat(12, 1fr);

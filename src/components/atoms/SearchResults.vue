@@ -71,15 +71,15 @@ const { list } = toRefs(props)
       background-color: variables.$color__green;
     }
     p {
-      font-size: variables.$font-size-paragraph__small;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
       white-space: nowrap;
+      @include variables.font-size-paragraph__small;
     }
     span {
       font-style: italic;
-      font-size: variables.$font-size-caption;
+      @include variables.font-size-paragraph__small;
     }
   }
   &-wrapper {

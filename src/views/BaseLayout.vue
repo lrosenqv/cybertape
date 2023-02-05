@@ -43,7 +43,7 @@ footer {
     }
   }
   p {
-    font-size: variables.$font-size-paragraph__small;
+    @include variables.font-size-paragraph__small;
   }
 }
 </style>
