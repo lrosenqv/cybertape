@@ -197,8 +197,8 @@ const resultsTracks = computed(() => {
     position: absolute;
     bottom: 0;
     p {
-      font-size: variables.$font-size-paragraph__small;
       font-style: italic;
+      @include variables.font-size-paragraph__small;
     }
 
     > div {

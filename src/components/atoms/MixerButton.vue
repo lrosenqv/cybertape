@@ -34,11 +34,11 @@ const emits = defineEmits<{
   border: 2px solid rgb(15, 15, 15);
   border-radius: 50%;
   color: white;
-  font-size: variables.$font-size-paragraph;
   font-weight: 500;
   padding: variables.$padding-large;
   position: relative;
   width: 70px;
+  @include variables.font-size-paragraph;
 
   &::after {
     border-radius: 50%;
@@ -67,9 +67,9 @@ const emits = defineEmits<{
   }
 
   &_small {
-    font-size: variables.$font-size-paragraph__small;
     padding: variables.$padding-x-small;
     width: 55px;
+    @include variables.font-size-paragraph__small;
     &::after {
       display: none;
     }

@@ -137,7 +137,7 @@ function toggleSelection(e: Event) {
     width: 100%;
     &__numbers {
       display: flex;
-      font-size: variables.$font-size-caption;
+      font-size: 0.9rem;
       height: 50%;
       justify-content: space-around;
       margin: 0 auto;
@@ -164,7 +164,7 @@ function toggleSelection(e: Event) {
 }
 label {
   color: variables.$color-neutral__greige-light;
-  font-size: variables.$font-size-paragraph__small;
   text-transform: capitalize;
+  @include variables.font-size-paragraph__small;
 }
 </style>

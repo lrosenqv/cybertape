@@ -59,8 +59,5 @@ function toggleOverlay() {
 p {
   cursor: pointer;
   margin: 0;
-  &:hover {
-    outline: 1px dotted magenta;
-  }
 }
 </style>

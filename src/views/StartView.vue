@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import ButtonPrimary from '@/components/atoms/ButtonPrimary.vue'
-import DecorStripes from '@/components/DecorStripes.vue'
 import { authRequest, getAccessToken } from '@/services/authorization'
 import { onBeforeMount } from 'vue'
 
@@ -49,21 +48,15 @@ onBeforeMount(() => {
     padding-inline: variables.$padding-body;
 
     h1 {
-      font-size: variables.$font-size-h3;
+      font-weight: 600;
+      @include variables.font-size-h2;
     }
     p {
-      font-size: variables.$font-size-paragraph__small;
+      font-weight: 500;
     }
+
     button {
       width: fit-content;
-    }
-    @media screen and (min-width: 769px) {
-      h1 {
-        font-size: variables.$font-size-h2;
-      }
-      p {
-        font-size: variables.$font-size-paragraph;
-      }
     }
   }
 
@@ -74,6 +67,7 @@ onBeforeMount(() => {
     justify-content: space-between;
     margin-bottom: 40px;
     width: 100vw;
+
     @media screen and (min-width: 769px) {
       height: 35vh;
       margin-bottom: 100px;

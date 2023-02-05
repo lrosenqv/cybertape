@@ -127,15 +127,15 @@ async function createList() {
     margin-top: auto;
     a {
       color: variables.$color__green;
-      font-size: variables.$font-size-label;
       text-decoration: underline;
       transition: all 0.2s;
+      @include variables.font-size-label;
       &:hover {
         color: variables.$color__green-light;
       }
     }
     p {
-      font-size: variables.$font-size-title;
+      @include variables.font-size-title;
       span {
         color: variables.$color__yellow;
         font-style: italic;
@@ -160,10 +160,10 @@ async function createList() {
 
   h4 {
     color: variables.$color-neutral__greige;
-    font-size: variables.$font-size-label;
     grid-column: 2;
     grid-row: 1;
     margin: 0;
+    @include variables.font-size-label;
   }
   &-list {
     display: flex;
@@ -187,11 +187,11 @@ async function createList() {
       &-text {
         display: flex;
         flex-direction: column;
-        font-size: variables.$font-size-paragraph;
-        gap: 4px;
         font-weight: 600;
+        gap: 4px;
+        @include variables.font-size-paragraph;
         span {
-          font-size: variables.$font-size-paragraph__small;
+          @include variables.font-size-paragraph__small;
           color: variables.$color-neutral__greige-light;
         }
       }

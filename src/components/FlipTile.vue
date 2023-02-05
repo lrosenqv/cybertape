@@ -80,9 +80,11 @@ const { title, subtitle, text } = toRefs(props)
 
   &-front {
     border: 2px solid variables.$color-neutral__light;
+    h3 {
+      @include variables.font-size-title;
+    }
     p {
-      font-size: variables.$font-size-subtitle;
-      line-height: 1;
+      @include variables.font-size-label;
     }
     &.invert-style-front {
       color: variables.$color__blue;
@@ -100,9 +102,6 @@ const { title, subtitle, text } = toRefs(props)
       &:hover {
         color: variables.$color__green;
       }
-    }
-    p {
-      font-size: variables.$font-size-paragraph;
     }
     &.invert-style-back {
       color: white;
