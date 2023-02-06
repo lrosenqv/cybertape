@@ -100,6 +100,8 @@ function getUserName(accessToken: string) {
     })
     .then((res) => {
       store.commit('setCurrentUser', res.data.id)
+      store.commit('setCurrentUserImg', res.data.images[0].url)
+      store.commit('setCurrentUserLink', res.data.uri)
     })
     .catch((err) => {
       console.log(err)

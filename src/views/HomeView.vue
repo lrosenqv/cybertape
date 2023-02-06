@@ -1,6 +1,5 @@
 <template>
   <header class="home-header">
-    <button class="logout-btn" @click="logout">Log Out</button>
     <div class="circle circle__left">
       <CircleSubjective class="circle-text" />
     </div>
@@ -85,7 +84,6 @@ import FlipTile from '@/components/FlipTile.vue'
       width: 8px;
     }
   }
-
   .circle {
     align-self: center;
     align-items: center;
@@ -124,11 +122,6 @@ import FlipTile from '@/components/FlipTile.vue'
   .stripes {
     grid-column: 1 / -1;
     grid-row: 3 / 7;
-  }
-
-  .logout-btn {
-    grid-row: 2;
-    // position: absolute;
   }
 }
 

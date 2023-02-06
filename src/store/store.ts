@@ -3,7 +3,9 @@ import { createStore } from 'vuex'
 const store = createStore({
   state: {
     codeVerifier: '',
-    currentUser: ''
+    currentUser: '',
+    currentUserImg: '',
+    currentUserLink: ''
   },
   mutations: {
     setCodeVerifier(state, payload) {
@@ -11,6 +13,12 @@ const store = createStore({
     },
     setCurrentUser(state, payload) {
       return (state.currentUser = payload)
+    },
+    setCurrentUserImg(state, payload) {
+      return (state.currentUserImg = payload)
+    },
+    setCurrentUserLink(state, payload) {
+      return (state.currentUserLink = payload)
     }
   }
 })
