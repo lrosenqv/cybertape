@@ -8,7 +8,6 @@
     </RouterLink>
     <nav ref="navlinks" class="topbar-nav">
       <RouterLink to="/discover" class="topbar-nav-link">Discover</RouterLink>
-      <RouterLink to="/browse" class="topbar-nav-link">Browse</RouterLink>
       <RouterLink to="/mixer" class="topbar-nav-link">Mixer</RouterLink>
     </nav>
     <div class="topbar-divider"></div>

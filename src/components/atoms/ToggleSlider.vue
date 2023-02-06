@@ -3,15 +3,15 @@
     <label>{{ title.replace('target_', '') }}</label>
     <div class="toggle-wrapper">
       <div class="toggle-indicator">
-        <div class="toggle-indicator__numbers">
+        <div class="toggle-indicator__labels">
           <span v-for="label in stepLabels" :key="label">{{ label }}</span>
         </div>
         <div v-if="stepLabels.length === 3" class="toggle-indicator__graphics">
           <svg viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="37" cy="5" r="1" fill="white" />
-            <circle cx="51" cy="5" r="1" fill="white" />
-            <circle cx="65" cy="5" r="1" fill="white" />
-            <g stroke="white" stroke-width="1">
+            <circle cx="37" cy="5" r="1" fill="#EDE8E3" />
+            <circle cx="51" cy="5" r="1" fill="#EDE8E3" />
+            <circle cx="65" cy="5" r="1" fill="#EDE8E3" />
+            <g stroke="#EDE8E3" stroke-width="1">
               <line x1="18.5" x2="18.5" y1="2" y2="5" />
               <line x1="18" x2="30" y1="5" y2="5" />
               <line x1="70" x2="82" y1="5" y2="5" />
@@ -121,6 +121,7 @@ function toggleSelection(e: Event) {
   &-slider {
     column-gap: 5px;
     display: grid;
+    grid-auto-rows: auto;
     grid-template-columns: 1fr auto;
     row-gap: 10px;
     width: fit-content;
@@ -133,12 +134,13 @@ function toggleSelection(e: Event) {
   }
 
   &-indicator {
-    height: 40%;
+    height: 35%;
     width: 100%;
-    &__numbers {
+    &__labels {
       display: flex;
-      font-size: 0.9rem;
-      height: 50%;
+      font-size: 0.8rem;
+      color: variables.$color-neutral__greige-light;
+      height: 45%;
       justify-content: space-around;
       margin: 0 auto;
       width: 95%;
@@ -146,6 +148,14 @@ function toggleSelection(e: Event) {
     &__graphics {
       height: 50%;
       width: 100%;
+    }
+    @media screen and (min-width: 769px) {
+      height: 40%;
+      width: 100%;
+      &__labels {
+        font-size: 0.9rem;
+        height: 50%;
+      }
     }
   }
   &-wrapper {
@@ -157,13 +167,18 @@ function toggleSelection(e: Event) {
     flex-direction: column;
     justify-content: center;
     row-gap: 2px;
-    padding: variables.$padding-small variables.$padding-x-small;
-    width: 130px;
+    height: 70px;
+    width: 120px;
     @include variables.backdrop-gradient;
+    @media screen and (min-width: 769px) {
+      padding: variables.$padding-small variables.$padding-x-small;
+      width: 130px;
+    }
   }
 }
 label {
   color: variables.$color-neutral__greige-light;
+  height: fit-content;
   text-transform: capitalize;
   @include variables.font-size-paragraph__small;
 }

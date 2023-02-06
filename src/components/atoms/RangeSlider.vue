@@ -63,7 +63,7 @@ function selectLimit(e: Event) {
   position: relative;
   transform: rotate(270deg);
   z-index: 2;
-  width: 190px;
+  width: 160px;
   -moz-transform: rotate(270deg);
 
   &::-webkit-slider-thumb {
@@ -72,21 +72,14 @@ function selectLimit(e: Event) {
     background-image: url('@/assets/Slider.svg');
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 4px;
     cursor: pointer;
     filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.29));
-    height: 35.5px;
+    height: 43px;
     transform: rotate(90deg);
-    width: 48px;
+    width: 65px;
     -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    background: variables.$color-neutral__greige-light;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 35.5px;
-    width: 48px;
   }
   &-range {
     column-gap: 5px;
@@ -94,6 +87,7 @@ function selectLimit(e: Event) {
     grid-template-columns: auto 1fr auto;
     height: fit-content;
     row-gap: 10px;
+    width: 120px;
 
     .infobox {
       align-self: flex-end;
@@ -122,10 +116,10 @@ function selectLimit(e: Event) {
     flex-direction: column;
     grid-column: 2;
     grid-row: 2;
-    height: 200px;
+    height: 170px;
     justify-content: center;
     justify-self: center;
-    width: 60px;
+    width: 75px;
 
     &-line {
       background-color: variables.$color-neutral__greige-light;
@@ -144,5 +138,26 @@ function selectLimit(e: Event) {
       }
     }
   }
+
+  @media screen and (min-width: 769px) {
+    width: 190px;
+
+    &::-webkit-slider-thumb {
+      height: 35.5px;
+      width: 48;
+    }
+
+    &-wrapper {
+      height: 200px;
+      width: 60px;
+    }
+  }
+  /*   &::-moz-range-thumb {
+    background: variables.$color-neutral__greige-light;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 35.5px;
+    width: 48px;
+  } */
 }
 </style>
