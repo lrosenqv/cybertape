@@ -37,6 +37,7 @@ onBeforeMount(() => {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  gap: 40px;
   justify-content: space-between;
   padding-block: variables.$padding-body;
 

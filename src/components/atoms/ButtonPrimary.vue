@@ -20,11 +20,43 @@ const emits = defineEmits<{
 
 button {
   background-color: transparent;
-  border-radius: variables.$border-radius-small;
-  border: 2px solid variables.$color__green;
+  border-radius: variables.$border-radius-x-small;
+  border: 1px solid variables.$color__green;
   color: variables.$color__green;
-  font-weight: 600;
-  padding: variables.$padding-x-small variables.$padding-small;
+  font-weight: 400;
+  text-transform: uppercase;
+  overflow: hidden;
+  padding: variables.$padding-x-small variables.$padding-medium;
+  position: relative;
+
   @include variables.font-size-paragraph;
+
+  &:active {
+    transform: translateY(3px);
+  }
+  &:hover {
+    border-color: transparent;
+    color: variables.$color-neutral__dark;
+    &::after {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+
+  &::after {
+    aspect-ratio: 1 / 1;
+    content: '';
+    position: absolute;
+    top: -200%;
+    left: -50%;
+    right: -50%;
+    background-color: variables.$color__green-light;
+    border-color: transparent;
+    border-radius: 50%;
+    transform: scale(0, 0);
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.6s;
+  }
 }
 </style>
