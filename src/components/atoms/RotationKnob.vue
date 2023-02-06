@@ -102,6 +102,7 @@ watch(dragging_knob, (isDragging) => {
   grid-template-columns: auto 1fr auto;
   height: fit-content;
   row-gap: 10px;
+  width: 120px;
 
   label {
     color: variables.$color-neutral__greige-light;
@@ -122,8 +123,8 @@ watch(dragging_knob, (isDragging) => {
   border-radius: 50% 50%;
   cursor: grab;
   display: inline-block;
-  height: 72px;
-  width: 72px;
+  height: 82px;
+  width: 82px;
 
   &-wrapper {
     display: flex;
@@ -135,6 +136,10 @@ watch(dragging_knob, (isDragging) => {
     row-gap: 10px;
     text-align: center;
     width: fit-content;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 72px;
+    width: 72px;
   }
 }
 </style>

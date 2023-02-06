@@ -21,19 +21,6 @@
       />
     </div>
     <div id="mixer-settings__toggles">
-      <!-- <ToggleSlider
-        v-for="(toggle, index) in toggles"
-        v-model="settings.toggleSettings[index].value"
-        :name="`target_${toggle.title}`"
-        :key="index"
-        :title="toggle.title"
-        :description="toggle.description"
-        :min="toggle.min"
-        :max="toggle.max"
-        :steps="toggle.steps"
-        :step-labels="toggle.step_labels"
-        @update:model-value="updateSettings"
-      /> -->
       <ToggleSlider
         v-for="(toggle, i) in toggles"
         v-model="settings.toggleSettings[i].value"
@@ -98,7 +85,6 @@ const emits = defineEmits<{
 
 // Composables
 const { knobs, sliders, toggles } = toRefs(props)
-
 // To catch changes through v-model
 const settings = computed(() => {
   const knobSettings = knobs.value.map((knob) => {
@@ -159,30 +145,63 @@ function resetSettings() {
 #mixer-settings {
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: repeat(6, 1fr);
-  column-gap: 25px;
+  grid-template-rows: auto;
+  height: 100%;
+  gap: 10px;
   &__knobs {
     display: flex;
     justify-content: space-between;
-    grid-area: 1 / 1 / 3 / 9;
+    grid-area: 1 / 1 / 2 / -1;
   }
   &__sliders {
     display: flex;
     justify-content: space-between;
-    grid-area: 3 / 1 / 7 / 9;
+    grid-row: 2;
+    grid-column: 1 / -1;
   }
   &__toggles {
-    justify-content: space-between;
-    justify-self: end;
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    grid-area: 1 / 10 / 4 / 13;
+    grid-row: 3;
+    grid-column: 1 / -1;
+    justify-content: space-between;
   }
   &__buttons {
     align-items: flex-end;
+    justify-content: flex-end;
     display: flex;
     gap: 24px;
-    grid-area: 5 / 10 / 6 / 13;
+    grid-row: 4;
+    grid-column: 1 / -1;
+    padding: 0 variables.$padding-medium variables.$padding-medium 0;
+  }
+  @media screen and (min-width: 769px) {
+    column-gap: 25px;
+    grid-template-rows: repeat(6, 1fr);
+
+    &__knobs {
+      display: flex;
+      justify-content: space-between;
+      grid-area: 1 / 1 / 3 / 9;
+    }
+    &__sliders {
+      display: flex;
+      justify-content: space-between;
+      grid-area: 3 / 1 / 7 / 9;
+    }
+    &__toggles {
+      justify-content: space-between;
+      justify-self: end;
+      display: flex;
+      flex-direction: column;
+      grid-area: 1 / 10 / 4 / 13;
+    }
+    &__buttons {
+      align-items: flex-end;
+      display: flex;
+      gap: 24px;
+      grid-area: 5 / 10 / 6 / 13;
+    }
   }
 }
 </style>

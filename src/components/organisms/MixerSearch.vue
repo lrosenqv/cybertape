@@ -1,56 +1,60 @@
 <template>
-  <div id="mixer-search" @click="show_results_artists = false">
-    <div id="mixer-search-input-wrapper">
-      <div id="mixer-search-input__artists">
-        <TextInput
-          v-model="searchStringArtist"
-          placeholder="...artists"
-          @update:model-value="searchForArtist"
-        />
-        <SearchResults
-          v-if="show_results_artists"
-          :list="resultsArtists"
-          @selectItem="onSelect"
-          @close-overlay="toggleResultList"
+  <div
+    id="mixer-search"
+    :class="{ 'mixer-search-mobile': mobileView, __collapsed: !searchOpen }"
+    @click="show_results_artists = false"
+  >
+    <template v-if="!mobileView || searchOpen">
+      <div id="mixer-search-input-wrapper">
+        <div id="mixer-search-input__artists">
+          <TextInput
+            v-model="searchStringArtist"
+            placeholder="...artists"
+            @update:model-value="searchForArtist"
+          />
+          <SearchResults
+            v-if="show_results_artists"
+            :list="resultsArtists"
+            @selectItem="onSelect"
+            @close-overlay="toggleResultList"
+          />
+        </div>
+        <div id="mixer-search-input__tracks">
+          <TextInput
+            v-model="searchStringTrack"
+            placeholder="...tracks"
+            @update:model-value="searchForTrack"
+          />
+          <SearchResults
+            v-if="show_results_tracks"
+            :list="resultsTracks"
+            :show-subtitles="true"
+            @selectItem="onSelect"
+            @close-overlay="toggleResultList"
+          />
+        </div>
+        <div id="mixer-search-input__genres">
+          <SelectDropdown
+            :options="results_genres"
+            placeholder="...genres"
+            @selectOption="onSelect"
+          />
+        </div>
+      </div>
+      <div id="mixer-search__selected">
+        <SelectedItem
+          v-for="(item, index) in selected"
+          :key="index"
+          :item="item"
+          @removeItem="updateList(index)"
         />
       </div>
-      <div id="mixer-search-input__tracks">
-        <TextInput
-          v-model="searchStringTrack"
-          placeholder="...tracks"
-          @update:model-value="searchForTrack"
-        />
-        <SearchResults
-          v-if="show_results_tracks"
-          :list="resultsTracks"
-          :show-subtitles="true"
-          @selectItem="onSelect"
-          @close-overlay="toggleResultList"
-        />
+      <div id="mixer-search__guide">
+        <div><span class="artist"></span>Artist</div>
+        <div><span class="track"></span> Track</div>
+        <div><span class="genre"></span> Genre</div>
       </div>
-      <div id="mixer-search-input__genres">
-        <SelectDropdown
-          :options="results_genres"
-          placeholder="...genres"
-          @selectOption="onSelect"
-        />
-      </div>
-    </div>
-    <div id="mixer-search__selected">
-      <SelectedItem
-        v-for="(item, index) in selected"
-        :key="index"
-        :item="item"
-        @removeItem="updateList(index)"
-      />
-    </div>
-    <div id="mixer-search__guide">
-      <div><span class="artist"></span>Artist</div>
-      <div><span class="track"></span> Track</div>
-      <div><span class="genre"></span> Genre</div>
-      |
-      <p class="disclaimer">* You need to select at least one</p>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -70,6 +74,14 @@ const props = defineProps({
   genres: {
     type: Array as PropType<String[]>,
     required: true
+  },
+  mobileView: {
+    type: Boolean,
+    required: true
+  },
+  searchOpen: {
+    type: Boolean,
+    required: true
   }
 })
 // Emits
@@ -77,7 +89,7 @@ const emits = defineEmits<{
   (e: 'emitSeeds', artists: string[], tracks: string[], genres: string[]): void
 }>()
 // Composables
-const { genres } = toRefs(props)
+const { genres, mobileView, searchOpen } = toRefs(props)
 const results_artists = ref<IArtist[]>([])
 const results_tracks = ref<ITrack[]>([])
 const show_results_artists = ref<boolean>(false)
@@ -166,8 +178,6 @@ const resultsTracks = computed(() => {
     }
   })
 })
-
-// Watchers
 </script>
 
 <style lang="scss">
@@ -175,10 +185,13 @@ const resultsTracks = computed(() => {
 #mixer-search {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 6px;
   grid-template-columns: variables.$grid-template-standard;
   height: 100%;
   position: relative;
+  @media screen and (min-width: 769px) {
+    gap: 36px;
+  }
 
   &-input {
     &-wrapper {
@@ -189,7 +202,10 @@ const resultsTracks = computed(() => {
   &__selected {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 6px;
+    @media screen and (min-width: 769px) {
+      gap: 12px;
+    }
   }
   &__guide {
     display: flex;

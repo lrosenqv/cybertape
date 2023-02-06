@@ -8,13 +8,23 @@
       :tracks="generatedPlaylist"
       @closeComponent="overlayOpen = false"
     />
-    <section class="main-mixer-section main-mixer-section__left">
-      <h3>Search</h3>
-      <MixerSearch :genres="genres" @emit-seeds="onSelectSeeds" />
+    <section
+      class="main-mixer-section main-mixer-section__left"
+      :class="{ '-collapsed': !searchOpen && mobileView, '-expanded': searchOpen && mobileView }"
+    >
+      <div class="main-mixer-section__left-header">
+        <h3>Search</h3>
+        <IconChevron v-if="mobileView" @click="toggleSearch" />
+      </div>
+      <MixerSearch
+        :mobile-view="mobileView"
+        :search-open="searchOpen"
+        :genres="genres"
+        @emit-seeds="onSelectSeeds"
+      />
     </section>
 
     <section class="main-mixer-section main-mixer-section__right">
-      <h3>Settings</h3>
       <MixerSettings
         v-model="settingsModel"
         id="mixer-settings"
@@ -37,6 +47,7 @@ import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import MixerSettings from '@/components/organisms/MixerSettings.vue'
 import settings from '@/assets/mixer_settings.json'
 import MixerSearch from '@/components/organisms/MixerSearch.vue'
+import IconChevron from '@/components/icons/IconChevron.vue'
 
 const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
@@ -58,16 +69,26 @@ const settingsModel = ref({
   target_tempo: 0,
   target_valence: 0
 })
+const mobileView = ref<boolean>(false)
+const searchOpen = ref<boolean>(false)
 
 onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
+
+  if (window.innerWidth <= 769) mobileView.value = true
+  window.addEventListener('rezise', () => {
+    if (window.innerWidth <= 769) mobileView.value = true
+  })
 })
+
+function toggleSearch() {
+  searchOpen.value = !searchOpen.value
+}
 function onSettingsChange(settings: String[]) {
   settingsString.value = `&${settings.join('&')}`
 }
 function onSelectSeeds(artists: string[], tracks: string[], genres: string[]) {
-  // seed_artists.value = artists.map((artist) => artist.toString())
   seed_artists.value = artists.join(',')
   seed_tracks.value = tracks.join(',')
   seed_genres.value = genres.join(',')
@@ -97,15 +118,25 @@ async function createMix() {
   border-radius: 40px 40px 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 10vh auto;
-  padding: 0 calc(2 * #{variables.$padding-body});
+  grid-template-rows: 8vh auto;
+  padding: 0 variables.$padding-large;
 
   h2 {
     grid-column: 1 / -1;
     grid-row: 2;
+    @include variables.font-size-title;
+  }
+  @media screen and (min-width: 769px) {
+    column-gap: 24px;
+    grid-template-rows: 13vh auto;
+    padding: 0 calc(2 * #{variables.$padding-body});
+    h2 {
+      @include variables.font-size-h2;
+    }
   }
   @media screen and (min-width: 1024px) {
     grid-template-rows: 20vh auto;
+    padding: 0 calc(2 * #{variables.$padding-body});
   }
 }
 .main-mixer {
@@ -117,19 +148,31 @@ async function createMix() {
   gap: 15px;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 28vh 45vh 35vh;
-  padding: 0 calc(2 * #{variables.$padding-body});
+  grid-template-rows: auto 70vh 35vh;
+  padding: 0 variables.$padding-large;
+
+  @media screen and (min-width: 769px) {
+    column-gap: 24px;
+    grid-template-rows: 25vh 40vh 10vh;
+    padding: 0 calc(2 * #{variables.$padding-body});
+  }
 
   @media screen and (min-width: 1024px) {
     column-gap: 24px;
     grid-template-rows: 65vh 15vh;
+    padding: 0 calc(2 * #{variables.$padding-body});
   }
 
   &-section {
     border-radius: variables.$border-radius-medium;
     box-shadow: variables.$shadow-1;
     grid-row: 1;
-    padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
+    padding: variables.$padding-large variables.$padding-large;
+
+    h3 {
+      grid-column: 1 / -1;
+      font-size: 20px;
+    }
 
     &__left {
       background-color: variables.$color-neutral__greige-light;
@@ -138,6 +181,24 @@ async function createMix() {
       flex-direction: column;
       grid-column: 1 / -1;
       grid-row: 1;
+      &.-collapsed {
+        height: 5vh;
+        transition: all 0.2s;
+        padding: variables.$padding-small variables.$padding-x-large;
+      }
+      &.-expanded {
+        height: 28vh;
+        gap: 8px;
+        transition: all 0.2s;
+        .main-mixer-section__left-header svg {
+          transform: rotate(180deg);
+        }
+      }
+      &-header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
     &__right {
@@ -152,27 +213,19 @@ async function createMix() {
 
       h3 {
         color: variables.$color-neutral__greige-light;
-        grid-column: 1 / -1;
       }
     }
     @media screen and (min-width: 1024px) {
+      padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
       &__left {
         grid-column: 1 / 6;
+        grid-row: 1;
       }
       &__right {
         grid-column: 6 / 13;
+        grid-row: 1;
       }
     }
-  }
-}
-.selected {
-  background-color: cornflowerblue;
-  width: fit-content;
-  height: fit-content;
-  padding: variables.$padding-small;
-  &List {
-    display: flex;
-    gap: 10px;
   }
 }
 </style>

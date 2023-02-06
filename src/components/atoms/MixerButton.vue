@@ -37,7 +37,7 @@ const emits = defineEmits<{
   font-weight: 500;
   padding: variables.$padding-large;
   position: relative;
-  width: 70px;
+  width: 65px;
   @include variables.font-size-paragraph;
 
   &::after {
@@ -80,6 +80,9 @@ const emits = defineEmits<{
       outline: 2px solid variables.$color__red-light;
       text-shadow: variables.$color__red 0 0 4px;
     }
+  }
+  @media screen and (min-width: 769px) {
+    width: 70px;
   }
 }
 </style>

@@ -14,7 +14,7 @@
       "description": ""
     },
     { "title": "target_instrumental", "description": "" },
-    { "title": "target_popularity", "description": "" }
+    { "title": "target_popularity", "description": "Hipster och toplists?" }
   ], 
   "toggles": [
     {

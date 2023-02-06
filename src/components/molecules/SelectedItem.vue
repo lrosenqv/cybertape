@@ -43,7 +43,10 @@ const { item } = toRefs(props)
 .selected-item {
   border-radius: 8px;
   color: white;
-  padding: variables.$padding-small;
+  padding: variables.$padding-x-small;
+  @media screen and (min-width: 769px) {
+    padding: variables.$padding-small;
+  }
 
   button {
     background-color: transparent;
