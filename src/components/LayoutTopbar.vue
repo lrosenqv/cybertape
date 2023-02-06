@@ -1,5 +1,5 @@
 <template>
-  <div class="topbar" :class="{ topbar__collapsed: collapsed }">
+  <div class="topbar" :class="{ topbar__shrinked: shrinked }">
     <RouterLink to="/" class="topbar-logo__link">
       <div class="topbar-logo">
         <div>Cyber</div>
@@ -26,12 +26,14 @@
       </template>
     </div>
 
-    <!--  <nav class="topbar-nav" :class="{ 'topbar-nav__mobile': mobileView }">
-      <RouterLink to="/discover" class="topbar-nav-link">Discover</RouterLink>
-      <RouterLink to="/mixer" class="topbar-nav-link">Mixer</RouterLink>
-    </nav>
-    <div class="topbar-divider"></div>
-    <div class="topbar-user">{{ currentUser }}</div> -->
+    <template v-else>
+      <nav class="topbar-nav" :class="{ 'topbar-nav__mobile': mobileView }">
+        <RouterLink to="/discover" class="topbar-nav-link">Discover</RouterLink>
+        <RouterLink to="/mixer" class="topbar-nav-link">Mixer</RouterLink>
+      </nav>
+      <div class="topbar-divider"></div>
+      <div class="topbar-user">{{ currentUser }}</div>
+    </template>
   </div>
 </template>
 
@@ -41,7 +43,7 @@ import { useStore } from 'vuex'
 import { logout } from '@/services/authorization'
 const store = useStore()
 const currentUser = computed(() => store.state.currentUser)
-const collapsed = ref<boolean>(false)
+const shrinked = ref<boolean>(false)
 const hideNav = ref<boolean>(false)
 
 const burgerMenu = ref<HTMLDivElement>()
@@ -63,12 +65,12 @@ const { mobileView } = toRefs(props)
 
 app?.addEventListener('scroll', () => {
   if (app.scrollTop > 80) {
-    collapsed.value = true
+    shrinked.value = true
     setTimeout(() => {
       hideNav.value = true
     }, 1200)
   } else {
-    collapsed.value = false
+    shrinked.value = false
     hideNav.value = false
   }
 })
@@ -84,6 +86,7 @@ watch(
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
+
 .topbar {
   align-content: center;
   align-items: center;
@@ -105,19 +108,7 @@ watch(
     &__link {
       grid-column: 1 / 5;
       position: relative;
-
-      &::after {
-        background-color: variables.$color-neutral__greige-dark;
-        content: '';
-        display: inline-block;
-        height: 2px;
-        top: 50%;
-        position: absolute;
-        transition: all 1s;
-        width: 100%;
-      }
     }
-
     div {
       line-height: 0.8;
       transition: all 0.8s;
@@ -134,7 +125,7 @@ watch(
     align-items: center;
     color: transparent;
     display: flex;
-    grid-column: 5 / 9;
+    grid-column: 5 / 8;
     text-align: center;
     top: 0;
     transition: all 0.8s;
@@ -151,7 +142,6 @@ watch(
   }
 
   &-user {
-    align-self: stretch;
     cursor: pointer;
     grid-column: 9 / 13;
     grid-row: 1;
@@ -162,35 +152,25 @@ watch(
     &:hover {
       color: variables.$color__blue;
     }
-
-    &::before {
-      background-color: variables.$color-neutral__greige-dark;
-      content: '';
-      display: inline-block;
-      height: 2px;
-      right: 0;
-      position: absolute;
-      top: 50%;
-      transition: all 1.2s;
-      width: 100%;
-    }
   }
 
-  &__collapsed {
+  &__shrinked {
     .topbar-logo {
       width: 75px;
       &__link {
         grid-column: 1;
-
-        &::after {
-          background-color: white;
-          width: 0;
-        }
       }
       div {
-        color: white;
+        color: variables.$color-neutral__light;
         width: 60%;
         @include variables.font-size-paragraph;
+      }
+    }
+    .topbar-mobile-wrapper span {
+      background-color: variables.$color-neutral__light;
+      &::after,
+      &::before {
+        background-color: variables.$color-neutral__light;
       }
     }
     .topbar-nav {
@@ -203,15 +183,9 @@ watch(
       }
     }
     .topbar-user {
-      color: white;
+      color: variables.$color-neutral__light;
       grid-column: 12;
       transition: all 1.2s;
-
-      &::before {
-        background-color: white;
-        right: 0;
-        width: 0;
-      }
     }
   }
 
@@ -287,6 +261,7 @@ watch(
       z-index: 20;
       span {
         background-color: variables.$color-neutral__greige-dark;
+        background-blend-mode: difference;
         border-radius: variables.$border-radius-small;
         display: block;
         height: 3px;

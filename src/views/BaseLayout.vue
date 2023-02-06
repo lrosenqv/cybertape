@@ -20,6 +20,7 @@ onMounted(() => {
   if (window.innerWidth <= 768) mobileView.value = true
   window.addEventListener('resize', () => {
     if (window.innerWidth <= 768) mobileView.value = true
+    else mobileView.value = false
   })
 })
 

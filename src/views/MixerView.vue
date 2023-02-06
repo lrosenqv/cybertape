@@ -112,8 +112,7 @@ async function createMix() {
 <style lang="scss">
 @use '@/style/variables.scss';
 .header-mixer {
-  background-color: variables.$color__blue;
-  background-image: url('@/assets/BackgroundBlue.jpg');
+  background-color: variables.$color__blue-light;
   background-position: center;
   border-radius: 40px 40px 0 0;
   display: grid;
@@ -141,7 +140,6 @@ async function createMix() {
 }
 .main-mixer {
   background-color: variables.$color__blue-light;
-  background-image: url('@/assets/BackgroundBlue.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
