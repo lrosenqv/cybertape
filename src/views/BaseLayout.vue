@@ -1,5 +1,5 @@
 <template>
-  <LayoutTopbar />
+  <LayoutTopbar :mobile-view="mobileView" />
   <RouterView />
   <footer>
     <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
@@ -13,10 +13,15 @@ import { getUserName } from '@/services/authorization'
 import { onMounted, onBeforeUpdate, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
+const mobileView = ref<boolean>(false)
 onMounted(() => {
   const accessToken = sessionStorage.getItem('access_token') || ''
   if (accessToken) getUserName(accessToken)
+  if (window.innerWidth <= 768) mobileView.value = true
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) mobileView.value = true
+    else mobileView.value = false
+  })
 })
 
 onBeforeUpdate(() => {
