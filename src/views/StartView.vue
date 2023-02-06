@@ -37,19 +37,29 @@ onBeforeMount(() => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  gap: 40px;
-  justify-content: space-between;
-  padding-block: variables.$padding-body;
+  gap: 20px;
+  justify-content: space-around;
+  padding-block: 20px 40px;
+
+  @media screen and (min-width: 768px) {
+    padding-block: 80px;
+    gap: 15px;
+  }
 
   &-text {
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-inline: variables.$padding-body;
+    gap: 15px;
+    padding-inline: variables.$padding-large;
+    @media screen and (min-width: 768px) {
+      padding-inline: variables.$padding-body;
+      gap: 40px;
+    }
 
     h1 {
       font-weight: 600;
+      margin: 0;
       @include variables.font-size-h2;
     }
     p {
@@ -66,12 +76,10 @@ onBeforeMount(() => {
     flex-direction: column;
     height: 30vh;
     justify-content: space-between;
-    margin-bottom: 40px;
     width: 100vw;
 
-    @media screen and (min-width: 769px) {
+    @media screen and (min-width: 768px) {
       height: 35vh;
-      margin-bottom: 100px;
     }
 
     &-wrapper {
