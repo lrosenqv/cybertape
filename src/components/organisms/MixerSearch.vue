@@ -170,7 +170,7 @@ const resultsTracks = computed(() => {
 // Watchers
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '@/style/variables.scss';
 #mixer-search {
   display: flex;
@@ -193,6 +193,7 @@ const resultsTracks = computed(() => {
   }
   &__guide {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     position: absolute;
     bottom: 0;

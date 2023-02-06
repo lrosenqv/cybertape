@@ -97,12 +97,15 @@ async function createMix() {
   border-radius: 40px 40px 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 20vh auto;
+  grid-template-rows: 10vh auto;
   padding: 0 calc(2 * #{variables.$padding-body});
 
   h2 {
     grid-column: 1 / -1;
     grid-row: 2;
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-rows: 20vh auto;
   }
 }
 .main-mixer {
@@ -111,11 +114,16 @@ async function createMix() {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  column-gap: 24px;
+  gap: 15px;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 65vh 15vh;
+  grid-template-rows: 28vh 45vh 35vh;
   padding: 0 calc(2 * #{variables.$padding-body});
+
+  @media screen and (min-width: 1024px) {
+    column-gap: 24px;
+    grid-template-rows: 65vh 15vh;
+  }
 
   &-section {
     border-radius: variables.$border-radius-medium;
@@ -128,7 +136,8 @@ async function createMix() {
       color: variables.$color-neutral__greige-dark;
       display: flex;
       flex-direction: column;
-      grid-column: 1 / 6;
+      grid-column: 1 / -1;
+      grid-row: 1;
     }
 
     &__right {
@@ -138,11 +147,20 @@ async function createMix() {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      grid-column: 6 / 13;
+      grid-column: 1 / -1;
+      grid-row: 2;
 
       h3 {
         color: variables.$color-neutral__greige-light;
         grid-column: 1 / -1;
+      }
+    }
+    @media screen and (min-width: 1024px) {
+      &__left {
+        grid-column: 1 / 6;
+      }
+      &__right {
+        grid-column: 6 / 13;
       }
     }
   }

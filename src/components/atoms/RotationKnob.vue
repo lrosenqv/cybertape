@@ -2,7 +2,14 @@
   <div class="rotation-knob">
     <label>{{ title.replace('target_', '') }}</label>
     <div class="knob-wrapper">
-      <div ref="knob" class="knob" @mousedown="drag_start" @mouseup="drag_end">
+      <div
+        ref="knob"
+        class="knob"
+        @mousedown="drag_start"
+        @mouseup="drag_end"
+        @touchstart.prevent="drag_start"
+        @touchend="drag_end"
+      >
         <KnobSVG />
       </div>
     </div>
@@ -57,14 +64,13 @@ function drag_rotate(e: MouseEvent | TouchEvent) {
       e instanceof TouchEvent
         ? Math.atan2(e.touches[0].pageY - mouseY, e.touches[0].pageX - mouseX)
         : Math.atan2(e.pageY - mouseY, e.pageX - mouseX)
-    let rotation = radianDegrees * (180 / Math.PI) + 90
 
+    let rotation = radianDegrees * (180 / Math.PI) + 90
     const knobEl = knob.value?.children[0].lastChild as HTMLElement
 
     if (knobEl && rotation >= -90 && rotation <= 90) {
       const newRotation = normalize(rotation, -90, 90)
       setRotation(newRotation)
-
       knobEl.style.transform = `rotate(${rotation}deg)`
     }
   }
