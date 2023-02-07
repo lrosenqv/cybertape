@@ -36,13 +36,17 @@ const { list } = toRefs(props)
   background-color: rgb(220, 220, 214);
   border-radius: variables.$border-radius-medium;
   display: grid;
-  grid-template-columns: repeat(4, 200px);
-  grid-template-rows: repeat(12, 36px);
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(16, 36px);
   gap: 12px;
+  justify-content: center;
   padding-block: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
   padding-inline: 0 variables.$padding-large;
-  justify-content: center;
-
   transform: rotate(5deg) skew(-15deg, 10deg);
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, 200px);
+    grid-template-rows: repeat(12, 36px);
+  }
 }
 </style>
