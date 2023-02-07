@@ -83,6 +83,7 @@ async function createList() {
 </script>
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
+@import '@/style/variables.scss';
 .overlay-modal {
   align-items: center;
   background-color: rgba(11, 11, 11, 0.544);
@@ -166,17 +167,22 @@ async function createList() {
     @include variables.font-size-label;
   }
   &-list {
+    color: variables.$color-neutral__light;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    color: variables.$color-neutral__light;
     font-weight: 600;
+    gap: 6px;
+    overflow-y: auto;
+    @include scrollbar-standard;
 
     &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       grid-column: 2;
       grid-row: 2;
       height: 100%;
-      overflow-y: auto;
+      overflow: auto;
     }
 
     &__item {

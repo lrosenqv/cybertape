@@ -1,15 +1,17 @@
 <template>
   <div class="discover">
-    <GeneratedPlaylist
-      v-if="openOverlay"
-      :tracks="generatedPlaylist"
-      @close-component="toggleOverlay"
-    />
-    <div class="categories">
-      <div v-for="(item, index) in categories?.items" :key="index">
-        <p @click="handleClick(item)">{{ item.name }}</p>
-      </div>
-    </div>
+    <header class="discover-header">
+      <h2>Discover</h2>
+      <p>Pick a category to generate a mix of its' most popular tracks!</p>
+    </header>
+    <main class="discover-main">
+      <TapeRack :list="categories.items" @on-click="handleClick" />
+      <PreviewPlaylist
+        v-if="openOverlay"
+        :tracks="generatedPlaylist"
+        @close-component="toggleOverlay"
+      />
+    </main>
   </div>
 </template>
 
@@ -18,7 +20,8 @@ import { ref, onMounted } from 'vue'
 import { getCategories, getCategoryPlaylists, getPlaylistById } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
-import GeneratedPlaylist from '@/components/molecules/GeneratedPlaylist.vue'
+import TapeRack from '@/components/atoms/TapeRack.vue'
+import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 
 const categories = ref<ICategory>({ href: '', items: [], next: '' })
 const generatedPlaylist = ref<ITrack[]>([])
@@ -37,7 +40,6 @@ async function handleClick(item: any) {
     const filter = hello.tracks.items.map((item) => {
       return item.track
     })
-
     const sorted = filter.sort((a, b) => {
       return b.popularity - a.popularity
     })
@@ -56,8 +58,43 @@ function toggleOverlay() {
 </script>
 
 <style lang="scss">
-p {
-  cursor: pointer;
-  margin: 0;
+@use '@/style/variables.scss';
+
+.discover {
+  background-color: variables.$color__green-dark;
+  border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
+  display: grid;
+  grid-template-columns: variables.$grid-template-standard;
+  grid-template-rows: 75vh 10vh;
+  padding: 0 variables.$padding-large;
+  padding-top: 20vh;
+  overflow: hidden;
+
+  &-header {
+    grid-column: 1 / 4;
+    grid-row: 1;
+
+    h2 {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      @include variables.font-size-title;
+    }
+    p {
+      grid-column: 1 / 4;
+      grid-row: 3;
+    }
+  }
+  &-main {
+    align-self: flex-end;
+    grid-column: 5 / 12;
+    grid-row: 1 / 2;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-inline: calc(2 * #{variables.$padding-body});
+    h2 {
+      @include variables.font-size-h2;
+    }
+  }
 }
 </style>

@@ -140,3 +140,18 @@ $shadow-2: 1px 2px 2px rgba(29, 32, 35, 0.104), 0px 1px 1px rgba(33, 37, 41, 0.0
     transform: rotate3d(0, 0, 1, 360deg);
   }
 }
+
+// Scrollbar 
+@mixin scrollbar-standard {
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    appearance: none;
+    border-radius: variables.$border-radius-large;
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: variables.$color-neutral__greige;
+    border-radius: variables.$border-radius-large;
+    width: 3px;
+  }
+}
