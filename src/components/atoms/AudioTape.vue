@@ -1,6 +1,6 @@
 <template>
-  <div class="audio-tape">
-    <div class="audio-tape-front">{{ item.name }}</div>
+  <div class="audio-tape" @click="emits('onClick')">
+    <p>{{ item.name }}</p>
   </div>
 </template>
 
@@ -16,6 +16,9 @@ const props = defineProps({
   }
 })
 const { item } = toRefs(props)
+const emits = defineEmits<{
+  (e: 'onClick'): void
+}>()
 </script>
 
 <style lang="scss" scoped>
@@ -23,78 +26,83 @@ const { item } = toRefs(props)
 
 .audio-tape {
   background: variables.$color-neutral__dark;
+  border-radius: variables.$border-radius-x-small;
   border-right: 1px solid variables.$color-neutral__dark;
   border-bottom: 1px solid variables.$color-neutral__dark;
   color: variables.$color-neutral__light;
   cursor: pointer;
-  display: block;
-  height: fit-content;
-  line-height: 2.5em;
-  outline: none;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
+  height: 100%;
+  padding-inline: variables.$padding-small;
+
   transition: all 0.25s linear;
   width: 100%;
   z-index: 1;
+  p {
+    @include variables.font-size-paragraph;
+    text-align: center;
+    width: 180px;
+    white-space: nowrap;
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-  &:hover {
-    background: variables.$color__green;
-    border-color: variables.$color__green;
-    color: variables.$color-neutral__dark;
-    transform: translate(-0.45em, -0.45em);
-    transition: all 0.25s linear;
+  @media screen and (min-width: 1024px) {
+    border-radius: 0;
+    padding: 0;
+    &:hover {
+      background: variables.$color__green;
+      border-color: variables.$color__green;
+      color: variables.$color-neutral__dark;
+      transform: translate(-0.5em, -0.5em);
+      transition: all 0.25s linear;
 
+      &:before,
+      &:after {
+        transition: all 0.25s linear;
+      }
+
+      &:before {
+        background: variables.$color__green-dark;
+        border-color: variables.$color__green-dark;
+        right: -0.8em;
+        top: 0.4em;
+        width: 12px;
+      }
+
+      &:after {
+        background: darken(variables.$color__green-dark, 10%);
+        border-color: darken(variables.$color__green-dark, 10%);
+        height: 12px;
+        bottom: -0.8em;
+        right: -0.45em;
+      }
+    }
     &:before,
     &:after {
+      content: '';
+      position: absolute;
       transition: all 0.25s linear;
+      border: 1px solid;
     }
-
-    &:before {
-      background: variables.$color__green-dark;
-      border-color: variables.$color__green-dark;
-      right: -1.05em;
-      top: 0.49em;
-      width: 1em;
-    }
-
     &:after {
-      background: darken(variables.$color__green-dark, 10%);
-      border-color: darken(variables.$color__green-dark, 10%);
-      height: 1em;
-      bottom: -1.04em;
-      right: -0.6em;
+      background: darken(variables.$color-neutral__dark, 50%);
+      border-color: darken(variables.$color-neutral__dark, 50%);
+      bottom: -0.45em;
+      height: 6px;
+      right: -0.22em;
+      transform: skewX(45deg);
+      width: 200px;
     }
-  }
-
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    transition: all 0.25s linear;
-    border: 1px solid;
-  }
-
-  &:after {
-    height: 10px;
-    background: darken(variables.$color-neutral__dark, 50%);
-    border-color: darken(variables.$color-neutral__dark, 50%);
-    bottom: -0.65em;
-    right: -0.4em;
-    width: 101%;
-    transform: skew(45deg);
-    z-index: 2;
-  }
-
-  &:before {
-    background: darken(variables.$color-neutral__dark, 5%);
-    border-color: darken(variables.$color-neutral__dark, 5%);
-    height: 102%;
-    right: -0.67em;
-    width: 10px;
-    top: 0.3em;
-    transform: skewY(45deg);
-    z-index: 3;
+    &:before {
+      background: darken(variables.$color-neutral__dark, 5%);
+      border-color: darken(variables.$color-neutral__dark, 5%);
+      height: 45px;
+      right: -0.41em;
+      width: 6px;
+      top: 0.21em;
+      transform: skewY(45deg);
+    }
   }
 }
 </style>

@@ -5,7 +5,7 @@
       <p>Pick a category to generate a mix of its' most popular tracks!</p>
     </header>
     <main class="discover-main">
-      <TapeRack :list="categories.items" @on-click="handleClick" />
+      <TapeRack :list="categories.items" @on-clicked="handleClick" />
       <PreviewPlaylist
         v-if="openOverlay"
         :tracks="generatedPlaylist"
@@ -64,36 +64,39 @@ function toggleOverlay() {
   background-color: variables.$color__green-dark;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
-  grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 75vh 10vh;
-  padding: 0 variables.$padding-large;
-  padding-top: 20vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10vh auto 5vh;
+  padding-inline: calc(2 * #{variables.$padding-body});
+  padding-top: 15vh;
   overflow: hidden;
 
   &-header {
-    grid-column: 1 / 4;
     grid-row: 1;
-
     h2 {
-      grid-column: 1 / -1;
-      grid-row: 2;
       @include variables.font-size-title;
-    }
-    p {
-      grid-column: 1 / 4;
-      grid-row: 3;
     }
   }
   &-main {
-    align-self: flex-end;
-    grid-column: 5 / 12;
-    grid-row: 1 / 2;
+    grid-row: 2;
+    height: 100%;
   }
 
   @media screen and (min-width: 1024px) {
-    padding-inline: calc(2 * #{variables.$padding-body});
-    h2 {
-      @include variables.font-size-h2;
+    grid-template-columns: variables.$grid-template-standard;
+    grid-template-rows: 20vh 45vh 15vh;
+    padding-top: 20vh;
+
+    &-header {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      h2 {
+        @include variables.font-size-h2;
+      }
+    }
+    &-main {
+      justify-self: center;
+      grid-column: 4 / 8;
+      grid-row: 1 / 2;
     }
   }
 }

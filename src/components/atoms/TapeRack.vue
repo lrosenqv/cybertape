@@ -1,12 +1,12 @@
 <template>
-  <div class="tape-rack">
-    <div
-      v-for="item in list"
-      :key="item.id"
-      class="tape-rack-space"
-      @click="emits('onClick', item)"
-    >
-      <AudioTape :item="item" />
+  <div class="tape-rack-wrapper">
+    <div class="tape-rack">
+      <AudioTape
+        v-for="item in list"
+        :key="item.id"
+        :item="item"
+        @on-click="emits('onClicked', item)"
+      />
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ const props = defineProps({
   }
 })
 const emits = defineEmits<{
-  (e: 'onClick', item: ICategoryItem): void
+  (e: 'onClicked', item: ICategoryItem): void
 }>()
 const { list } = toRefs(props)
 </script>
@@ -38,15 +38,35 @@ const { list } = toRefs(props)
   display: grid;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(16, 36px);
-  gap: 12px;
-  justify-content: center;
-  padding-block: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
-  padding-inline: 0 variables.$padding-large;
-  transform: rotate(5deg) skew(-15deg, 10deg);
+  gap: 7px;
+  justify-content: space-around;
+  padding: variables.$padding-x-large;
+  position: relative;
+
+  &-wrapper {
+    margin: 0 auto;
+    perspective: 100em;
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(16, 40px);
+  }
 
   @media screen and (min-width: 1024px) {
+    gap: 10px;
+    // grid-template-columns: repeat(4, 190px);
+    // grid-template-rows: repeat(12, 45px);
     grid-template-columns: repeat(4, 200px);
-    grid-template-rows: repeat(12, 36px);
+    grid-template-rows: repeat(12, 45px);
+    justify-content: center;
+    padding-block: variables.$padding-medium variables.$padding-body;
+    padding-inline: variables.$padding-small variables.$padding-x-large;
+    // transform: rotate(5deg) skew(-15deg, 10deg);
+    transform: rotateX(10deg) rotateY(-20deg) skewX(-5deg) perspective(1000px);
+    transform-origin: center 100%;
+    transform-style: preserve-3d;
+    position: absolute;
   }
 }
 </style>
