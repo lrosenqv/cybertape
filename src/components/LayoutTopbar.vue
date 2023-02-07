@@ -42,8 +42,6 @@ import { useStore } from 'vuex'
 import IconUser from '@/components/icons/IconUser.vue'
 import UserCard from '@/components/atoms/UserCard.vue'
 import { logout } from '@/services/authorization'
-const store = useStore()
-const currentUser = computed(() => store.state.currentUser)
 const shrinked = ref<boolean>(false)
 const hideNav = ref<boolean>(false)
 
@@ -155,7 +153,7 @@ app?.addEventListener('scroll', () => {
       }
     }
     &-card {
-      grid-column: 11 / 13;
+      grid-column: 10 / 13;
     }
   }
 
@@ -199,11 +197,10 @@ app?.addEventListener('scroll', () => {
       border-radius: variables.$border-radius-small;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
-      height: 260px;
+      height: 290px;
       width: 250px;
       text-align: right;
-      padding: 50px variables.$padding-large 0;
+      padding: 70px variables.$padding-large variables.$padding-large;
       position: absolute;
       top: 14px;
       transition: all 0.4s;
@@ -216,6 +213,9 @@ app?.addEventListener('scroll', () => {
         width: fit-content;
         transition: all 0.4s;
       }
+      .user-card {
+        margin-top: auto;
+      }
     }
     &-nav {
       display: flex;
@@ -226,7 +226,6 @@ app?.addEventListener('scroll', () => {
         color: variables.$color-neutral__light;
       }
     }
-
     &-burger {
       align-self: flex-start;
       cursor: pointer;

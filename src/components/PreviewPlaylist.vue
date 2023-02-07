@@ -12,7 +12,7 @@
                 placeholder="Playlist name"
                 :light-color="true"
               />
-              <ButtonPrimary text="Save" @on-click="createList" />
+              <ButtonBorder text="Save" @on-click="createList" />
             </div>
           </div>
 
@@ -45,7 +45,7 @@
 import type { ITrack } from '@/models/ITrack'
 import { createPlaylist, addTracksToPlaylist } from '@/services/playlist'
 import { ref, toRefs } from 'vue'
-import ButtonPrimary from '@/components/atoms/ButtonPrimary.vue'
+import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
 import TextInput from '@/components/atoms/TextInput.vue'
 
 const props = defineProps({

@@ -99,9 +99,7 @@ function getUserName(accessToken: string) {
       headers: { Authorization: 'Bearer ' + accessToken }
     })
     .then((res) => {
-      store.commit('setCurrentUser', res.data.id)
-      store.commit('setCurrentUserImg', res.data.images[0].url)
-      store.commit('setCurrentUserLink', res.data.uri)
+      store.commit('setCurrentUser', res.data)
     })
     .catch((err) => {
       console.log(err)

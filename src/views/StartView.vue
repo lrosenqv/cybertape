@@ -3,7 +3,7 @@
     <div id="start-text">
       <h1>Ready for some new mixes?</h1>
       <p>Log in to your Spotify account to try it out!</p>
-      <ButtonPrimary text="Log in" @on-click="authRequest" />
+      <ButtonBorder text="Log in" @on-click="authRequest" />
     </div>
     <div class="start-stripes">
       <div class="start-stripes-wrapper start-stripes-wrapper__1">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import ButtonPrimary from '@/components/atoms/ButtonPrimary.vue'
+import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
 import { authRequest, getAccessToken } from '@/services/authorization'
 import { onBeforeMount } from 'vue'
 

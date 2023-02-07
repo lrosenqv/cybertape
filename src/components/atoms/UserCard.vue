@@ -1,16 +1,16 @@
 <template>
   <div ref="usercard" class="user-card">
-    <img :src="userImg" />
+    <img :src="currentUser.srcImg" />
     <div class="user-card-text">
-      <a :href="userLink">{{ username }}</a>
-      <ButtonPrimary text="Logout" @click="emits('logout')" />
+      <a :href="currentUser.uri">{{ currentUser.username }}</a>
+      <ButtonBorder text="Log out" :secondary="true" @click="emits('logout')" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import ButtonPrimary from './ButtonPrimary.vue'
+import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
 const store = useStore()
 
 const emits = defineEmits<{
@@ -18,9 +18,7 @@ const emits = defineEmits<{
   (e: 'logout'): void
 }>()
 
-const userImg = store.state.currentUserImg
-const username = store.state.currentUser
-const userLink = store.state.currentUserLink
+const currentUser = computed(() => store.state.currentUser)
 const usercard = ref<HTMLDivElement>()
 
 onMounted(() => {
@@ -36,14 +34,15 @@ onMounted(() => {
 .user-card {
   align-items: center;
   background-color: variables.$color-neutral__dark;
-  border-radius: variables.$border-radius-medium;
+  border-top: 1px solid variables.$color-neutral__greige-dark;
   display: flex;
   gap: 10px;
-  padding: 0;
+  padding-top: variables.$padding-medium;
+
   img {
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
   }
   &-text {
     display: flex;
@@ -52,24 +51,20 @@ onMounted(() => {
     text-align: left;
     a {
       color: variables.$color-neutral__light;
-      font-weight: 600;
-      @include variables.font-size-label;
-    }
-    button {
-      border-color: variables.$color__yellow-light;
-      color: variables.$color__yellow-light;
-      padding: variables.$padding-x-small;
-      text-transform: lowercase;
+      font-weight: 500;
       @include variables.font-size-paragraph;
     }
   }
 
   @media screen and (min-width: 1024px) {
+    border-radius: variables.$border-radius-medium;
     gap: 30px;
     padding: variables.$padding-large variables.$padding-x-large;
+    z-index: -1;
+    @include variables.font-size-label;
     img {
-      height: 70px;
-      width: 70px;
+      height: 75px;
+      width: 75px;
     }
   }
 }
