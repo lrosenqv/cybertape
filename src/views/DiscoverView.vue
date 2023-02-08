@@ -57,7 +57,7 @@ function toggleOverlay() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '@/style/variables.scss';
 
 .discover {
@@ -65,12 +65,12 @@ function toggleOverlay() {
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 10vh auto 5vh;
-  padding-inline: calc(2 * #{variables.$padding-body});
-  padding-top: 15vh;
-  overflow: hidden;
+  grid-template-rows: 20vh 55vh 10vh;
+  padding-top: 20vh;
+  padding-inline: variables.$padding-body;
 
   &-header {
+    align-self: flex-end;
     grid-row: 1;
     h2 {
       @include variables.font-size-title;
@@ -83,20 +83,23 @@ function toggleOverlay() {
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: 20vh 45vh 15vh;
-    padding-top: 20vh;
+    grid-template-rows: 20vh 15vh 55vh 15vh;
+    padding-inline: calc(2 * #{variables.$padding-body});
+    padding-top: 0;
 
-    &-header {
-      grid-column: 2 / 4;
-      grid-row: 1;
+    &-header,
+    header {
+      grid-column: 1 / -1;
+      grid-row: 1 / 3;
+      scroll-snap-align: center none;
       h2 {
         @include variables.font-size-h2;
       }
     }
     &-main {
+      grid-column: 4 / 13;
+      grid-row: 2 / 4;
       justify-self: center;
-      grid-column: 4 / 8;
-      grid-row: 1 / 2;
     }
   }
 }

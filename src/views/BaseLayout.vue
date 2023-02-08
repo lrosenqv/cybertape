@@ -1,5 +1,7 @@
 <template>
-  <LayoutTopbar :mobile-view="mobileView" />
+  <div class="top">
+    <LayoutTopbar :mobile-view="mobileView" />
+  </div>
   <RouterView />
   <footer>
     <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
@@ -31,7 +33,6 @@ onBeforeUpdate(() => {
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
-
 footer {
   color: variables.$color-neutral__greige-light;
   display: flex;
@@ -43,6 +44,7 @@ footer {
   a {
     color: variables.$color__green-light;
     transition: color 0.5s;
+    font-weight: 500;
     &:hover {
       color: variables.$color__green;
     }

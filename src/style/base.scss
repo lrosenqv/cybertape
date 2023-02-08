@@ -30,11 +30,6 @@ body {
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
-  scroll-snap-stop: always;
-
-  header {
-    scroll-snap-align: start none;
-  }
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -58,6 +53,7 @@ h1 {
   @include variables.font-size-h1;
 }
 h2 {
+  font-weight:700;
   @include variables.font-size-h2;
 }
 h3 {

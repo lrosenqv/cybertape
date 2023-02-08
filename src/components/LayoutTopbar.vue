@@ -126,13 +126,14 @@ app?.addEventListener('scroll', () => {
     transition: all 0.6s;
 
     &-link {
-      width: 100%;
+      font-weight: 700;
       text-align: center;
       transition: all 0.6s;
+      width: 100%;
     }
 
     a:not(:last-of-type) {
-      border-right: 2px solid variables.$color-neutral__greige-dark;
+      border-right: 2px solid variables.$color-neutral__dark;
     }
   }
   &-user {

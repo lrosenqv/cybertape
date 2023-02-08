@@ -121,7 +121,7 @@ async function createMix() {
   padding: 0 variables.$padding-large;
 
   h2 {
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
     grid-row: 2;
     @include variables.font-size-title;
   }
@@ -196,6 +196,7 @@ async function createMix() {
         align-items: center;
         display: flex;
         justify-content: space-between;
+        scroll-snap-align: center none;
       }
     }
 
@@ -216,11 +217,11 @@ async function createMix() {
     @media screen and (min-width: 1024px) {
       padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
       &__left {
-        grid-column: 1 / 6;
+        grid-column: 2 / 6;
         grid-row: 1;
       }
       &__right {
-        grid-column: 6 / 13;
+        grid-column: 6 / 12;
         grid-row: 1;
       }
     }
