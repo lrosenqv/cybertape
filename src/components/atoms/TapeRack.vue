@@ -71,7 +71,7 @@ const { list } = toRefs(props)
     padding-block: variables.$padding-medium;
     padding-inline: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
     transform: rotateX(10deg) rotateY(-20deg) skewX(-5deg) perspective(1000px);
-    transform-origin: left center 1em;
+    transform-origin: left center 5em;
     transform-style: preserve-3d;
 
     &-wrapper {

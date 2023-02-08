@@ -23,6 +23,7 @@
     <template v-else>
       <nav class="topbar-nav" :class="{ 'topbar-nav__mobile': mobileView }">
         <RouterLink to="/discover" class="topbar-nav-link">Discover</RouterLink>
+        <span class="divider"></span>
         <RouterLink to="/mixer" class="topbar-nav-link">Mixer</RouterLink>
       </nav>
       <button class="topbar-user-btn" @click.stop="toggleUserCard"><IconUser /></button>
@@ -114,7 +115,9 @@ app?.addEventListener('scroll', () => {
     align-items: center;
     color: transparent;
     display: flex;
-    grid-column: 5 / 9;
+    grid-column: 6 / 8;
+    height: 100%;
+    justify-content: space-between;
     text-align: center;
     top: 0;
     transition: all 0.6s;
@@ -123,11 +126,12 @@ app?.addEventListener('scroll', () => {
       font-weight: 700;
       text-align: center;
       transition: all 0.6s;
-      width: 100%;
     }
-
-    a:not(:last-of-type) {
-      border-right: 2px solid variables.$color-neutral__dark;
+    .divider {
+      background-color: variables.$color-neutral__dark;
+      display: inline-block;
+      height: 50%;
+      width: 2px;
     }
   }
   &-user {
@@ -141,10 +145,12 @@ app?.addEventListener('scroll', () => {
       grid-column: 12;
       height: 60px;
       justify-self: flex-end;
+      transition: all 0.3s;
       width: 60px;
 
       &:hover {
-        color: variables.$color__blue;
+        color: white;
+        transform: scale(1.1, 1.1);
       }
     }
     &-card {

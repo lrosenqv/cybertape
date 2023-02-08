@@ -61,7 +61,8 @@ function toggleOverlay() {
 @use '@/style/variables.scss';
 
 .discover {
-  background-color: variables.$color__green-dark;
+  background: url('@/assets/Background-Light.jpg'), darken(variables.$color__green-dark, 20%);
+  background-blend-mode: overlay;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
   gap: 20px;
@@ -89,23 +90,25 @@ function toggleOverlay() {
   }
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: 20vh 15vh 50vh 15vh;
+    grid-template-rows: 15vh 20vh 55vh 15vh;
     padding-inline: calc(2 * #{variables.$padding-body});
     padding-top: 0;
 
     &-header {
-      grid-column: 1 / 6;
-      grid-row: 1 / 3;
+      grid-column: 2 / 6;
+      grid-row: 2 / 3;
       scroll-snap-align: center none;
       p {
         width: 70%;
       }
     }
     &-main {
-      grid-column: 1 / -1;
-      grid-row: 3;
-      padding: 0;
+      align-self: flex-end;
+      grid-column: 1 / 12;
+      grid-row: 3 / 4;
+      height: fit-content;
       margin-left: auto;
+      padding: 0;
     }
   }
 }

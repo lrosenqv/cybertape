@@ -40,11 +40,7 @@ footer {
 
   a {
     color: variables.$color__green-light;
-    transition: color 0.5s;
     font-weight: 500;
-    &:hover {
-      color: variables.$color__green;
-    }
   }
   p {
     @include variables.font-size-paragraph__small;

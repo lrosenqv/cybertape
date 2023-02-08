@@ -37,9 +37,12 @@ body {
 a {
   color: variables.$color-neutral__dark;
   text-decoration: none;
+  transition: all 0.2s;
+  width:fit-content;
 
   &:hover {
-    color: variables.$color__blue;
+    color: white;
+    transform: scale(1.1, 1.1);
   }
 }
 button {

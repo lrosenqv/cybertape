@@ -1,41 +1,43 @@
 <template>
-  <header class="header-mixer">
-    <h2>Playlist mixer</h2>
-  </header>
-  <main class="main-mixer">
-    <PreviewPlaylist
-      v-if="overlayOpen"
-      :tracks="generatedPlaylist"
-      @closeComponent="overlayOpen = false"
-    />
-    <section
-      class="main-mixer-section main-mixer-section__left"
-      :class="{ '-collapsed': !searchOpen && mobileView, '-expanded': searchOpen && mobileView }"
-    >
-      <div class="main-mixer-section__left-header">
-        <h3>Search</h3>
-        <IconChevron v-if="mobileView" @click="toggleSearch" />
-      </div>
-      <MixerSearch
-        :mobile-view="mobileView"
-        :search-open="searchOpen"
-        :genres="genres"
-        @emit-seeds="onSelectSeeds"
+  <div class="mixer">
+    <header class="mixer-header">
+      <h2>Playlist mixer</h2>
+    </header>
+    <main class="mixer-main">
+      <PreviewPlaylist
+        v-if="overlayOpen"
+        :tracks="generatedPlaylist"
+        @closeComponent="overlayOpen = false"
       />
-    </section>
+      <section
+        class="mixer-main-section mixer-main-section__left"
+        :class="{ '-collapsed': !searchOpen && mobileView, '-expanded': searchOpen && mobileView }"
+      >
+        <div class="mixer-main-section__left-header">
+          <h3>Search</h3>
+          <IconChevron v-if="mobileView" @click="toggleSearch" />
+        </div>
+        <MixerSearch
+          :mobile-view="mobileView"
+          :search-open="searchOpen"
+          :genres="genres"
+          @emit-seeds="onSelectSeeds"
+        />
+      </section>
 
-    <section class="main-mixer-section main-mixer-section__right">
-      <MixerSettings
-        v-model="settingsModel"
-        id="mixer-settings"
-        :knobs="settings.knobs"
-        :sliders="settings.sliders"
-        :toggles="settings.toggles"
-        @emit-settings="onSettingsChange"
-        @create-mix="createMix"
-      />
-    </section>
-  </main>
+      <section class="mixer-main-section mixer-main-section__right">
+        <MixerSettings
+          v-model="settingsModel"
+          id="mixer-settings"
+          :knobs="settings.knobs"
+          :sliders="settings.sliders"
+          :toggles="settings.toggles"
+          @emit-settings="onSettingsChange"
+          @create-mix="createMix"
+        />
+      </section>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -101,121 +103,122 @@ async function createMix() {
 
 <style lang="scss">
 @use '@/style/variables.scss';
-.header-mixer {
-  background-color: variables.$color__blue-light;
-  background-position: center;
-  border-radius: 40px 40px 0 0;
-  display: grid;
-  grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 8vh auto;
-  padding: 0 variables.$padding-large;
 
-  h2 {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    @include variables.font-size-title;
-  }
-  @media screen and (min-width: 769px) {
-    column-gap: 24px;
-    grid-template-rows: 13vh auto;
-    padding: 0 calc(2 * #{variables.$padding-body});
+.mixer {
+  background: url('@/assets/Background-Light.jpg'),
+    desaturate($color: variables.$color__red-dark, $amount: 15);
+  background-blend-mode: overlay;
+  border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
+
+  &-header {
+    display: grid;
+    grid-template-columns: variables.$grid-template-standard;
+    grid-template-rows: 8vh auto;
+    padding: 0 variables.$padding-large;
+
     h2 {
-      @include variables.font-size-h2;
-    }
-  }
-  @media screen and (min-width: 1024px) {
-    grid-template-rows: 20vh auto;
-    padding: 0 calc(2 * #{variables.$padding-body});
-    h2 {
-      grid-column: 2 / -1;
-    }
-  }
-}
-.main-mixer {
-  background-color: variables.$color__blue-light;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  gap: 15px;
-  display: grid;
-  grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: auto 70vh 35vh;
-  padding: 0 variables.$padding-large;
-
-  @media screen and (min-width: 769px) {
-    column-gap: 24px;
-    grid-template-rows: 25vh 40vh 10vh;
-    padding: 0 calc(2 * #{variables.$padding-body});
-  }
-
-  @media screen and (min-width: 1024px) {
-    column-gap: 24px;
-    grid-template-rows: 65vh 15vh;
-    padding: 0 calc(2 * #{variables.$padding-body});
-  }
-
-  &-section {
-    border-radius: variables.$border-radius-medium;
-    box-shadow: variables.$shadow-1;
-    grid-row: 1;
-    padding: variables.$padding-large variables.$padding-large;
-
-    h3 {
-      grid-column: 1 / -1;
-      font-size: 20px;
-    }
-
-    &__left {
-      background-color: variables.$color-neutral__greige-light;
-      color: variables.$color-neutral__greige-dark;
-      display: flex;
-      flex-direction: column;
-      grid-column: 1 / -1;
-      grid-row: 1;
-      &.-collapsed {
-        height: 5vh;
-        transition: all 0.2s;
-        padding: variables.$padding-small variables.$padding-x-large;
-      }
-      &.-expanded {
-        height: 28vh;
-        gap: 8px;
-        transition: all 0.2s;
-        .main-mixer-section__left-header svg {
-          transform: rotate(180deg);
-        }
-      }
-      &-header {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        scroll-snap-align: center none;
-      }
-    }
-
-    &__right {
-      background-color: variables.$color-neutral__dark;
-      background-image: url('@/assets/TextureLeather.jpg');
-      background-size: cover;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
       grid-column: 1 / -1;
       grid-row: 2;
-
-      h3 {
-        color: variables.$color-neutral__greige-light;
+      @include variables.font-size-title;
+    }
+    @media screen and (min-width: 769px) {
+      column-gap: 24px;
+      grid-template-rows: 13vh auto;
+      padding: 0 calc(2 * #{variables.$padding-body});
+      h2 {
+        @include variables.font-size-h2;
       }
     }
     @media screen and (min-width: 1024px) {
-      padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
-      &__left {
-        grid-column: 2 / 6;
-        grid-row: 1;
+      grid-template-rows: 20vh auto;
+      padding: 0 calc(2 * #{variables.$padding-body});
+      h2 {
+        grid-column: 2 / -1;
       }
-      &__right {
-        grid-column: 6 / 12;
+    }
+  }
+  &-main {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: variables.$grid-template-standard;
+    grid-template-rows: auto 70vh 35vh;
+    padding: 0 variables.$padding-large;
+
+    @media screen and (min-width: 769px) {
+      column-gap: 24px;
+      grid-template-rows: 25vh 40vh 10vh;
+      padding: 0 calc(2 * #{variables.$padding-body});
+    }
+
+    @media screen and (min-width: 1024px) {
+      column-gap: 24px;
+      grid-template-rows: 65vh 15vh;
+      padding: 0 calc(2 * #{variables.$padding-body});
+    }
+
+    &-section {
+      border-radius: variables.$border-radius-medium;
+      box-shadow: variables.$shadow-1;
+      grid-row: 1;
+      padding: variables.$padding-large variables.$padding-large;
+
+      h3 {
+        grid-column: 1 / -1;
+        font-size: 20px;
+      }
+
+      &__left {
+        background-color: variables.$color-neutral__greige-light;
+        color: variables.$color-neutral__greige-dark;
+        display: flex;
+        flex-direction: column;
+        grid-column: 1 / -1;
         grid-row: 1;
+        &.-collapsed {
+          height: 5vh;
+          transition: all 0.2s;
+          padding: variables.$padding-small variables.$padding-x-large;
+        }
+        &.-expanded {
+          height: 28vh;
+          gap: 8px;
+          transition: all 0.2s;
+          .main-mixer-section__left-header svg {
+            transform: rotate(180deg);
+          }
+        }
+        &-header {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          scroll-snap-align: center none;
+        }
+      }
+
+      &__right {
+        background-color: variables.$color-neutral__dark;
+        background-image: url('@/assets/TextureLeather.jpg');
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        grid-column: 1 / -1;
+        grid-row: 2;
+
+        h3 {
+          color: variables.$color-neutral__greige-light;
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
+        &__left {
+          grid-column: 2 / 6;
+          grid-row: 1;
+        }
+        &__right {
+          grid-column: 6 / 12;
+          grid-row: 1;
+        }
       }
     }
   }
