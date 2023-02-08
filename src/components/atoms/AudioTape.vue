@@ -1,13 +1,15 @@
 <template>
   <div class="audio-tape" @click="emits('onClick')">
-    <p>{{ item.name }}</p>
+    <div class="audio-tape-label" @mouseenter.stop="(e) => scrollText(e)">
+      <p ref="tapeLabel">{{ item.name }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ICategoryItem } from '@/models/ICategory'
 import type { PropType } from 'vue'
-import { toRefs } from 'vue'
+import { toRefs, ref } from 'vue'
 
 const props = defineProps({
   item: {
@@ -15,47 +17,79 @@ const props = defineProps({
     required: true
   }
 })
-const { item } = toRefs(props)
+
 const emits = defineEmits<{
   (e: 'onClick'): void
 }>()
+const { item } = toRefs(props)
+const tapeLabel = ref<HTMLParagraphElement>()
+
+function scrollText(e: MouseEvent) {
+  const el = e.currentTarget as HTMLElement
+  const boxWidth = el.clientWidth
+  if (tapeLabel.value) {
+    const textWidth = tapeLabel.value?.scrollWidth
+
+    if (textWidth > boxWidth) {
+      tapeLabel.value.animate(
+        [
+          {
+            transform: `translateX(0)`
+          },
+          { transform: 'translateX(-100%)' }
+        ],
+        {
+          duration: 2800,
+          iterations: 1
+        }
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 
 .audio-tape {
+  aspect-ratio: 6 / 1;
   background: variables.$color-neutral__dark;
   border-radius: variables.$border-radius-x-small;
   border-right: 1px solid variables.$color-neutral__dark;
   border-bottom: 1px solid variables.$color-neutral__dark;
   color: variables.$color-neutral__light;
   cursor: pointer;
-  height: 100%;
+  object-fit: contain;
   padding-inline: variables.$padding-small;
-
   transition: all 0.25s linear;
+  text-overflow: clip;
   width: 100%;
   z-index: 1;
+  &-label {
+    overflow: hidden;
+  }
   p {
     @include variables.font-size-paragraph;
-    text-align: center;
-    // width: 180px;
-    white-space: nowrap;
-    top: 20%;
     overflow: hidden;
+    text-align: center;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
-
   @media screen and (min-width: 1024px) {
     border-radius: 0;
-    padding: 0;
     &:hover {
       background: variables.$color__green;
       border-color: variables.$color__green;
       color: variables.$color-neutral__dark;
-      transform: translate(-0.5em, -0.5em);
+      transform: translate(-0.4em, -0.4em);
       transition: all 0.25s linear;
+
+      p {
+        overflow: visible;
+        text-overflow: initial;
+        white-space: wrap;
+        width: 100%;
+      }
 
       &:before,
       &:after {
@@ -88,19 +122,19 @@ const emits = defineEmits<{
     &:after {
       background: darken(variables.$color-neutral__dark, 50%);
       border-color: darken(variables.$color-neutral__dark, 50%);
-      bottom: -0.45em;
+      bottom: -0.4em;
       height: 6px;
-      right: -0.22em;
+      right: -0.25em;
       transform: skewX(45deg);
-      width: 200px;
+      width: 100%;
     }
     &:before {
       background: darken(variables.$color-neutral__dark, 5%);
       border-color: darken(variables.$color-neutral__dark, 5%);
-      height: 45px;
+      height: 101%;
       right: -0.41em;
       width: 6px;
-      top: 0.21em;
+      top: 0.2em;
       transform: skewY(45deg);
     }
   }

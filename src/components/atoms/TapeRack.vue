@@ -34,56 +34,51 @@ const { list } = toRefs(props)
 @import '@/style/variables.scss';
 
 .tape-rack {
-  border-radius: variables.$border-radius-medium;
   display: grid;
-  grid-template-columns: repeat(1, 300px);
-  grid-template-rows: repeat(46, 50px);
-  gap: 7px;
-  justify-content: space-around;
+  grid-template-columns: 50% 50%;
+  grid-auto-rows: auto;
+  gap: 6px;
+  padding-right: variables.$padding-large;
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  margin-block: variables.$padding-large;
   @include scrollbar-standard;
   &-wrapper {
+    background-color: rgb(220, 220, 214);
     border-radius: variables.$border-radius-medium;
     height: 100%;
-    padding: variables.$padding-large variables.$padding-medium;
+    overflow: hidden;
+    padding: variables.$padding-large 0 variables.$padding-small variables.$padding-large;
   }
 
   @media screen and (min-width: 768px) {
     background-color: transparent;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(16, 42px);
+    grid-template-columns: repeat(3, 33%);
     margin: 0;
-    overflow: unset;
-    height: unset;
-    transform: rotateX(15deg) perspective(1000px);
-    transform-origin: center 100%;
-    transform-style: preserve-3d;
-
-    &-wrapper {
-      background-color: transparent;
-      overflow: unset;
-    }
   }
 
   @media screen and (min-width: 1024px) {
     background-color: rgb(220, 220, 214);
+    border-radius: variables.$border-radius-medium;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.36);
-    gap: 10px;
-    grid-template-columns: repeat(4, 200px);
-    grid-template-rows: repeat(12, 45px);
+    gap: 8px 10px;
+    grid-template-columns: repeat(4, 25%);
+    height: fit-content;
+    width: fit-content;
     justify-content: center;
-    padding-block: variables.$padding-medium variables.$padding-body;
-    padding-inline: variables.$padding-small variables.$padding-x-large;
+    margin-right: auto;
+    overflow: initial;
+    padding-block: variables.$padding-medium;
+    padding-inline: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
     transform: rotateX(10deg) rotateY(-20deg) skewX(-5deg) perspective(1000px);
-    transform-origin: center 100%;
+    transform-origin: left center 1em;
     transform-style: preserve-3d;
+
     &-wrapper {
-      margin: 0 auto;
-      overflow: unset;
+      background-color: transparent;
+      padding: 0;
       perspective: 100em;
+      overflow: initial;
     }
   }
 }

@@ -16,7 +16,6 @@ async function createPlaylist(name: string) {
   )
   return response
 }
-
 // Add tracks to the new playlist
 async function addTracksToPlaylist(playlist_id: string, uris: string[]) {
   const body = {
@@ -28,7 +27,6 @@ async function addTracksToPlaylist(playlist_id: string, uris: string[]) {
   })
   return response
 }
-
 async function getUser() {
   const response = await axios.get<IUser>(baseUrl + 'me', {
     headers: { Authorization: 'Bearer ' + accessToken }

@@ -39,7 +39,6 @@
 </template>
 
 <script setup lang="ts">
-import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
 import { ref, onMounted, computed } from 'vue'
 import { getGenreSeeds, getRecommendations } from '@/services/api'
@@ -51,7 +50,6 @@ import IconChevron from '@/components/icons/IconChevron.vue'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
 const overlayOpen = ref<boolean>(false)
 const searchOpen = ref<boolean>(false)
@@ -88,10 +86,6 @@ function onSelectSeeds(artists: string[], tracks: string[], genres: string[]) {
   seed_artists.value = artists.join(',')
   seed_tracks.value = tracks.join(',')
   seed_genres.value = genres.join(',')
-}
-function selectResult(artist: IArtist) {
-  if (selectedIds.value.length < 5) selectedIds.value.push(artist)
-  else return
 }
 async function createMix() {
   const res = await getRecommendations(
