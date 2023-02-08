@@ -1,6 +1,5 @@
 <template>
   <div class="search-results-wrapper">
-    <div class="overlay" @click="emits('closeOverlay')"></div>
     <ul class="search-results">
       <li
         v-for="(item, index) in list"
@@ -13,6 +12,7 @@
       </li>
     </ul>
   </div>
+  <div class="overlay" @click="emits('closeOverlay')"></div>
 </template>
 <script setup lang="ts">
 import type { PropType } from 'vue'
@@ -91,7 +91,8 @@ const { list } = toRefs(props)
     padding-top: variables.$padding-large;
     position: absolute;
     z-index: 2;
-    width: 100%;
+    width: 160%;
+    left: -30%;
   }
 }
 .overlay {

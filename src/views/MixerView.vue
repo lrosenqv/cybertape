@@ -2,6 +2,7 @@
   <div class="mixer">
     <header class="mixer-header">
       <h2>Playlist mixer</h2>
+      <p>Lorem Ipsum dolor sit amet</p>
     </header>
     <main class="mixer-main">
       <PreviewPlaylist
@@ -109,78 +110,58 @@ async function createMix() {
     desaturate($color: variables.$color__red-dark, $amount: 15);
   background-blend-mode: overlay;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: variables.$grid-rows-template-mobile;
+  height: 100vh;
+  padding-bottom: variables.$padding-x-large;
+  padding-inline: variables.$padding-large;
 
   &-header {
-    display: grid;
-    grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: 8vh auto;
-    padding: 0 variables.$padding-large;
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    grid-row: 2;
+    padding-bottom: variables.$padding-x-large;
+    scroll-snap-align: center none;
 
     h2 {
       grid-column: 1 / -1;
       grid-row: 2;
       @include variables.font-size-title;
     }
-    @media screen and (min-width: 769px) {
-      column-gap: 24px;
-      grid-template-rows: 13vh auto;
-      padding: 0 calc(2 * #{variables.$padding-body});
-      h2 {
-        @include variables.font-size-h2;
-      }
-    }
-    @media screen and (min-width: 1024px) {
-      grid-template-rows: 20vh auto;
-      padding: 0 calc(2 * #{variables.$padding-body});
-      h2 {
-        grid-column: 2 / -1;
-      }
-    }
   }
   &-main {
     display: grid;
     gap: 15px;
-    grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: auto 70vh 35vh;
-    padding: 0 variables.$padding-large;
-
-    @media screen and (min-width: 769px) {
-      column-gap: 24px;
-      grid-template-rows: 25vh 40vh 10vh;
-      padding: 0 calc(2 * #{variables.$padding-body});
-    }
-
-    @media screen and (min-width: 1024px) {
-      column-gap: 24px;
-      grid-template-rows: 65vh 15vh;
-      padding: 0 calc(2 * #{variables.$padding-body});
-    }
+    grid-row: 3 / 8;
+    grid-template-rows: auto 1fr;
+    height: 100%;
 
     &-section {
       border-radius: variables.$border-radius-medium;
       box-shadow: variables.$shadow-1;
       grid-row: 1;
-      padding: variables.$padding-large variables.$padding-large;
 
       h3 {
-        grid-column: 1 / -1;
         font-size: 20px;
       }
-
       &__left {
         background-color: variables.$color-neutral__greige-light;
         color: variables.$color-neutral__greige-dark;
         display: flex;
         flex-direction: column;
-        grid-column: 1 / -1;
+        grid-column: 1;
         grid-row: 1;
+        transition: all 0.2s;
+        padding: variables.$padding-medium variables.$padding-x-large;
         &.-collapsed {
-          height: 5vh;
+          gap: 0;
+          height: 4.5vh;
           transition: all 0.2s;
-          padding: variables.$padding-small variables.$padding-x-large;
         }
         &.-expanded {
-          height: 28vh;
+          height: 25vh;
           gap: 8px;
           transition: all 0.2s;
           .main-mixer-section__left-header svg {
@@ -204,20 +185,63 @@ async function createMix() {
         gap: 20px;
         grid-column: 1 / -1;
         grid-row: 2;
-
-        h3 {
-          color: variables.$color-neutral__greige-light;
-        }
+        height: fit-content;
+        padding-block: variables.$padding-large;
       }
-      @media screen and (min-width: 1024px) {
-        padding: calc(2 * #{variables.$padding-x-large}) calc(2 * #{variables.$padding-x-large});
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    grid-template-columns: variables.$grid-template-standard;
+    grid-template-rows: variables.$grid-rows-template-tablet;
+    padding-inline: variables.$padding-body;
+
+    &-header {
+      align-self: flex-end;
+      grid-column: 2 / 12;
+      height: fit-content;
+      padding-bottom: variables.$padding-x-large;
+    }
+    &-main {
+      display: flex;
+      grid-row: 3 / 8;
+      grid-column: 2 / 12;
+      flex-direction: column;
+
+      &-section {
+        width: 100%;
         &__left {
-          grid-column: 2 / 6;
-          grid-row: 1;
+          height: 100%;
         }
         &__right {
-          grid-column: 6 / 12;
-          grid-row: 1;
+          height: 100%;
+          padding-inline: variables.$padding-body;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-rows: variables.$grid-rows-template-standard;
+    padding-inline: variables.$padding-body;
+
+    &-main {
+      flex-direction: row;
+      grid-row: 3 / 7;
+      grid-column: 2 / -1;
+
+      &-section {
+        padding: variables.$padding-body;
+        h3 {
+          font-size: 26px;
+          font-weight: 500;
+        }
+        &__left {
+          row-gap: 15px;
+        }
+        &__right {
+          padding-right: calc(2 * #{variables.$padding-x-large});
+          flex-basis: 100%;
         }
       }
     }

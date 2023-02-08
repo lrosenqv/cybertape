@@ -1,16 +1,14 @@
 <template>
-  <div class="input-wrapper">
-    <input
-      :value="modelValue"
-      class="input"
-      :class="{ input__light: lightColor }"
-      type="text"
-      :placeholder="placeholder"
-      @focus="emits('focusInput')"
-      @input="(e) => onInput(e)"
-      @blur="blurInput"
-    />
-  </div>
+  <input
+    :value="modelValue"
+    class="input"
+    :class="{ input__light: lightColor }"
+    type="text"
+    :placeholder="placeholder"
+    @focus="emits('focusInput')"
+    @input="(e) => onInput(e)"
+    @blur="blurInput"
+  />
 </template>
 
 <script setup lang="ts">

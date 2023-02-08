@@ -115,12 +115,15 @@ app?.addEventListener('scroll', () => {
     align-items: center;
     color: transparent;
     display: flex;
-    grid-column: 6 / 8;
+    grid-column: 5 / 9;
     height: 100%;
     justify-content: space-between;
     text-align: center;
     top: 0;
     transition: all 0.6s;
+    @media screen and (min-width: 1024px) {
+      grid-column: 6 / 8;
+    }
 
     &-link {
       font-weight: 700;

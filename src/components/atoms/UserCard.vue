@@ -57,6 +57,7 @@ onMounted(() => {
   }
 
   @media screen and (min-width: 768px) {
+    border: none;
     border-radius: variables.$border-radius-medium;
     gap: 30px;
     padding: variables.$padding-medium variables.$padding-large;

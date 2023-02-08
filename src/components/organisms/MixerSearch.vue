@@ -1,7 +1,7 @@
 <template>
   <div
     id="mixer-search"
-    :class="{ 'mixer-search-mobile': mobileView, __collapsed: !searchOpen }"
+    :class="{ __collapsed: !searchOpen && mobileView }"
     @click="show_results_artists = false"
   >
     <template v-if="!mobileView || searchOpen">
@@ -183,26 +183,36 @@ const resultsTracks = computed(() => {
 <style lang="scss">
 @use '@/style/variables.scss';
 #mixer-search {
-  display: flex;
+  display: grid;
   flex-direction: column;
   gap: 6px;
-  grid-template-columns: variables.$grid-template-standard;
+  grid-template-columns: 1fr;
   height: 100%;
+  grid-template-rows: 20% 1fr 10%;
   position: relative;
-  @media screen and (min-width: 769px) {
-    gap: 36px;
+  &.__collapsed {
+    gap: 0;
+    height: 0;
   }
-
   &-input {
     &-wrapper {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
+    }
+    &__artists,
+    &__tracks,
+    &__genres {
+      flex-basis: 200px;
+      flex-shrink: 0;
     }
   }
   &__selected {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    grid-row: 2;
+    height: 45%;
     @media screen and (min-width: 769px) {
       gap: 12px;
     }
@@ -211,8 +221,8 @@ const resultsTracks = computed(() => {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    position: absolute;
-    bottom: 0;
+    grid-row: 3;
+    margin-top: auto;
     p {
       font-style: italic;
       @include variables.font-size-paragraph__small;
@@ -239,6 +249,14 @@ const resultsTracks = computed(() => {
         }
       }
     }
+  }
+  @media screen and (min-width: 769px) {
+    gap: 10px;
+    grid-template-rows: 25% 1fr 10%;
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-rows: 10% 1fr 5%;
+    gap: 36px;
   }
 }
 </style>

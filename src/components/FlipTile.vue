@@ -72,7 +72,7 @@ const { title, subtitle, text } = toRefs(props)
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: variables.$padding-x-large variables.$padding-medium;
+    padding: variables.$padding-x-large variables.$padding-large;
     position: absolute;
     width: 100%;
     -webkit-backface-visibility: hidden;
@@ -97,10 +97,12 @@ const { title, subtitle, text } = toRefs(props)
     color: variables.$color__blue-dark;
     transform: rotateX(180deg);
     a {
-      color: variables.$color__green-dark;
+      color: variables.$color__green;
       text-decoration: underline;
+      font-weight: 700;
+      @include variables.font-size-paragraph;
       &:hover {
-        color: variables.$color__green;
+        color: variables.$color__green-dark;
       }
     }
     &.invert-style-back {
@@ -108,9 +110,9 @@ const { title, subtitle, text } = toRefs(props)
       background-color: variables.$color__blue-dark;
 
       a {
-        color: variables.$color__green-light;
+        color: variables.$color__green;
         &:hover {
-          color: variables.$color__green;
+          color: variables.$color__green-light;
         }
       }
     }

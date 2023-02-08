@@ -26,15 +26,10 @@
         text="Create a playlist by selecting one of the pre-defined categories"
       />
       <FlipTile
-        title="browse"
-        subtitle="your favorites"
-        text="Select a favorite track, album or artist as a starting point to find related music"
-        :invert-style="true"
-      />
-      <FlipTile
         title="create"
         subtitle="a mixtape"
         text="Create a new mix of tracks based on your selections"
+        :invert-style="true"
       />
     </section>
   </main>
@@ -45,8 +40,6 @@ import DecorStripes from '@/components/DecorStripes.vue'
 import CircleSubjective from '@/assets/CircleSubjective.vue'
 import CircleBangers from '@/assets/CircleBangers.vue'
 import CircleOnly from '@/assets/CircleOnly.vue'
-import { logout } from '@/services/authorization'
-
 import FlipTile from '@/components/FlipTile.vue'
 </script>
 
@@ -60,7 +53,7 @@ import FlipTile from '@/components/FlipTile.vue'
   border-radius: 40px 40px 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 30% repeat(5, 1fr);
+  grid-template-rows: variables.$grid-rows-template-standard;
   height: 100vh;
   justify-content: center;
   scroll-snap-align: start none;
@@ -132,33 +125,35 @@ import FlipTile from '@/components/FlipTile.vue'
   box-shadow: variables.$shadow-1;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: 15vh auto auto 1fr;
+  grid-template-rows: variables.$grid-rows-template-standard;
+  padding-inline: variables.$padding-body;
   height: 80vh;
   scroll-snap-align: start none;
 
   &-title {
-    grid-column: 3 / 5;
-    grid-row: 2;
+    grid-column: 2 / 6;
+    grid-row: 2 / 4;
   }
   &-text {
-    grid-column: 3/ 7;
-    grid-row: 3;
+    grid-column: 2/ 7;
+    grid-row: 3 / 4;
     line-height: 161.8%;
   }
 
   .flip-tile-container {
     display: flex;
     flex-direction: column;
-    grid-column: 8 / 11;
-    grid-row: 2 / 5;
-    row-gap: 16px;
+    grid-column: 8 / 12;
+    grid-row: 2 / 6;
+    padding-top: variables.$padding-x-large;
+    row-gap: 50px;
 
     .flip-tile:nth-child(1) {
-      align-self: center;
+      align-self: flex-end;
       border-radius: 10px;
     }
     .flip-tile:nth-child(2) {
-      align-self: flex-end;
+      align-self: flex-start;
     }
   }
 }

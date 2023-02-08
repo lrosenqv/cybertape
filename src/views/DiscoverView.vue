@@ -90,22 +90,23 @@ function toggleOverlay() {
   }
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: 15vh 20vh 55vh 15vh;
-    padding-inline: calc(2 * #{variables.$padding-body});
+    grid-template-rows: variables.$grid-rows-template-standard;
+    padding-inline: variables.$padding-body;
+    gap: 0;
     padding-top: 0;
 
     &-header {
-      grid-column: 2 / 6;
-      grid-row: 2 / 3;
+      align-self: center;
+      grid-column: 2 / 5;
+      grid-row: 2 / 4;
+      margin-bottom: auto;
       scroll-snap-align: center none;
-      p {
-        width: 70%;
-      }
     }
     &-main {
       align-self: flex-end;
-      grid-column: 1 / 12;
-      grid-row: 3 / 4;
+      flex-basis: content;
+      grid-column: 3 / 12;
+      grid-row: 3 / 6;
       height: fit-content;
       margin-left: auto;
       padding: 0;

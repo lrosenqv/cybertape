@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import type { PropType } from 'vue'
 import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
 
@@ -124,6 +124,7 @@ function toggleSelection(e: Event) {
     grid-auto-rows: auto;
     grid-template-columns: 1fr auto;
     row-gap: 10px;
+    height: fit-content;
     width: fit-content;
 
     .infobox {
