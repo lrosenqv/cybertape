@@ -40,9 +40,9 @@ const emits = defineEmits<{
   p {
     @include variables.font-size-paragraph;
     text-align: center;
-    width: 180px;
+    // width: 180px;
     white-space: nowrap;
-    margin: 0 auto;
+    top: 20%;
     overflow: hidden;
     text-overflow: ellipsis;
   }

@@ -37,8 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs } from 'vue'
-import { useStore } from 'vuex'
+import { ref, toRefs } from 'vue'
 import IconUser from '@/components/icons/IconUser.vue'
 import UserCard from '@/components/atoms/UserCard.vue'
 import { logout } from '@/services/authorization'
@@ -120,7 +119,7 @@ app?.addEventListener('scroll', () => {
     align-items: center;
     color: transparent;
     display: flex;
-    grid-column: 5 / 8;
+    grid-column: 5 / 9;
     text-align: center;
     top: 0;
     transition: all 0.6s;
@@ -154,7 +153,10 @@ app?.addEventListener('scroll', () => {
       }
     }
     &-card {
-      grid-column: 10 / 13;
+      grid-column: 8 / 13;
+      @media screen and (min-width: 1024px) {
+        grid-column: 11 / 13;
+      }
     }
   }
 

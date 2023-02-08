@@ -56,6 +56,17 @@ onMounted(() => {
     }
   }
 
+  @media screen and (min-width: 768px) {
+    border-radius: variables.$border-radius-medium;
+    gap: 30px;
+    padding: variables.$padding-medium variables.$padding-large;
+    z-index: -1;
+    @include variables.font-size-label;
+    img {
+      height: 75px;
+      width: 75px;
+    }
+  }
   @media screen and (min-width: 1024px) {
     border-radius: variables.$border-radius-medium;
     gap: 30px;

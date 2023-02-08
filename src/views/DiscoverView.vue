@@ -64,9 +64,10 @@ function toggleOverlay() {
   background-color: variables.$color__green-dark;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
+  gap: 20px;
   grid-template-columns: 1fr;
-  grid-template-rows: 20vh 55vh 10vh;
-  padding-top: 20vh;
+  grid-template-rows: 20vh 60vh 10vh;
+  padding-top: 10vh;
   padding-inline: variables.$padding-body;
 
   &-header {
@@ -80,24 +81,25 @@ function toggleOverlay() {
     grid-row: 2;
     height: 100%;
   }
-
+  @media screen and (min-width: 768px) {
+    grid-template-rows: 15vh 70vh 10vh;
+    &-header h2 {
+      @include variables.font-size-h2;
+    }
+  }
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
     grid-template-rows: 20vh 15vh 55vh 15vh;
     padding-inline: calc(2 * #{variables.$padding-body});
     padding-top: 0;
 
-    &-header,
-    header {
-      grid-column: 1 / -1;
+    &-header {
+      grid-column: 1 / 4;
       grid-row: 1 / 3;
       scroll-snap-align: center none;
-      h2 {
-        @include variables.font-size-h2;
-      }
     }
     &-main {
-      grid-column: 4 / 13;
+      grid-column: 3 / 13;
       grid-row: 2 / 4;
       justify-self: center;
     }

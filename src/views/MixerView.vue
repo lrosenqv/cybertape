@@ -121,7 +121,7 @@ async function createMix() {
   padding: 0 variables.$padding-large;
 
   h2 {
-    grid-column: 2 / -1;
+    grid-column: 1 / -1;
     grid-row: 2;
     @include variables.font-size-title;
   }
@@ -136,6 +136,9 @@ async function createMix() {
   @media screen and (min-width: 1024px) {
     grid-template-rows: 20vh auto;
     padding: 0 calc(2 * #{variables.$padding-body});
+    h2 {
+      grid-column: 2 / -1;
+    }
   }
 }
 .main-mixer {

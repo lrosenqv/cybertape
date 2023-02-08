@@ -34,7 +34,6 @@ const { list } = toRefs(props)
 @import '@/style/variables.scss';
 
 .tape-rack {
-  background-color: rgb(220, 220, 214);
   border-radius: variables.$border-radius-medium;
   display: grid;
   grid-template-columns: repeat(1, 300px);
@@ -47,25 +46,30 @@ const { list } = toRefs(props)
   margin-block: variables.$padding-large;
   @include scrollbar-standard;
   &-wrapper {
-    background-color: rgb(220, 220, 214);
     border-radius: variables.$border-radius-medium;
-    perspective: 100em;
-    overflow: hidden;
     height: 100%;
     padding: variables.$padding-large variables.$padding-medium;
   }
 
   @media screen and (min-width: 768px) {
+    background-color: transparent;
     grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(16, 40px);
-    overflow: visible;
+    grid-template-rows: repeat(16, 42px);
+    margin: 0;
+    overflow: unset;
     height: unset;
     transform: rotateX(15deg) perspective(1000px);
     transform-origin: center 100%;
     transform-style: preserve-3d;
+
+    &-wrapper {
+      background-color: transparent;
+      overflow: unset;
+    }
   }
 
   @media screen and (min-width: 1024px) {
+    background-color: rgb(220, 220, 214);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.36);
     gap: 10px;
     grid-template-columns: repeat(4, 200px);
@@ -77,7 +81,6 @@ const { list } = toRefs(props)
     transform-origin: center 100%;
     transform-style: preserve-3d;
     &-wrapper {
-      background-color: transparent;
       margin: 0 auto;
       overflow: unset;
       perspective: 100em;
