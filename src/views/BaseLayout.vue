@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <LayoutTopbar :mobile-view="mobileView" />
+    <LayoutTopbar />
   </div>
   <RouterView />
   <footer>
@@ -10,24 +10,21 @@
 </template>
 
 <script setup lang="ts">
-import LayoutTopbar from '@/components/LayoutTopbar.vue'
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
 import { getUserName } from '@/services/authorization'
-import { onMounted, onBeforeUpdate, ref } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const mobileView = ref<boolean>(false)
+import LayoutTopbar from '@/components/LayoutTopbar.vue'
+
+const store = useStore()
+
 onMounted(() => {
   const accessToken = sessionStorage.getItem('access_token') || ''
   if (accessToken) getUserName(accessToken)
-  if (window.innerWidth <= 768) mobileView.value = true
-  window.addEventListener('resize', () => {
-    if (window.innerWidth <= 768) mobileView.value = true
-    else mobileView.value = false
-  })
+  if (window.innerWidth <= 768) store.commit('setMobileView', true)
 })
-
-onBeforeUpdate(() => {
-  const currentRoute = router.currentRoute
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 768) store.commit('setMobileView', true)
+  else store.commit('setMobileView', false)
 })
 </script>
 

@@ -41,23 +41,26 @@
 <script setup lang="ts">
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { getGenreSeeds, getRecommendations } from '@/services/api'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import MixerSettings from '@/components/organisms/MixerSettings.vue'
 import settings from '@/assets/mixer_settings.json'
 import MixerSearch from '@/components/organisms/MixerSearch.vue'
 import IconChevron from '@/components/icons/IconChevron.vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const selectedIds = ref<IArtist[]>([])
 const genres = ref<String[]>([])
 const overlayOpen = ref<boolean>(false)
+const searchOpen = ref<boolean>(false)
 const generatedPlaylist = ref<ITrack[]>([])
 const settingsString = ref<string>('')
-
 const seed_artists = ref<string>('')
 const seed_tracks = ref<string>('')
 const seed_genres = ref<string>('')
+const mobileView = computed(() => store.state.mobileView)
 
 const settingsModel = ref({
   limit: 0,
@@ -69,17 +72,10 @@ const settingsModel = ref({
   target_tempo: 0,
   target_valence: 0
 })
-const mobileView = ref<boolean>(false)
-const searchOpen = ref<boolean>(false)
 
 onMounted(async () => {
   const genresFromApi = await getGenreSeeds()
   genres.value = genresFromApi
-
-  if (window.innerWidth <= 769) mobileView.value = true
-  window.addEventListener('rezise', () => {
-    if (window.innerWidth <= 769) mobileView.value = true
-  })
 })
 
 function toggleSearch() {

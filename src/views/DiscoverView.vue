@@ -94,9 +94,12 @@ function toggleOverlay() {
     padding-top: 0;
 
     &-header {
-      grid-column: 1 / 4;
+      grid-column: 1 / 5;
       grid-row: 1 / 3;
       scroll-snap-align: center none;
+      p {
+        width: 70%;
+      }
     }
     &-main {
       grid-column: 3 / 13;

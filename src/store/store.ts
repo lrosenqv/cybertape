@@ -7,7 +7,8 @@ const store = createStore({
       username: '',
       uri: '',
       srcImg: ''
-    }
+    },
+    mobileView: false
   },
   mutations: {
     setCodeVerifier(state, payload) {
@@ -19,6 +20,9 @@ const store = createStore({
         uri: payload.uri,
         srcImg: payload.images[0].url
       })
+    },
+    setMobileView(state, payload) {
+      return (state.mobileView = payload)
     }
   }
 })

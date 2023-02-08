@@ -37,17 +37,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, computed } from 'vue'
 import IconUser from '@/components/icons/IconUser.vue'
 import UserCard from '@/components/atoms/UserCard.vue'
 import { logout } from '@/services/authorization'
+import { useStore } from 'vuex'
+const store = useStore()
+
 const shrinked = ref<boolean>(false)
 const hideNav = ref<boolean>(false)
-
 const burgerMenu = ref<HTMLDivElement>()
 const menuOpen = ref<boolean>(false)
 const showUserCard = ref<boolean>(false)
-
+const mobileView = computed(() => store.state.mobileView)
 const app = document.body.querySelector('#app')
 
 function toggleBurger() {
@@ -57,13 +59,6 @@ function toggleBurger() {
 function toggleUserCard() {
   showUserCard.value = !showUserCard.value
 }
-const props = defineProps({
-  mobileView: {
-    type: Boolean,
-    required: true
-  }
-})
-const { mobileView } = toRefs(props)
 
 app?.addEventListener('scroll', () => {
   if (app.scrollTop > 80) {
@@ -239,7 +234,7 @@ app?.addEventListener('scroll', () => {
       width: 32px;
       z-index: 20;
       span {
-        background-color: variables.$color-neutral__greige-dark;
+        background-color: variables.$color-neutral__dark;
         background-blend-mode: difference;
         border-radius: variables.$border-radius-small;
         display: block;
@@ -250,7 +245,7 @@ app?.addEventListener('scroll', () => {
         &::before,
         &::after {
           content: '';
-          background-color: variables.$color-neutral__greige-dark;
+          background-color: variables.$color-neutral__dark;
           border-radius: variables.$border-radius-small;
           display: block;
           height: 3px;
