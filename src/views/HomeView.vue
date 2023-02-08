@@ -55,7 +55,6 @@ import FlipTile from '@/components/FlipTile.vue'
 
 .home-header {
   align-items: flex-end;
-  justify-content: center;
   background-color: variables.$color-neutral__greige-light;
   background-image: url('@/assets/Background-Light.jpg');
   border-radius: 40px 40px 0 0;
@@ -63,6 +62,8 @@ import FlipTile from '@/components/FlipTile.vue'
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: 30% repeat(5, 1fr);
   height: 100vh;
+  justify-content: center;
+  scroll-snap-align: start none;
 
   &-scroll-mouse {
     align-self: center;

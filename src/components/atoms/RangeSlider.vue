@@ -87,6 +87,7 @@ function selectLimit(e: Event) {
     grid-template-columns: auto 1fr auto;
     height: fit-content;
     row-gap: 10px;
+    touch-action: none;
     width: 120px;
 
     .infobox {
