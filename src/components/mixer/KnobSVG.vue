@@ -1,5 +1,11 @@
 <template>
-  <svg fill="none" width="100" height="100" viewBox="0 0 100 100">
+  <svg
+    fill="none"
+    width="100"
+    height="100"
+    viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <defs>
       <radialGradient id="knob-gradient" cx="80%" cy="40%" fx="85%" fy="25%" r="60%">
         <stop offset="9%" stop-color="white" stop-opacity="0.4" />
@@ -18,10 +24,17 @@
       </clipPath>
     </defs>
 
-    <circle class="knob-circle-bottom" r="47" fill="url(#knob-bottom-pattern)" />
-    <circle class="knob-circle-top" r="33" fill="url(#knob-top-pattern)" />
-    <circle class="knob-overlay" r="48" fill="url(#knob-gradient)" clipPath="url(#overlay-clip)" />
-    <rect class="knob-pointer" width="3" height="6" x="49" y="7" fill="white" />
+    <circle class="knob-circle-bottom" cx="50" cy="50" r="47" fill="url(#knob-bottom-pattern)" />
+    <circle class="knob-circle-top" cx="50" cy="50" r="33" fill="url(#knob-top-pattern)" />
+    <circle
+      class="knob-overlay"
+      cx="50"
+      cy="50"
+      r="48"
+      fill="url(#knob-gradient)"
+      clipPath="url(#overlay-clip)"
+    />
+    <rect class="knob-pointer" rx="3" ry="2" width="3" height="6" x="49" y="7" fill="white" />
   </svg>
 </template>
 
@@ -31,11 +44,6 @@
 svg {
   height: 100%;
   width: 100%;
-
-  circle {
-    cx: 50;
-    cy: 50;
-  }
   .knob {
     &-circle-top {
       stroke: #bbbbbb;
@@ -43,8 +51,6 @@ svg {
     }
     &-pointer {
       transform-origin: center center;
-      rx: 3;
-      ry: 2;
     }
   }
 }

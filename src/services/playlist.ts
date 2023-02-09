@@ -1,14 +1,22 @@
-import type { IUser } from '@/models/IUser'
+import type { IPlaylist } from '@/models/IPlaylist'
 import axios from 'axios'
+import { store } from '@/store/store'
 
 const baseUrl = 'https://api.spotify.com/v1/'
 const accessToken = sessionStorage.getItem('access_token')
 
-// Create a new private playlist
+// Get existing playlist
+async function getPlaylistById(playlist_url: string) {
+  const response = await axios.get<IPlaylist>(playlist_url, {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  })
+  return response.data
+}
+// Creates a new playlist on current users' spotify
 async function createPlaylist(name: string) {
-  const user = await getUser()
+  const userId = store.state.currentUser.userId
   const response = await axios.post(
-    baseUrl + `users/${user.id}/playlists`,
+    baseUrl + `users/${userId}/playlists`,
     { name: name, description: '', public: 'false' },
     {
       headers: { Authorization: 'Bearer ' + accessToken }
@@ -27,10 +35,4 @@ async function addTracksToPlaylist(playlist_id: string, uris: string[]) {
   })
   return response
 }
-async function getUser() {
-  const response = await axios.get<IUser>(baseUrl + 'me', {
-    headers: { Authorization: 'Bearer ' + accessToken }
-  })
-  return response.data
-}
-export { getUser, createPlaylist, addTracksToPlaylist }
+export { getPlaylistById, createPlaylist, addTracksToPlaylist }

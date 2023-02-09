@@ -14,13 +14,10 @@ export interface IPlaylist {
   type: string
   uri: string
 }
-
 export interface IPlaylists {
-  href: string
-  items: IPlaylist[]
-  next: string
-}
-
-export interface IPlaylistResponse {
-  playlists: IPlaylists
+  playlists: {
+    href: string
+    items: IPlaylist[]
+    next: string
+  }
 }

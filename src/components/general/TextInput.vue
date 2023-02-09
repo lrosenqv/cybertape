@@ -54,7 +54,7 @@ function onInput(e: any) {
   border: 1.5px solid variables.$color-neutral__greige;
   color: variables.$color-neutral__greige-dark;
   font-weight: 500;
-  height: 100%;
+  height: fit-content;
   outline: none;
   padding: variables.$padding-x-small variables.$padding-medium;
   width: 100%;

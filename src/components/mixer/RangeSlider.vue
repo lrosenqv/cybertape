@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
+import { toRefs } from 'vue'
+import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
   modelValue: {
@@ -69,7 +69,7 @@ function selectLimit(e: Event) {
   &::-webkit-slider-thumb {
     appearance: none;
     background: variables.$color-neutral__dark;
-    background-image: url('@/assets/Slider.svg');
+    background-image: url('@/assets/SliderPusher.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -81,6 +81,21 @@ function selectLimit(e: Event) {
     width: 65px;
     -webkit-appearance: none;
   }
+  &::-moz-range-thumb {
+    appearance: none;
+    background: variables.$color-neutral__dark;
+    background-image: url('@/assets/SliderPusher.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 43px;
+    transform: rotate(90deg);
+    width: 65px;
+    -webkit-appearance: none;
+  }
+
   &-range {
     column-gap: 5px;
     display: grid;
@@ -89,13 +104,11 @@ function selectLimit(e: Event) {
     row-gap: 10px;
     touch-action: none;
     width: 120px;
-
     .infobox {
       align-self: flex-end;
       grid-column: 3;
       grid-row: 2;
     }
-
     label {
       color: variables.$color-neutral__greige-light;
       grid-row: 1;
@@ -121,14 +134,12 @@ function selectLimit(e: Event) {
     justify-content: center;
     justify-self: center;
     width: 75px;
-
     &-line {
       background-color: variables.$color-neutral__greige-light;
       height: 1.5px;
       position: absolute;
       width: 30%;
       z-index: 1;
-
       &:first-of-type {
         align-self: flex-start;
         margin-left: variables.$margin-x-small;
@@ -139,26 +150,19 @@ function selectLimit(e: Event) {
       }
     }
   }
-
   @media screen and (min-width: 769px) {
-    width: 190px;
-
-    &::-webkit-slider-thumb {
-      height: 35.5px;
-      width: 48;
+    &-range {
+      row-gap: 15px;
     }
-
+    width: 165px;
+    &::-webkit-slider-thumb {
+      height: 45px;
+      width: 49;
+    }
     &-wrapper {
-      height: 200px;
+      height: 175px;
       width: 60px;
     }
   }
-  /*   &::-moz-range-thumb {
-    background: variables.$color-neutral__greige-light;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 35.5px;
-    width: 48px;
-  } */
 }
 </style>

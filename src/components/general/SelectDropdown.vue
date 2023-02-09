@@ -24,12 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, ref, watch } from 'vue'
-import type { PropType } from 'vue'
-import IconChevron from '@/components/icons/IconChevron.vue'
-import TextInput from '@/components/atoms/TextInput.vue'
-import SearchResults from '@/components/atoms/SearchResults.vue'
 import type { LIST_ITEM } from '@/models/LIST_ITEM'
+import type { PropType } from 'vue'
+import { toRefs, ref, watch } from 'vue'
+import IconChevron from '@/components/icons/IconChevron.vue'
+import TextInput from '@/components/general/TextInput.vue'
+import SearchResults from '@/components/general/SearchResults.vue'
 
 const props = defineProps({
   options: {
@@ -93,7 +93,7 @@ watch(
     cursor: pointer;
     margin-right: variables.$margin-medium;
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     right: 0;
     bottom: 40%;
     transition: all 0.3s;

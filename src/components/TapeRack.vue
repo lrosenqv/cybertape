@@ -1,30 +1,30 @@
 <template>
   <div class="tape-rack-wrapper">
-    <div class="tape-rack">
+    <ul class="tape-rack">
       <AudioTape
         v-for="item in list"
         :key="item.id"
         :item="item"
         @on-click="emits('onClicked', item)"
       />
-    </div>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { ICategoryItem } from '@/models/ICategory'
+import type { ICategory } from '@/models/ICategory'
 import type { PropType } from 'vue'
 import { toRefs } from 'vue'
 import AudioTape from './AudioTape.vue'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<ICategoryItem[]>,
+    type: Array as PropType<ICategory[]>,
     required: true
   }
 })
 const emits = defineEmits<{
-  (e: 'onClicked', item: ICategoryItem): void
+  (e: 'onClicked', item: ICategory): void
 }>()
 const { list } = toRefs(props)
 </script>
@@ -33,6 +33,13 @@ const { list } = toRefs(props)
 @use '@/style/variables.scss';
 @import '@/style/variables.scss';
 
+$colors: variables.$color__red-light, variables.$color__blue, variables.$color__green-dark,
+  variables.$color__yellow, variables.$color-neutral__greige-dark;
+
+@mixin colorize {
+  $bg: darken($bg, 15%);
+  background: $bg;
+}
 .tape-rack {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -43,6 +50,24 @@ const { list } = toRefs(props)
   overflow-x: hidden;
   overflow-y: scroll;
   @include scrollbar-standard;
+  @for $i from 1 through 40 {
+    li:nth-child(#{length($colors)}n + #{$i}) {
+      $color: desaturate(
+        $color: lighten(nth($colors, random(length($colors))), 5%),
+        $amount: 2
+      );
+      background: $color;
+      border-color: $color;
+      &::after {
+        background: darken($color, 11%);
+        border-color: darken($color, 11%);
+      }
+      &::before {
+        background: darken($color, 5%);
+        border-color: darken($color, 5%);
+      }
+    }
+  }
   &-wrapper {
     background-color: rgb(220, 220, 214);
     border-radius: variables.$border-radius-medium;

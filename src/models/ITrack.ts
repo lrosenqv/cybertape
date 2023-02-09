@@ -2,13 +2,8 @@ import type { IArtist } from './IArtist'
 
 export interface ITracks {
   href: string
-  items: ITrackItem[]
+  items: [{ track: ITrack }]
 }
-
-export interface ITrackItem {
-  track: ITrack
-}
-
 export interface ITrack {
   album: {
     album_type: string
@@ -31,7 +26,6 @@ export interface ITrack {
   type: string
   uri: string
 }
-
 interface IImage {
   height: number
   url: string

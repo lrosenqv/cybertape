@@ -19,8 +19,8 @@
 
 <script setup lang="ts">
 import { ref, watch, toRefs } from 'vue'
-import KnobSVG from '@/components/atoms/KnobSVG.vue'
-import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
+import KnobSVG from '@/components/mixer/KnobSVG.vue'
+import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
   modelValue: {
@@ -60,11 +60,11 @@ function drag_rotate(e: MouseEvent | TouchEvent) {
     let mouseX: number = rect.left + rect.width / 2
     let mouseY: number = rect.top + rect.height / 2
 
-    let radianDegrees: number =
-      e instanceof TouchEvent
-        ? Math.atan2(e.touches[0].pageY - mouseY, e.touches[0].pageX - mouseX)
-        : Math.atan2(e.pageY - mouseY, e.pageX - mouseX)
-
+    let radianDegrees: number = 0
+    if (window.TouchEvent && e instanceof TouchEvent) {
+      radianDegrees = Math.atan2(e.touches[0].pageY - mouseY, e.touches[0].pageX - mouseX)
+    } else if (e instanceof MouseEvent)
+      radianDegrees = Math.atan2(e.pageY - mouseY, e.pageX - mouseX)
     let rotation = radianDegrees * (180 / Math.PI) + 90
     const knobEl = knob.value?.children[0].lastChild as HTMLElement
 
@@ -103,7 +103,6 @@ watch(dragging_knob, (isDragging) => {
   height: fit-content;
   row-gap: 10px;
   width: 120px;
-
   label {
     color: variables.$color-neutral__greige-light;
     grid-row: 1;
@@ -112,34 +111,50 @@ watch(dragging_knob, (isDragging) => {
     text-transform: capitalize;
     @include variables.font-size-paragraph__small;
   }
+  .knob {
+    @include variables.backdrop-gradient;
+    border-radius: 50% 50%;
+    cursor: grab;
+    display: inline-block;
+    height: 82px;
+    width: 82px;
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      grid-column: 1 / 3;
+      grid-row: 2;
+      justify-content: center;
+      justify-self: center;
+      row-gap: 10px;
+      text-align: center;
+      width: fit-content;
+    }
+  }
   .infobox {
     align-self: flex-end;
     grid-column: 3;
     grid-row: 2;
   }
-}
-.knob {
-  @include variables.backdrop-gradient;
-  border-radius: 50% 50%;
-  cursor: grab;
-  display: inline-block;
-  height: 82px;
-  width: 82px;
-
-  &-wrapper {
-    display: flex;
-    flex-direction: column;
-    grid-column: 1 / 3;
-    grid-row: 2;
-    justify-content: center;
-    justify-self: center;
-    row-gap: 10px;
-    text-align: center;
-    width: fit-content;
+  @media screen and (min-width: 768px) {
+    .knob-wrapper {
+      height: 68px;
+      width: 68px;
+    }
+    .knob {
+      height: 78px;
+      width: 78px;
+    }
   }
   @media screen and (min-width: 1024px) {
-    height: 72px;
-    width: 72px;
+    gap: 15px;
+    .knob-wrapper {
+      height: 72px;
+      width: 72px;
+    }
+  }
+  .knob {
+    height: 82px;
+    width: 82px;
   }
 }
 </style>

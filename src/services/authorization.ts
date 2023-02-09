@@ -1,7 +1,7 @@
+import type { IUser } from '@/models/IUser'
 import axios from 'axios'
 import router from '@/router'
 import { store } from '@/store/store'
-import type { IUser } from '@/models/IUser'
 const client_id = import.meta.env.VITE_CLIENT_ID
 const redirect_uri = import.meta.env.VITE_REDIRECT_URI
 
@@ -23,14 +23,12 @@ async function generateCodeChallenge(codeVerifier: string) {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
 }
-
 function generateUrlWithSearchParams(url: string, params: any) {
   const urlObject = new URL(url)
   urlObject.search = new URLSearchParams(params).toString()
 
   return urlObject.toString()
 }
-
 // Requests authorization
 function authRequest() {
   const codeVerifier = generateRandomString(64)
@@ -48,7 +46,6 @@ function authRequest() {
     window.location.assign(url)
   })
 }
-
 // Request to get accessToken from response of authRequest
 async function getAccessToken(code: string) {
   const code_verifier = localStorage.getItem('code_verifier') || ''
@@ -93,7 +90,8 @@ async function refreshToken() {
   })
   handleTokenResponse(res.data)
 }
-function getUserName(accessToken: string) {
+// Get current user details
+function getUser(accessToken: string) {
   axios
     .get<IUser>('https://api.spotify.com/v1/me', {
       headers: { Authorization: 'Bearer ' + accessToken }
@@ -109,4 +107,4 @@ function logout() {
   sessionStorage.clear()
   router.go(0)
 }
-export { authRequest, getAccessToken, logout, refreshToken, getUserName }
+export { authRequest, getAccessToken, logout, refreshToken, getUser }

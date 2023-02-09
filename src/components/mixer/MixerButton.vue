@@ -30,7 +30,7 @@ const emits = defineEmits<{
 .mixer-button {
   aspect-ratio: 1 / 1;
   background: radial-gradient(circle at top right, rgba(200, 200, 200, 0.355) 1%, #1313139e 70%),
-    url('@/assets/TextureDarkLarge.jpg');
+    url('@/assets/TextureDark.jpg');
   border: 2px solid rgb(15, 15, 15);
   border-radius: 50%;
   color: white;
@@ -53,7 +53,7 @@ const emits = defineEmits<{
   }
   &:active {
     background: radial-gradient(circle at top right, rgba(200, 200, 200, 0.27) 1%, #1313139e 70%),
-      url('@/assets/TextureDarkLarge.jpg');
+      url('@/assets/TextureDark.jpg');
     text-shadow: variables.$color__green 0 0 4px;
   }
   &:hover {
@@ -65,7 +65,6 @@ const emits = defineEmits<{
       outline: 3px solid variables.$color__green-light;
     }
   }
-
   &_small {
     padding: variables.$padding-x-small;
     width: 55px;
@@ -82,9 +81,11 @@ const emits = defineEmits<{
     }
   }
   @media screen and (min-width: 769px) {
-    width: 70px;
+    padding: variables.$padding-medium;
+    width: 63px;
     &_small {
-      width: 60px;
+      padding: variables.$padding-x-small;
+      width: 55px;
     }
   }
 }

@@ -5,7 +5,7 @@
       <p>Pick a category to generate a mix of its' most popular tracks!</p>
     </header>
     <main class="discover-main">
-      <TapeRack :list="categories.items" @on-clicked="handleClick" />
+      <TapeRack :list="categories" @on-clicked="handleClick" />
       <PreviewPlaylist
         v-if="openOverlay"
         :tracks="generatedPlaylist"
@@ -16,23 +16,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getCategories, getCategoryPlaylists, getPlaylistById } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
-import TapeRack from '@/components/atoms/TapeRack.vue'
-import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import type { IPlaylist } from '@/models/IPlaylist'
+import { getCategories, getCategoryPlaylists } from '@/services/api'
+import { getPlaylistById } from '@/services/playlist'
+import { ref, onMounted } from 'vue'
+import TapeRack from '@/components/TapeRack.vue'
+import PreviewPlaylist from '@/components/general/PreviewPlaylist.vue'
 
-const categories = ref<ICategory>({ href: '', items: [], next: '' })
+const categories = ref<ICategory[]>([])
 const generatedPlaylist = ref<ITrack[]>([])
 const openOverlay = ref<boolean>(false)
 
 onMounted(async () => {
-  categories.value = await getCategories()
+  const categoriesReq = await getCategories()
+  categories.value = categoriesReq.categories.items
 })
 async function handleClick(item: any) {
   const playlists = await getCategoryPlaylists(item.id)
+  console.log(playlists)
   const shuffle = playlists.items.sort(() => 0.5 - Math.random())
   const selected = shuffle.slice(0, 5)
 
@@ -61,7 +64,7 @@ function toggleOverlay() {
 @use '@/style/variables.scss';
 
 .discover {
-  background: url('@/assets/Background-Light.jpg'), darken(variables.$color__green-dark, 20%);
+  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__green-dark, 20%);
   background-blend-mode: overlay;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
@@ -99,7 +102,7 @@ function toggleOverlay() {
     grid-template-rows: variables.$grid-rows-template-standard;
     padding-inline: variables.$padding-body;
     gap: 0;
-    padding-bottom: calc(#{variables.$padding-body} + #{variables.$padding-medium});
+    padding-bottom: variables.$padding-medium;
 
     &-header {
       grid-column: 2 / 6;

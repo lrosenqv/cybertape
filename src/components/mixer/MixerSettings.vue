@@ -43,25 +43,14 @@
 </template>
 
 <script setup lang="ts">
+import type { SETTING_ITEM, SETTING_ITEM_TOGGLE } from '@/models/LIST_ITEM'
 import type { PropType } from 'vue'
 import { toRefs, computed } from 'vue'
-import RotationKnob from '@/components/atoms/RotationKnob.vue'
-import RangeSlider from '@/components/atoms/RangeSlider.vue'
-import MixerButton from '@/components/atoms/MixerButton.vue'
-import ToggleSlider from '../atoms/ToggleSlider.vue'
+import RotationKnob from '@/components/mixer/RotationKnob.vue'
+import RangeSlider from '@/components/mixer/RangeSlider.vue'
+import MixerButton from '@/components/mixer/MixerButton.vue'
+import ToggleSlider from '@/components/mixer/ToggleSlider.vue'
 
-interface SETTING_ITEM {
-  title: string
-  description: string
-}
-interface SETTING_ITEM_TOGGLE {
-  title: string
-  description: string
-  min: number
-  max: number
-  steps: number
-  step_labels: string[]
-}
 // Props
 const props = defineProps({
   knobs: {
@@ -137,76 +126,65 @@ function resetSettings() {
   settings.value.sliderSettings.forEach((slider) => (slider.value = ''))
   settings.value.toggleSettings.forEach((toggle) => (toggle.value = ''))
 }
-// Watchers
 </script>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
 #mixer-settings {
-  display: grid;
-  row-gap: 40px;
-  grid-template-columns: 66% 33%;
-  grid-template-rows: repeat(4, auto);
-  height: fit-content;
-  justify-content: center;
-  justify-items: center;
-
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  width: 100%;
   &__knobs {
-    column-gap: 10px;
     display: flex;
     justify-content: space-between;
-    grid-area: 1 / 1 / 2 / -1;
   }
   &__sliders {
-    column-gap: 10px;
     display: flex;
     justify-content: space-between;
-    grid-row: 2;
-    grid-column: 1 / -1;
   }
   &__toggles {
-    column-gap: 40px;
     display: flex;
-    grid-row: 3;
-    grid-column: 1 / -1;
-    justify-content: space-between;
+    padding-left: variables.$padding-small;
+    gap: 10px;
   }
   &__buttons {
     align-items: flex-end;
-    align-self: flex-start;
-    justify-content: flex-end;
-    justify-self: flex-end;
+    align-self: flex-end;
     display: flex;
     gap: 24px;
-    grid-row: 4;
-    grid-column: 1 / -1;
-    padding: 0 variables.$padding-body variables.$padding-body;
+    justify-self: flex-end;
+    padding: 0 variables.$padding-medium variables.$padding-medium;
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 595px) {
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 66% 33%;
     grid-template-rows: repeat(3, 1fr);
-    justify-items: normal;
-    gap: 0;
-    height: 100%;
-
+    row-gap: 20px;
     &__knobs {
+      column-gap: 10px;
       grid-area: 1 / 1 / 2 / 2;
     }
     &__sliders {
-      grid-area: 2 / 1 / 4 / 2;
+      grid-row: 2 / 4;
+      grid-column: 1 / 2;
     }
     &__toggles {
-      align-items: center;
-      justify-content: flex-start;
-      justify-self: flex-end;
+      display: flex;
       flex-direction: column;
-      grid-area: 1 / 2 / 3 / 3;
-      row-gap: 72px;
+      justify-self: flex-end;
+      grid-row: 1 / 3;
+      grid-column: 2;
+      padding-left: variables.$padding-x-small;
     }
     &__buttons {
-      align-self: flex-end;
-      justify-self: flex-end;
-      padding: 0 0 variables.$padding-medium;
-      grid-area: 3 / 2 / 4 / 3;
+      align-items: flex-end;
+      align-self: flex-start;
+      grid-row: 3;
+      grid-column: 2;
+      padding-top: 0;
     }
   }
 }
