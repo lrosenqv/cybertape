@@ -2,7 +2,7 @@
   <div class="mixer">
     <header class="mixer-header">
       <h2>Playlist mixer</h2>
-      <p>Lorem Ipsum dolor sit amet</p>
+      <p>You have to select at least one artist, track or genre, but no more than 5 of each.</p>
     </header>
     <main class="mixer-main">
       <PreviewPlaylist

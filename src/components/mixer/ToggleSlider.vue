@@ -111,11 +111,18 @@ function toggleSelection(e: Event) {
   }
 
   &::-moz-range-thumb {
+    appearance: none;
     background: variables.$color-neutral__greige-light;
+    background-image: url('@/assets/SliderPusher.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
     border-radius: 4px;
     cursor: pointer;
+    filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.29));
     height: 35px;
-    width: 27px;
+    width: 29px;
+    transform: rotate(90deg);
+    -webkit-appearance: none;
   }
   &-slider {
     column-gap: 5px;
@@ -178,7 +185,7 @@ function toggleSelection(e: Event) {
       }
     }
     &-slider {
-      row-gap: 5px;
+      row-gap: 15px;
     }
     &-wrapper {
       padding: variables.$padding-small variables.$padding-x-small;

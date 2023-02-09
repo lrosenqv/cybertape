@@ -60,11 +60,11 @@ function drag_rotate(e: MouseEvent | TouchEvent) {
     let mouseX: number = rect.left + rect.width / 2
     let mouseY: number = rect.top + rect.height / 2
 
-    let radianDegrees: number =
-      e instanceof TouchEvent
-        ? Math.atan2(e.touches[0].pageY - mouseY, e.touches[0].pageX - mouseX)
-        : Math.atan2(e.pageY - mouseY, e.pageX - mouseX)
-
+    let radianDegrees: number = 0
+    if (window.TouchEvent && e instanceof TouchEvent) {
+      radianDegrees = Math.atan2(e.touches[0].pageY - mouseY, e.touches[0].pageX - mouseX)
+    } else if (e instanceof MouseEvent)
+      radianDegrees = Math.atan2(e.pageY - mouseY, e.pageX - mouseX)
     let rotation = radianDegrees * (180 / Math.PI) + 90
     const knobEl = knob.value?.children[0].lastChild as HTMLElement
 
@@ -146,7 +146,7 @@ watch(dragging_knob, (isDragging) => {
     }
   }
   @media screen and (min-width: 1024px) {
-    gap: 5px;
+    gap: 15px;
     .knob-wrapper {
       height: 72px;
       width: 72px;

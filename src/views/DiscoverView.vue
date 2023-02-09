@@ -102,7 +102,7 @@ function toggleOverlay() {
     grid-template-rows: variables.$grid-rows-template-standard;
     padding-inline: variables.$padding-body;
     gap: 0;
-    padding-bottom: calc(#{variables.$padding-body} + #{variables.$padding-medium});
+    padding-bottom: variables.$padding-medium;
 
     &-header {
       grid-column: 2 / 6;

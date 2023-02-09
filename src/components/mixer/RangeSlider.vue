@@ -81,6 +81,21 @@ function selectLimit(e: Event) {
     width: 65px;
     -webkit-appearance: none;
   }
+  &::-moz-range-thumb {
+    appearance: none;
+    background: variables.$color-neutral__dark;
+    background-image: url('@/assets/SliderPusher.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 43px;
+    transform: rotate(90deg);
+    width: 65px;
+    -webkit-appearance: none;
+  }
+
   &-range {
     column-gap: 5px;
     display: grid;
@@ -137,7 +152,7 @@ function selectLimit(e: Event) {
   }
   @media screen and (min-width: 769px) {
     &-range {
-      row-gap: 5px;
+      row-gap: 15px;
     }
     width: 165px;
     &::-webkit-slider-thumb {
@@ -149,12 +164,5 @@ function selectLimit(e: Event) {
       width: 60px;
     }
   }
-  /*   &::-moz-range-thumb {
-    background: variables.$color-neutral__greige-light;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 35.5px;
-    width: 48px;
-  } */
 }
 </style>
