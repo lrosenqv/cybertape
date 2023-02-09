@@ -17,7 +17,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { getCategories, getCategoryPlaylists, getPlaylistById } from '@/services/api'
+import { getPlaylistById } from '@/services/playlist'
+import { getCategories, getCategoryPlaylists } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
 import TapeRack from '@/components/atoms/TapeRack.vue'

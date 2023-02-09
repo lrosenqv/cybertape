@@ -4,7 +4,7 @@ const store = createStore({
   state: {
     codeVerifier: '',
     currentUser: {
-      username: '',
+      userId: '',
       uri: '',
       srcImg: ''
     },
@@ -16,7 +16,7 @@ const store = createStore({
     },
     setCurrentUser(state, payload) {
       return (state.currentUser = {
-        username: payload.id,
+        userId: payload.id,
         uri: payload.uri,
         srcImg: payload.images[0].url
       })

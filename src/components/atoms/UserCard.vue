@@ -2,7 +2,7 @@
   <div ref="usercard" class="user-card">
     <img :src="currentUser.srcImg" />
     <div class="user-card-text">
-      <a :href="currentUser.uri">{{ currentUser.username }}</a>
+      <a :href="currentUser.uri">{{ currentUser.userId }}</a>
       <ButtonBorder text="Log out" :secondary="true" @click="emits('logout')" />
     </div>
   </div>

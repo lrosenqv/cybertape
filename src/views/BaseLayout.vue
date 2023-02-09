@@ -10,14 +10,14 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { getUserName } from '@/services/authorization'
+import { getUser } from '@/services/authorization'
 import LayoutTopbar from '@/components/LayoutTopbar.vue'
 
 const store = useStore()
 
 onMounted(() => {
   const accessToken = sessionStorage.getItem('access_token') || ''
-  if (accessToken) getUserName(accessToken)
+  if (accessToken) getUser(accessToken)
   if (window.innerWidth < 768) store.commit('setMobileView', true)
 })
 window.addEventListener('resize', () => {
