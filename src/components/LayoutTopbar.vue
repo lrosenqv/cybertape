@@ -59,7 +59,6 @@ function toggleUserCard() {
   showUserCard.value = !showUserCard.value
 }
 app?.addEventListener('scroll', (e) => {
-  console.log(e)
   if (app.scrollTop > 0) {
     shrinked.value = true
     setTimeout(() => {

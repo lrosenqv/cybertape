@@ -11,8 +11,8 @@
         spacing="auto"
       />
     </defs>
-    <text font-size="10" textLength="227" word-spacing="4" lengthAdjust="spacing">
-      <textPath xlink:href="#circle">only - only - only - only - only - only -</textPath>
+    <text textLength="227" word-spacing="4" lengthAdjust="spacing">
+      <textPath xlink:href="#circle">only - only - only - only - only -</textPath>
     </text>
   </svg>
 </template>
@@ -21,11 +21,11 @@
 @use '@/style/variables.scss';
 
 svg {
-  top: 15%;
-  // animation: rotate 17s reverse linear infinite;
+  height: 100%;
+  width: 100%;
 }
-
 textPath {
-  display: flex;
+  font-size: 12px;
+  font-weight: 500;
 }
 </style>

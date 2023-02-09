@@ -1,9 +1,9 @@
 <template>
-  <div class="audio-tape" @click="emits('onClick')">
+  <li class="audio-tape" @click="emits('onClick')">
     <div class="audio-tape-label" @mouseenter.stop="(e) => scrollText(e)">
       <p ref="tapeLabel">{{ item.name }}</p>
     </div>
-  </div>
+  </li>
 </template>
 
 <script setup lang="ts">
@@ -17,7 +17,6 @@ const props = defineProps({
     required: true
   }
 })
-
 const emits = defineEmits<{
   (e: 'onClick'): void
 }>()
@@ -28,7 +27,7 @@ function scrollText(e: MouseEvent) {
   const el = e.currentTarget as HTMLElement
   const boxWidth = el.clientWidth
   if (tapeLabel.value) {
-    const textWidth = tapeLabel.value?.scrollWidth
+    const textWidth = tapeLabel.value.scrollWidth
 
     if (textWidth > boxWidth) {
       tapeLabel.value.animate(
@@ -50,45 +49,62 @@ function scrollText(e: MouseEvent) {
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
-
 .audio-tape {
   aspect-ratio: 6 / 1;
   background: variables.$color-neutral__dark;
-  border-radius: variables.$border-radius-x-small;
+  border-radius: 2px;
   border-right: 1px solid variables.$color-neutral__dark;
   border-bottom: 1px solid variables.$color-neutral__dark;
   color: variables.$color-neutral__light;
   cursor: pointer;
-  object-fit: contain;
-  padding-inline: variables.$padding-small;
+  list-style-type: none;
+  padding: variables.$padding-small variables.$padding-x-small;
   transition: all 0.25s linear;
   text-overflow: clip;
   width: 100%;
   z-index: 1;
+
   &-label {
+    align-items: center;
+    background-color: variables.$color-neutral__light;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    border-radius: 3px;
+    display: flex;
+    height: 100%;
     overflow: hidden;
+    width: 100%;
+    p {
+      @include variables.font-size-paragraph;
+      color: variables.$color-neutral__dark;
+      margin: 0 auto;
+      max-width: 100%;
+      overflow: hidden;
+      padding-inline: 20px;
+      text-overflow: ellipsis;
+
+      width: fit-content;
+      white-space: nowrap;
+    }
   }
-  p {
-    @include variables.font-size-paragraph;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  @media screen and (min-width: 768px) {
+    padding: variables.$padding-x-small variables.$padding-medium;
   }
   @media screen and (min-width: 1024px) {
     border-radius: 0;
+    padding: variables.$padding-x-small variables.$padding-small;
+    &-label {
+      height: initial;
+    }
     &:hover {
       background: variables.$color__green;
       border-color: variables.$color__green;
       color: variables.$color-neutral__dark;
       transform: translate(-0.4em, -0.4em);
       transition: all 0.25s linear;
-
       p {
         overflow: visible;
-        text-overflow: initial;
-        white-space: wrap;
-        width: 100%;
       }
 
       &:before,
@@ -97,16 +113,12 @@ function scrollText(e: MouseEvent) {
       }
 
       &:before {
-        background: variables.$color__green-dark;
-        border-color: variables.$color__green-dark;
         right: -0.8em;
         top: 0.4em;
         width: 12px;
       }
 
       &:after {
-        background: darken(variables.$color__green-dark, 10%);
-        border-color: darken(variables.$color__green-dark, 10%);
         height: 12px;
         bottom: -0.8em;
         right: -0.45em;
@@ -129,7 +141,7 @@ function scrollText(e: MouseEvent) {
       width: 100%;
     }
     &:before {
-      background: darken(variables.$color-neutral__dark, 5%);
+      background-color: darken(variables.$color-neutral__dark, 50%);
       border-color: darken(variables.$color-neutral__dark, 5%);
       height: 101%;
       right: -0.41em;

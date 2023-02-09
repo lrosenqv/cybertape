@@ -1,12 +1,17 @@
 <template>
   <header class="home-header">
-    <div class="circle circle__left">
-      <CircleSubjective class="circle-text" />
-    </div>
-    <div class="circle circle__right">
-      <CircleBangers class="circle-text" />
-      <CircleOnly class="circle-text circle-text__second" />
-    </div>
+    <template v-if="!mobileView">
+      <div class="circle circle__left">
+        <CircleSubjective class="circle-text" />
+      </div>
+      <div class="circle circle__right">
+        <CircleBangers class="circle-text" />
+        <CircleOnly class="circle-text circle-text__second" />
+      </div>
+    </template>
+    <template v-else>
+      <h1>subjective. bangers. only.</h1>
+    </template>
     <DecorStripes class="stripes" />
     <div class="home-header-scroll-mouse">
       <div class="home-header-scroll-mouse__wheel"></div>
@@ -37,15 +42,20 @@
 
 <script setup lang="ts">
 import DecorStripes from '@/components/DecorStripes.vue'
-import CircleSubjective from '@/assets/CircleSubjective.vue'
-import CircleBangers from '@/assets/CircleBangers.vue'
-import CircleOnly from '@/assets/CircleOnly.vue'
+import CircleSubjective from '@/components/CircleSubjective.vue'
+import CircleBangers from '@/components/CircleBangers.vue'
+import CircleOnly from '@/components/CircleOnly.vue'
 import FlipTile from '@/components/FlipTile.vue'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+
+const store = useStore()
+
+const mobileView = computed(() => store.state.mobileView)
 </script>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
-
 .home-header {
   align-items: flex-end;
   background-color: variables.$color-neutral__greige-light;
@@ -55,12 +65,25 @@ import FlipTile from '@/components/FlipTile.vue'
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: variables.$grid-rows-template-standard;
   height: 100vh;
+  overflow: hidden;
   justify-content: center;
   scroll-snap-align: start none;
 
+  h1 {
+    bottom: -24px;
+    color: variables.$color-neutral__dark;
+    font-weight: 600;
+    grid-column: 1 / -1;
+    display: inline-block;
+    grid-row: 2 / 4;
+    margin: 0;
+    z-index: 1;
+    flex-shrink: 1;
+  }
+
   &-scroll-mouse {
     align-self: center;
-    border: 1px solid variables.$color-neutral__greige-light;
+    border: 1px solid white;
     border-radius: 10px;
     justify-self: center;
     width: 20px;
@@ -80,38 +103,56 @@ import FlipTile from '@/components/FlipTile.vue'
   }
   .stripes {
     grid-column: 1 / -1;
-    grid-row: 3 / 7;
+    grid-row: 4 / 7;
+    height: 100%;
   }
-  .circle {
-    align-self: center;
-    align-items: center;
-    aspect-ratio: 1 / 1;
-    background-color: variables.$color-neutral__greige-light;
-    background-image: url('@/assets/Background-Light.jpg');
-    border-radius: 100%;
-    display: flex;
-    grid-row: 2 / 5;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
 
-    &__left {
-      grid-column: 3 / 5;
-      width: 100%;
-    }
-    &__right {
-      grid-column: 8 / 11;
-      box-sizing: border-box;
-      justify-self: right;
-      width: 85%;
-    }
-    &-text {
+  @media screen and (min-width: 768px) {
+    .circle {
+      align-self: center;
+      align-items: center;
+      aspect-ratio: 1 / 1;
+      background-color: variables.$color-neutral__greige-light;
+      background-image: url('@/assets/Background-Light.jpg');
       border-radius: 100%;
-      position: absolute;
-      top: 0;
-      &__second {
-        top: 12%;
+      display: flex;
+      grid-row: 2 / 5;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      svg {
+        position: absolute;
+        zoom: 1.005;
       }
+      &__left {
+        justify-self: flex-end;
+        grid-column: 2 / 5;
+        width: 100%;
+        > svg {
+          animation: rotate 20s normal linear infinite;
+        }
+      }
+      &__right {
+        align-items: center;
+        display: flex;
+        grid-column: 8 / 12;
+        justify-self: left;
+        justify-items: center;
+        width: 100%;
+        > svg:nth-child(1) {
+          animation: rotate 30s normal linear infinite;
+        }
+        > svg:nth-child(2) {
+          animation: rotate 22s reverse linear infinite;
+          width: 65%;
+        }
+      }
+    }
+    .stripes {
+      grid-row: 3 / 7;
+      height: 90%;
+    }
+    &-scroll-mouse {
     }
   }
 }

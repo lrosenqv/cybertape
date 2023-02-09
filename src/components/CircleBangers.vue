@@ -10,18 +10,20 @@
         a 37,37 0 1,1 -74,0"
       />
     </defs>
-    <text font-size="9.5">
-      <textPath xlink:href="#circle">
-        subjective - subjective - subjective - subjective - subjective -
-      </textPath>
+    <text textLength="228" word-spacing="2" lengthAdjust="spacing">
+      <textPath xlink:href="#circle">bangers - bangers - bangers - bangers -</textPath>
     </text>
   </svg>
 </template>
 
 <style lang="scss" scoped>
 @use '@/style/variables.scss';
-
-// svg {
-// animation: rotate 20s normal linear infinite;
-// }
+svg {
+  height: 100%;
+  width: 100%;
+}
+textPath {
+  font-size: 12px;
+  font-weight: 500;
+}
 </style>
