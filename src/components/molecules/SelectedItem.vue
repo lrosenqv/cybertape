@@ -15,9 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { LIST_ITEM } from '@/models/LIST_ITEM'
+import { toRefs } from 'vue'
 
 // Props
 const props = defineProps({
@@ -26,16 +26,12 @@ const props = defineProps({
     required: true
   }
 })
-
 // Emits
 const emits = defineEmits<{
   (e: 'removeItem'): void
 }>()
-
 // Composables
 const { item } = toRefs(props)
-// Functions
-// Watchers
 </script>
 
 <style lang="scss" scoped>
@@ -47,7 +43,6 @@ const { item } = toRefs(props)
   @media screen and (min-width: 769px) {
     padding: variables.$padding-small;
   }
-
   button {
     background-color: transparent;
     color: white;

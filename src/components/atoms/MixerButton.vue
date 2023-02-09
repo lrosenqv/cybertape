@@ -65,7 +65,6 @@ const emits = defineEmits<{
       outline: 3px solid variables.$color__green-light;
     }
   }
-
   &_small {
     padding: variables.$padding-x-small;
     width: 55px;
@@ -82,9 +81,11 @@ const emits = defineEmits<{
     }
   }
   @media screen and (min-width: 769px) {
-    width: 70px;
+    padding: variables.$padding-medium;
+    width: 63px;
     &_small {
-      width: 60px;
+      padding: variables.$padding-x-small;
+      width: 55px;
     }
   }
 }

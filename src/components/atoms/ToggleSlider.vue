@@ -117,7 +117,6 @@ function toggleSelection(e: Event) {
     height: 35px;
     width: 27px;
   }
-
   &-slider {
     column-gap: 5px;
     display: grid;
@@ -126,14 +125,18 @@ function toggleSelection(e: Event) {
     row-gap: 10px;
     height: fit-content;
     width: fit-content;
-
+    label {
+      color: variables.$color-neutral__greige-light;
+      height: fit-content;
+      text-transform: capitalize;
+      @include variables.font-size-paragraph__small;
+    }
     .infobox {
       align-self: flex-end;
       grid-column: 2;
       grid-row: 2;
     }
   }
-
   &-indicator {
     height: 35%;
     width: 100%;
@@ -150,14 +153,6 @@ function toggleSelection(e: Event) {
       height: 50%;
       width: 100%;
     }
-    @media screen and (min-width: 769px) {
-      height: 40%;
-      width: 100%;
-      &__labels {
-        font-size: 0.9rem;
-        height: 50%;
-      }
-    }
   }
   &-wrapper {
     grid-column: 1;
@@ -171,16 +166,24 @@ function toggleSelection(e: Event) {
     height: 70px;
     width: 120px;
     @include variables.backdrop-gradient;
-    @media screen and (min-width: 769px) {
+  }
+
+  @media screen and (min-width: 769px) {
+    &-indicator {
+      height: 40%;
+      width: 100%;
+      &__labels {
+        font-size: 0.9rem;
+        height: 50%;
+      }
+    }
+    &-slider {
+      row-gap: 5px;
+    }
+    &-wrapper {
       padding: variables.$padding-small variables.$padding-x-small;
-      width: 130px;
+      width: 125px;
     }
   }
-}
-label {
-  color: variables.$color-neutral__greige-light;
-  height: fit-content;
-  text-transform: capitalize;
-  @include variables.font-size-paragraph__small;
 }
 </style>

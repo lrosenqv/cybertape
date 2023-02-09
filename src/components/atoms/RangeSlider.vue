@@ -89,13 +89,11 @@ function selectLimit(e: Event) {
     row-gap: 10px;
     touch-action: none;
     width: 120px;
-
     .infobox {
       align-self: flex-end;
       grid-column: 3;
       grid-row: 2;
     }
-
     label {
       color: variables.$color-neutral__greige-light;
       grid-row: 1;
@@ -121,14 +119,12 @@ function selectLimit(e: Event) {
     justify-content: center;
     justify-self: center;
     width: 75px;
-
     &-line {
       background-color: variables.$color-neutral__greige-light;
       height: 1.5px;
       position: absolute;
       width: 30%;
       z-index: 1;
-
       &:first-of-type {
         align-self: flex-start;
         margin-left: variables.$margin-x-small;
@@ -139,17 +135,17 @@ function selectLimit(e: Event) {
       }
     }
   }
-
   @media screen and (min-width: 769px) {
-    width: 190px;
-
-    &::-webkit-slider-thumb {
-      height: 35.5px;
-      width: 48;
+    &-range {
+      row-gap: 5px;
     }
-
+    width: 165px;
+    &::-webkit-slider-thumb {
+      height: 45px;
+      width: 49;
+    }
     &-wrapper {
-      height: 200px;
+      height: 175px;
       width: 60px;
     }
   }

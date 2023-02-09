@@ -28,7 +28,6 @@
 
       <section class="mixer-main-section mixer-main-section__right">
         <MixerSettings
-          v-model="settingsModel"
           id="mixer-settings"
           :knobs="settings.knobs"
           :sliders="settings.sliders"
@@ -42,17 +41,19 @@
 </template>
 
 <script setup lang="ts">
+import settings from '@/assets/mixer_settings.json'
 import type { ITrack } from '@/models/ITrack'
 import { ref, onMounted, computed } from 'vue'
-import { getGenres, getRecommendations } from '@/services/api'
-import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
-import MixerSettings from '@/components/organisms/MixerSettings.vue'
-import settings from '@/assets/mixer_settings.json'
-import MixerSearch from '@/components/organisms/MixerSearch.vue'
-import IconChevron from '@/components/icons/IconChevron.vue'
 import { useStore } from 'vuex'
+import { getGenres, getRecommendations } from '@/services/api'
+import MixerSearch from '@/components/organisms/MixerSearch.vue'
+import MixerSettings from '@/components/organisms/MixerSettings.vue'
+import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
+import IconChevron from '@/components/icons/IconChevron.vue'
+
 const store = useStore()
 
+const mobileView = computed(() => store.state.mobileView)
 const genres = ref<String[]>([])
 const overlayOpen = ref<boolean>(false)
 const searchOpen = ref<boolean>(false)
@@ -61,27 +62,15 @@ const settingsString = ref<string>('')
 const seed_artists = ref<string>('')
 const seed_tracks = ref<string>('')
 const seed_genres = ref<string>('')
-const mobileView = computed(() => store.state.mobileView)
-
-const settingsModel = ref({
-  limit: 0,
-  target_acousticness: 0,
-  target_danceability: 0,
-  target_energy: 0,
-  target_mode: 0,
-  target_popularity: 0,
-  target_tempo: 0,
-  target_valence: 0
-})
 
 onMounted(async () => {
   const genresFromApi = await getGenres()
   genres.value = genresFromApi
 })
-
 function toggleSearch() {
   searchOpen.value = !searchOpen.value
 }
+// Preparing params for API request
 function onSettingsChange(settings: String[]) {
   settingsString.value = `&${settings.join('&')}`
 }
@@ -90,6 +79,7 @@ function onSelectSeeds(artists: string[], tracks: string[], genres: string[]) {
   seed_tracks.value = tracks.join(',')
   seed_genres.value = genres.join(',')
 }
+// Create mix from selections
 async function createMix() {
   const res = await getRecommendations(
     seed_artists.value,
@@ -102,7 +92,7 @@ async function createMix() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '@/style/variables.scss';
 
 .mixer {
@@ -110,38 +100,35 @@ async function createMix() {
   background-blend-mode: soft-light;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: variables.$grid-rows-template-mobile;
   height: 100vh;
-  padding-bottom: variables.$padding-x-large;
-  padding-inline: variables.$padding-large;
+  grid-template-columns: variables.$grid-template-standard;
+  grid-template-rows: variables.$grid-rows-template-mobile;
+  padding: 0 variables.$padding-large variables.$padding-x-large;
 
   &-header {
+    align-self: flex-end;
     display: flex;
     flex-direction: column;
-    grid-column: 1;
-    grid-row: 2;
-    padding-bottom: variables.$padding-x-large;
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
     scroll-snap-align: center none;
-
     h2 {
-      grid-column: 1 / -1;
-      grid-row: 2;
       @include variables.font-size-title;
     }
   }
   &-main {
-    display: grid;
-    gap: 15px;
-    grid-row: 3 / 8;
-    grid-template-rows: auto 1fr;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    grid-row: 3 / 9;
+    grid-column: 1 / -1;
+    max-height: 100%;
 
     &-section {
       border-radius: variables.$border-radius-medium;
       box-shadow: variables.$shadow-1;
       grid-row: 1;
-
+      height: 100%;
       h3 {
         font-size: 20px;
       }
@@ -150,19 +137,15 @@ async function createMix() {
         color: variables.$color-neutral__greige-dark;
         display: flex;
         flex-direction: column;
-        grid-column: 1;
-        grid-row: 1;
         transition: all 0.2s;
-        padding: variables.$padding-medium variables.$padding-x-large;
+        padding: variables.$padding-small variables.$padding-x-large;
         &.-collapsed {
           gap: 0;
-          height: 4.5vh;
-          transition: all 0.2s;
+          height: 5vh;
         }
         &.-expanded {
           height: 25vh;
           gap: 8px;
-          transition: all 0.2s;
           .main-mixer-section__left-header svg {
             transform: rotate(180deg);
           }
@@ -174,77 +157,67 @@ async function createMix() {
           scroll-snap-align: center none;
         }
       }
-
       &__right {
+        align-self: center;
         background-color: variables.$color-neutral__dark;
         background-image: url('@/assets/TextureLeather.jpg');
         background-size: cover;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        grid-column: 1 / -1;
-        grid-row: 2;
-        height: fit-content;
-        padding-block: variables.$padding-large;
+        padding: variables.$padding-large variables.$padding-medium;
+
+        width: 100%;
       }
     }
   }
-
   @media screen and (min-width: 769px) {
+    gap: 0;
     grid-template-columns: variables.$grid-template-standard;
     grid-template-rows: variables.$grid-rows-template-tablet;
-    padding-inline: variables.$padding-body;
+    padding: 0 variables.$padding-body;
 
     &-header {
       align-self: flex-end;
-      grid-column: 2 / 12;
+      grid-column: 1 / 12;
       height: fit-content;
       padding-bottom: variables.$padding-x-large;
-      h2 {
-        @include variables.font-size-h2;
-      }
     }
     &-main {
       display: flex;
-      grid-row: 3 / 8;
-      grid-column: 2 / 12;
-      flex-direction: column;
-
+      gap: 20px;
+      grid-row: 3 / 7;
+      grid-column: 1 / -1;
+      flex-direction: row;
       &-section {
-        width: 100%;
+        height: 100%;
         &__left {
-          height: 100%;
-        }
-        &__right {
-          height: 100%;
-          padding-inline: variables.$padding-body;
+          min-width: 30%;
         }
       }
     }
   }
-
   @media screen and (min-width: 1024px) {
     grid-template-rows: variables.$grid-rows-template-standard;
-    padding-inline: variables.$padding-body;
+    padding: 0 0 variables.$padding-body variables.$padding-body;
 
+    &-header {
+      grid-column: 2 / 12;
+    }
     &-main {
       flex-direction: row;
       grid-row: 3 / 7;
       grid-column: 2 / 12;
-
       &-section {
-        padding: variables.$padding-body;
+        padding: variables.$padding-large;
         h3 {
           font-size: 26px;
           font-weight: 500;
         }
         &__left {
-          row-gap: 15px;
-          flex-shrink: 0.9;
+          height: 100%;
+          min-width: 40%;
         }
-        &__right {
-          padding-right: calc(2 * #{variables.$padding-x-large});
-          flex-shrink: 0.8;
+        &-right {
+          width: 50%;
+          width: fit-content;
         }
       }
     }

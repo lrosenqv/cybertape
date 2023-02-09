@@ -103,7 +103,6 @@ watch(dragging_knob, (isDragging) => {
   height: fit-content;
   row-gap: 10px;
   width: 120px;
-
   label {
     color: variables.$color-neutral__greige-light;
     grid-row: 1;
@@ -112,34 +111,50 @@ watch(dragging_knob, (isDragging) => {
     text-transform: capitalize;
     @include variables.font-size-paragraph__small;
   }
+  .knob {
+    @include variables.backdrop-gradient;
+    border-radius: 50% 50%;
+    cursor: grab;
+    display: inline-block;
+    height: 82px;
+    width: 82px;
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      grid-column: 1 / 3;
+      grid-row: 2;
+      justify-content: center;
+      justify-self: center;
+      row-gap: 10px;
+      text-align: center;
+      width: fit-content;
+    }
+  }
   .infobox {
     align-self: flex-end;
     grid-column: 3;
     grid-row: 2;
   }
-}
-.knob {
-  @include variables.backdrop-gradient;
-  border-radius: 50% 50%;
-  cursor: grab;
-  display: inline-block;
-  height: 82px;
-  width: 82px;
-
-  &-wrapper {
-    display: flex;
-    flex-direction: column;
-    grid-column: 1 / 3;
-    grid-row: 2;
-    justify-content: center;
-    justify-self: center;
-    row-gap: 10px;
-    text-align: center;
-    width: fit-content;
+  @media screen and (min-width: 768px) {
+    .knob-wrapper {
+      height: 68px;
+      width: 68px;
+    }
+    .knob {
+      height: 78px;
+      width: 78px;
+    }
   }
   @media screen and (min-width: 1024px) {
-    height: 72px;
-    width: 72px;
+    gap: 5px;
+    .knob-wrapper {
+      height: 72px;
+      width: 72px;
+    }
+  }
+  .knob {
+    height: 82px;
+    width: 82px;
   }
 }
 </style>

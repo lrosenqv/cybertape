@@ -188,7 +188,7 @@ const resultsTracks = computed(() => {
   gap: 6px;
   grid-template-columns: 1fr;
   height: 100%;
-  grid-template-rows: 20% 1fr 10%;
+  grid-template-rows: auto 1fr 10%;
   position: relative;
   &.__collapsed {
     gap: 0;
@@ -197,14 +197,14 @@ const resultsTracks = computed(() => {
   &-input {
     &-wrapper {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      // flex-wrap: wrap;
+      justify-content: space-between;
+      // max-width: 800px;
+      gap: 5px;
     }
     &__artists,
-    &__tracks,
-    &__genres {
-      flex-basis: 200px;
-      flex-shrink: 0;
+    &__tracks {
+      width: 33%;
     }
   }
   &__selected {
@@ -212,10 +212,6 @@ const resultsTracks = computed(() => {
     flex-wrap: wrap;
     gap: 6px;
     grid-row: 2;
-    height: 45%;
-    @media screen and (min-width: 769px) {
-      gap: 12px;
-    }
   }
   &__guide {
     display: flex;
@@ -252,11 +248,32 @@ const resultsTracks = computed(() => {
   }
   @media screen and (min-width: 769px) {
     gap: 10px;
-    grid-template-rows: 25% 1fr 10%;
+    grid-template-rows: auto 1fr 10%;
+    &-selected {
+      gap: 12px;
+    }
+    &-input {
+      &-wrapper {
+        flex-wrap: wrap;
+      }
+      &__artists,
+      &__tracks {
+        width: 100%;
+      }
+    }
   }
   @media screen and (min-width: 1024px) {
-    grid-template-rows: 10% 1fr 5%;
+    grid-template-rows: auto 1fr 5%;
     gap: 36px;
+    &-input {
+      &-wrapper {
+        flex-wrap: nowrap;
+      }
+      &__artists,
+      &__tracks {
+        width: fit-content;
+      }
+    }
   }
 }
 </style>
