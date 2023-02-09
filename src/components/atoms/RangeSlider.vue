@@ -69,7 +69,7 @@ function selectLimit(e: Event) {
   &::-webkit-slider-thumb {
     appearance: none;
     background: variables.$color-neutral__dark;
-    background-image: url('@/assets/Slider.svg');
+    background-image: url('@/assets/SliderPusher.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

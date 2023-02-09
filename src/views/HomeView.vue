@@ -9,9 +9,11 @@
         <CircleOnly class="circle-text circle-text__second" />
       </div>
     </template>
+
     <template v-else>
       <h1>subjective. bangers. only.</h1>
     </template>
+    <img src="@/assets/Arrow.svg" />
     <DecorStripes class="stripes" />
     <div class="home-header-scroll-mouse">
       <div class="home-header-scroll-mouse__wheel"></div>
@@ -59,7 +61,7 @@ const mobileView = computed(() => store.state.mobileView)
 .home-header {
   align-items: flex-end;
   background-color: variables.$color-neutral__greige-light;
-  background-image: url('@/assets/Background-Light.jpg');
+  background-image: url('@/assets/TextureLight.jpg');
   border-radius: 40px 40px 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
@@ -113,7 +115,7 @@ const mobileView = computed(() => store.state.mobileView)
       align-items: center;
       aspect-ratio: 1 / 1;
       background-color: variables.$color-neutral__greige-light;
-      background-image: url('@/assets/Background-Light.jpg');
+      background-image: url('@/assets/TextureLight.jpg');
       border-radius: 100%;
       display: flex;
       grid-row: 2 / 5;
@@ -157,7 +159,7 @@ const mobileView = computed(() => store.state.mobileView)
   }
 }
 .home-main {
-  background: url('@/assets/Background-Light.jpg'), darken(variables.$color__blue, 5%);
+  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__blue, 5%);
   background-blend-mode: soft-light;
   border-radius: variables.$border-radius-medium;
   box-shadow: variables.$shadow-1;

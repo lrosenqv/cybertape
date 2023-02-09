@@ -106,7 +106,7 @@ async function createMix() {
 @use '@/style/variables.scss';
 
 .mixer {
-  background: url('@/assets/Background-Light.jpg'), variables.$color__red;
+  background: url('@/assets/TextureLight.jpg'), variables.$color__red;
   background-blend-mode: soft-light;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;

@@ -98,7 +98,7 @@ function toggleSelection(e: Event) {
   &::-webkit-slider-thumb {
     appearance: none;
     background: variables.$color-neutral__greige-light;
-    background-image: url('@/assets/Slider.svg');
+    background-image: url('@/assets/SliderPusher.svg');
     background-position: center center;
     background-repeat: no-repeat;
     border-radius: 4px;

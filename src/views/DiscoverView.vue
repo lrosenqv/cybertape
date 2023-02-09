@@ -61,7 +61,7 @@ function toggleOverlay() {
 @use '@/style/variables.scss';
 
 .discover {
-  background: url('@/assets/Background-Light.jpg'), darken(variables.$color__green-dark, 20%);
+  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__green-dark, 20%);
   background-blend-mode: overlay;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
