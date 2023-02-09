@@ -5,7 +5,7 @@
       <p>Pick a category to generate a mix of its' most popular tracks!</p>
     </header>
     <main class="discover-main">
-      <TapeRack :list="categories.items" @on-clicked="handleClick" />
+      <TapeRack :list="categories" @on-clicked="handleClick" />
       <PreviewPlaylist
         v-if="openOverlay"
         :tracks="generatedPlaylist"
@@ -21,19 +21,21 @@ import { getPlaylistById } from '@/services/playlist'
 import { getCategories, getCategoryPlaylists } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
+import type { IPlaylist } from '@/models/IPlaylist'
 import TapeRack from '@/components/atoms/TapeRack.vue'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
-import type { IPlaylist } from '@/models/IPlaylist'
 
-const categories = ref<ICategory>({ href: '', items: [], next: '' })
+const categories = ref<ICategory[]>([])
 const generatedPlaylist = ref<ITrack[]>([])
 const openOverlay = ref<boolean>(false)
 
 onMounted(async () => {
-  categories.value = await getCategories()
+  const categoriesReq = await getCategories()
+  categories.value = categoriesReq.categories.items
 })
 async function handleClick(item: any) {
   const playlists = await getCategoryPlaylists(item.id)
+  console.log(playlists)
   const shuffle = playlists.items.sort(() => 0.5 - Math.random())
   const selected = shuffle.slice(0, 5)
 

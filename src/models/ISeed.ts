@@ -1,8 +1,9 @@
+import type { ITrack } from './ITrack'
+
 export interface ISeeds {
   seeds: ISeed[]
-  tracks: []
+  tracks: ITrack[]
 }
-
 export interface ISeed {
   afterFilteringSize: number
   afterRelinkingSize: number

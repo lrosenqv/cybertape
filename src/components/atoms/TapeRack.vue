@@ -12,19 +12,19 @@
 </template>
 
 <script setup lang="ts">
-import type { ICategoryItem } from '@/models/ICategory'
+import type { ICategory } from '@/models/ICategory'
 import type { PropType } from 'vue'
 import { toRefs } from 'vue'
 import AudioTape from './AudioTape.vue'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<ICategoryItem[]>,
+    type: Array as PropType<ICategory[]>,
     required: true
   }
 })
 const emits = defineEmits<{
-  (e: 'onClicked', item: ICategoryItem): void
+  (e: 'onClicked', item: ICategory): void
 }>()
 const { list } = toRefs(props)
 </script>

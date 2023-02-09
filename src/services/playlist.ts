@@ -12,7 +12,7 @@ async function getPlaylistById(playlist_url: string) {
   })
   return response.data
 }
-// Create a new private playlist
+// Creates a new playlist on current users' spotify
 async function createPlaylist(name: string) {
   const userId = store.state.currentUser.userId
   const response = await axios.post(

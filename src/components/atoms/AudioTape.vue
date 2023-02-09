@@ -7,13 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import type { ICategoryItem } from '@/models/ICategory'
+import type { ICategory } from '@/models/ICategory'
 import type { PropType } from 'vue'
 import { toRefs, ref } from 'vue'
 
 const props = defineProps({
   item: {
-    type: Object as PropType<ICategoryItem>,
+    type: Object as PropType<ICategory>,
     required: true
   }
 })

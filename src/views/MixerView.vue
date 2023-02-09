@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import type { ITrack } from '@/models/ITrack'
 import { ref, onMounted, computed } from 'vue'
-import { getGenreSeeds, getRecommendations } from '@/services/api'
+import { getGenres, getRecommendations } from '@/services/api'
 import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
 import MixerSettings from '@/components/organisms/MixerSettings.vue'
 import settings from '@/assets/mixer_settings.json'
@@ -75,7 +75,7 @@ const settingsModel = ref({
 })
 
 onMounted(async () => {
-  const genresFromApi = await getGenreSeeds()
+  const genresFromApi = await getGenres()
   genres.value = genresFromApi
 })
 

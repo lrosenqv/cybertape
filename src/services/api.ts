@@ -1,6 +1,7 @@
-import type { ICategories } from '@/models/ICategory'
-import type { IPlaylistResponse } from '@/models/IPlaylist'
+import type { IGenres, ICategories } from '@/models/ICategory'
+import type { IPlaylists } from '@/models/IPlaylist'
 import type { ISearch } from '@/models/ISearch'
+import type { ISeeds } from '@/models/ISeed'
 import axios from 'axios'
 
 const baseUrl = 'https://api.spotify.com/v1/'
@@ -11,11 +12,11 @@ async function getCategories() {
   const response = await axios.get<ICategories>(baseUrl + 'browse/categories?limit=50', {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  return response.data.categories
+  return response.data
 }
 // Generate new playlist from selected category
 async function getCategoryPlaylists(category_id: string) {
-  const response = await axios.get<IPlaylistResponse>(
+  const response = await axios.get<IPlaylists>(
     baseUrl + `browse/categories/${category_id}/playlists?&limit=10`,
     {
       headers: { Authorization: 'Bearer ' + accessToken }
@@ -33,7 +34,6 @@ async function searchTracks(query: string) {
   const response = await axios.get<ISearch>(baseUrl + `search?type=track&q=${query}`, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
-  console.log(response.data.tracks)
   return response.data.tracks
 }
 async function getRecommendations(
@@ -47,13 +47,14 @@ async function getRecommendations(
     seed_tracks,
     seed_genres
   })
-  const response = await axios.get(baseUrl + 'recommendations?' + body + settings, {
+  const response = await axios.get<ISeeds>(baseUrl + 'recommendations?' + body + settings, {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
   return response.data
 }
-async function getGenreSeeds() {
-  const response = await axios.get(baseUrl + 'recommendations/available-genre-seeds', {
+// Get all avaliable genres from Api
+async function getGenres() {
+  const response = await axios.get<IGenres>(baseUrl + 'recommendations/available-genre-seeds', {
     headers: { Authorization: 'Bearer ' + accessToken }
   })
   return response.data.genres
@@ -64,6 +65,6 @@ export {
   getCategoryPlaylists,
   searchArtist,
   searchTracks,
-  getGenreSeeds,
+  getGenres,
   getRecommendations
 }

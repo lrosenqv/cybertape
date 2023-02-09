@@ -1,10 +1,3 @@
-export interface IArtists {
-  artists: {
-    href: string
-    items: IArtist[]
-  }
-}
-
 export interface IArtist {
   followers: { href: string; total: number }
   genres: string[]

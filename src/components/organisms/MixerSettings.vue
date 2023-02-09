@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import type { SETTING_ITEM, SETTING_ITEM_TOGGLE } from '@/models/LIST_ITEM'
 import type { PropType } from 'vue'
 import { toRefs, computed } from 'vue'
 import RotationKnob from '@/components/atoms/RotationKnob.vue'
@@ -50,18 +51,6 @@ import RangeSlider from '@/components/atoms/RangeSlider.vue'
 import MixerButton from '@/components/atoms/MixerButton.vue'
 import ToggleSlider from '../atoms/ToggleSlider.vue'
 
-interface SETTING_ITEM {
-  title: string
-  description: string
-}
-interface SETTING_ITEM_TOGGLE {
-  title: string
-  description: string
-  min: number
-  max: number
-  steps: number
-  step_labels: string[]
-}
 // Props
 const props = defineProps({
   knobs: {

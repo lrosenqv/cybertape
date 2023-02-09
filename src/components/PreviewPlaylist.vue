@@ -43,6 +43,7 @@
 </template>
 <script lang="ts" setup>
 import type { ITrack } from '@/models/ITrack'
+import type { PropType } from 'vue'
 import { createPlaylist, addTracksToPlaylist } from '@/services/playlist'
 import { ref, toRefs } from 'vue'
 import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
@@ -50,11 +51,10 @@ import TextInput from '@/components/atoms/TextInput.vue'
 
 const props = defineProps({
   tracks: {
-    type: Array<ITrack>,
+    type: Array as PropType<ITrack[]>,
     required: true
   }
 })
-
 const emits = defineEmits<{
   (e: 'closeComponent'): void
 }>()
