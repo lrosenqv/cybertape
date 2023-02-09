@@ -106,9 +106,8 @@ async function createMix() {
 @use '@/style/variables.scss';
 
 .mixer {
-  background: url('@/assets/Background-Light.jpg'),
-    desaturate($color: variables.$color__red-dark, $amount: 15);
-  background-blend-mode: overlay;
+  background: url('@/assets/Background-Light.jpg'), variables.$color__red;
+  background-blend-mode: soft-light;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
   grid-template-columns: 100%;
@@ -201,6 +200,9 @@ async function createMix() {
       grid-column: 2 / 12;
       height: fit-content;
       padding-bottom: variables.$padding-x-large;
+      h2 {
+        @include variables.font-size-h2;
+      }
     }
     &-main {
       display: flex;
@@ -228,7 +230,7 @@ async function createMix() {
     &-main {
       flex-direction: row;
       grid-row: 3 / 7;
-      grid-column: 2 / -1;
+      grid-column: 2 / 12;
 
       &-section {
         padding: variables.$padding-body;
@@ -238,10 +240,11 @@ async function createMix() {
         }
         &__left {
           row-gap: 15px;
+          flex-shrink: 0.9;
         }
         &__right {
           padding-right: calc(2 * #{variables.$padding-x-large});
-          flex-basis: 100%;
+          flex-shrink: 0.8;
         }
       }
     }

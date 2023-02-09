@@ -49,9 +49,9 @@ const { title, subtitle, text } = toRefs(props)
 
 .flip-tile {
   background-color: transparent;
-  height: 170px;
+  height: 130px;
   perspective: 1000px;
-  width: 320px;
+  width: 220px;
 
   &-wrapper {
     height: 100%;
@@ -60,11 +60,9 @@ const { title, subtitle, text } = toRefs(props)
     transform-style: preserve-3d;
     width: 100%;
   }
-
   &:hover &-wrapper {
     transform: rotateX(180deg);
   }
-
   &-front,
   &-back {
     backface-visibility: hidden;
@@ -72,12 +70,11 @@ const { title, subtitle, text } = toRefs(props)
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: variables.$padding-x-large variables.$padding-large;
+    padding: variables.$padding-large variables.$padding-large;
     position: absolute;
     width: 100%;
     -webkit-backface-visibility: hidden;
   }
-
   &-front {
     border: 2px solid variables.$color-neutral__light;
     h3 {
@@ -108,7 +105,6 @@ const { title, subtitle, text } = toRefs(props)
     &.invert-style-back {
       color: white;
       background-color: variables.$color__blue-dark;
-
       a {
         color: variables.$color__green;
         &:hover {
@@ -116,6 +112,10 @@ const { title, subtitle, text } = toRefs(props)
         }
       }
     }
+  }
+  @media screen and (min-width: 768px) {
+    height: 170px;
+    width: 320px;
   }
 }
 </style>
