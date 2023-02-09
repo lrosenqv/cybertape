@@ -90,7 +90,7 @@ app?.addEventListener('scroll', () => {
   &-logo {
     align-self: flex-start;
     color: variables.$color-neutral__dark;
-    grid-column: 1 / 3;
+    grid-column: 1;
     height: 100%;
     position: relative;
 

@@ -55,6 +55,7 @@ function scrollText(e: MouseEvent) {
   border-radius: 2px;
   border-right: 1px solid variables.$color-neutral__dark;
   border-bottom: 1px solid variables.$color-neutral__dark;
+  box-shadow: 2px 2px 2px #bcbcbc;
   color: variables.$color-neutral__light;
   cursor: pointer;
   list-style-type: none;

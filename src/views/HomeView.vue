@@ -103,16 +103,18 @@ const mobileView = computed(() => store.state.mobileView)
         @include variables.font-size-paragraph__small;
       }
       &__left {
-        grid-column: 2 / 5;
+        grid-column: 3 / 5;
         > svg {
           width: 95%;
-          animation: rotate 20s normal linear infinite;
+          animation: rotate 18s normal linear infinite;
         }
       }
       &__right {
+        width: 80%;
         grid-column: 8 / 12;
         > svg:nth-child(1) {
           animation: rotate 30s normal linear infinite;
+          font-size: 14px;
           width: 95%;
         }
         > svg:nth-child(2) {
