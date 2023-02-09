@@ -5,15 +5,15 @@
       "description":
         "How suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity."
     },
-    { "title": "target_energy", "description": "" },
-    { "title": "target_valence", "description": "" }
+    { "title": "target_energy", "description": "The intensity and activity of a track. High energy tracks are often fast, loud and noisy." },
+    { "title": "target_valence", "description": "Describes the musical positiveness of a track. High valenve tracks sound mor cheery and euphoric." }
   ],
   "sliders": [
     {
       "title": "target_acousticness",
-      "description": ""
+      "description": "If you're tired of jamming wonderwall by yourself, this is for you."
     },
-    { "title": "target_instrumental", "description": "" },
+    { "title": "target_instrumental", "description": "No vocals... or vocals?" },
     { "title": "target_popularity", "description": "Hipster och toplists?" }
   ], 
   "toggles": [

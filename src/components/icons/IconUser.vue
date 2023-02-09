@@ -9,7 +9,7 @@
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="10"
+      stroke-width="13"
     />
     <circle
       cx="128"
@@ -19,7 +19,7 @@
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="10"
+      stroke-width="13"
     />
     <path
       d="M63.8,199.4a72,72,0,0,1,128.4,0"
@@ -27,7 +27,7 @@
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="10"
+      stroke-width="13"
     />
   </svg>
 </template>
