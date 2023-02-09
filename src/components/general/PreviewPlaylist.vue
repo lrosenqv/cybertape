@@ -44,10 +44,10 @@
 <script lang="ts" setup>
 import type { ITrack } from '@/models/ITrack'
 import type { PropType } from 'vue'
-import { createPlaylist, addTracksToPlaylist } from '@/services/playlist'
 import { ref, toRefs } from 'vue'
-import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
-import TextInput from '@/components/atoms/TextInput.vue'
+import { createPlaylist, addTracksToPlaylist } from '@/services/playlist'
+import ButtonBorder from '@/components/general/ButtonBorder.vue'
+import TextInput from '@/components/general/TextInput.vue'
 
 const props = defineProps({
   tracks: {

@@ -19,8 +19,8 @@
 
 <script setup lang="ts">
 import { ref, watch, toRefs } from 'vue'
-import KnobSVG from '@/components/atoms/KnobSVG.vue'
-import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
+import KnobSVG from '@/components/mixer/KnobSVG.vue'
+import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
   modelValue: {

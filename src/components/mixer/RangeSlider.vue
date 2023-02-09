@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
+import { toRefs } from 'vue'
+import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
   modelValue: {

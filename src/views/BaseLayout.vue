@@ -11,7 +11,7 @@
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { getUser } from '@/services/authorization'
-import LayoutTopbar from '@/components/LayoutTopbar.vue'
+import LayoutTopbar from '@/components/general/LayoutTopbar.vue'
 
 const store = useStore()
 

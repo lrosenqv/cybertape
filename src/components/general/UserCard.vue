@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
+import ButtonBorder from '@/components/general/ButtonBorder.vue'
 const store = useStore()
 
 const emits = defineEmits<{

@@ -16,14 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getPlaylistById } from '@/services/playlist'
-import { getCategories, getCategoryPlaylists } from '@/services/api'
 import type { ICategory } from '@/models/ICategory'
 import type { ITrack } from '@/models/ITrack'
 import type { IPlaylist } from '@/models/IPlaylist'
-import TapeRack from '@/components/atoms/TapeRack.vue'
-import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
+import { getCategories, getCategoryPlaylists } from '@/services/api'
+import { getPlaylistById } from '@/services/playlist'
+import { ref, onMounted } from 'vue'
+import TapeRack from '@/components/TapeRack.vue'
+import PreviewPlaylist from '@/components/general/PreviewPlaylist.vue'
 
 const categories = ref<ICategory[]>([])
 const generatedPlaylist = ref<ITrack[]>([])

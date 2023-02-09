@@ -46,9 +46,9 @@ import type { ITrack } from '@/models/ITrack'
 import { ref, onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { getGenres, getRecommendations } from '@/services/api'
-import MixerSearch from '@/components/organisms/MixerSearch.vue'
-import MixerSettings from '@/components/organisms/MixerSettings.vue'
-import PreviewPlaylist from '@/components/PreviewPlaylist.vue'
+import MixerSearch from '@/components/mixer/MixerSearch.vue'
+import MixerSettings from '@/components/mixer/MixerSettings.vue'
+import PreviewPlaylist from '@/components/general/PreviewPlaylist.vue'
 import IconChevron from '@/components/icons/IconChevron.vue'
 
 const store = useStore()

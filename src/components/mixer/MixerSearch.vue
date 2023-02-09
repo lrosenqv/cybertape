@@ -59,15 +59,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed } from 'vue'
-import type { PropType } from 'vue'
+import { searchArtist, searchTracks } from '@/services/api'
 import type { IArtist } from '@/models/IArtist'
 import type { ITrack } from '@/models/ITrack'
-import TextInput from '@/components/atoms/TextInput.vue'
-import { searchArtist, searchTracks } from '@/services/api'
-import SearchResults from '@/components/atoms/SearchResults.vue'
-import SelectDropdown from '@/components/atoms/SelectDropdown.vue'
-import SelectedItem from '@/components/molecules/SelectedItem.vue'
+import type { PropType } from 'vue'
+import { ref, toRefs, computed } from 'vue'
+import SearchResults from '@/components/general/SearchResults.vue'
+import SelectDropdown from '@/components/general/SelectDropdown.vue'
+import SelectedItem from '@/components/SelectedItem.vue'
+import TextInput from '@/components/general/TextInput.vue'
 
 // Props
 const props = defineProps({
@@ -136,8 +136,11 @@ function toggleResultList() {
   searchStringTrack.value = ''
 }
 function onSelect(item: any) {
-  if (selected.value.length >= 5) return
-  if (selected.value.length < 5) {
+  const amountOfType = selected.value.map((select) => {
+    return select.type === item.type
+  })
+  if (amountOfType.length >= 5) return
+  else {
     selected.value.push(item)
     handleSelectedList()
   }
@@ -197,9 +200,7 @@ const resultsTracks = computed(() => {
   &-input {
     &-wrapper {
       display: flex;
-      // flex-wrap: wrap;
       justify-content: space-between;
-      // max-width: 800px;
       gap: 5px;
     }
     &__artists,
@@ -212,6 +213,7 @@ const resultsTracks = computed(() => {
     flex-wrap: wrap;
     gap: 6px;
     grid-row: 2;
+    height: fit-content;
   }
   &__guide {
     display: flex;

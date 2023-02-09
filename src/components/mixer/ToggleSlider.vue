@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import type { PropType } from 'vue'
-import InfoTooltip from '@/components/atoms/InfoTooltip.vue'
+import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
   modelValue: {

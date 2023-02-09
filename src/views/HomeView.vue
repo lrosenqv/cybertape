@@ -39,11 +39,11 @@
 </template>
 
 <script setup lang="ts">
-import DecorCircle from '@/components/DecorCircle.vue'
-import DecorMouse from '@/components/DecorMouse.vue'
-import DecorStripes from '@/components/DecorStripes.vue'
+import DecorCircle from '@/components/general/DecorCircle.vue'
+import DecorMouse from '@/components/general/DecorMouse.vue'
+import DecorStripes from '@/components/general/DecorStripes.vue'
 
-import FlipTile from '@/components/FlipTile.vue'
+import FlipTile from '@/components/general/FlipTile.vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
@@ -106,17 +106,17 @@ const mobileView = computed(() => store.state.mobileView)
         grid-column: 2 / 5;
         > svg {
           width: 95%;
-          // animation: rotate 20s normal linear infinite;
+          animation: rotate 20s normal linear infinite;
         }
       }
       &__right {
         grid-column: 8 / 12;
         > svg:nth-child(1) {
-          // animation: rotate 30s normal linear infinite;
+          animation: rotate 30s normal linear infinite;
           width: 95%;
         }
         > svg:nth-child(2) {
-          // animation: rotate 22s reverse linear infinite;
+          animation: rotate 22s reverse linear infinite;
           width: 60%;
         }
       }

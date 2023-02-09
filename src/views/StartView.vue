@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import ButtonBorder from '@/components/atoms/ButtonBorder.vue'
 import { authRequest, getAccessToken } from '@/services/authorization'
 import { onBeforeMount } from 'vue'
+import ButtonBorder from '@/components/general/ButtonBorder.vue'
 
 const params = new URLSearchParams(window.location.search)
 const codeQuery = params.get('code')

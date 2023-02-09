@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import IconUser from '@/components/icons/IconUser.vue'
-import UserCard from '@/components/atoms/UserCard.vue'
+import UserCard from '@/components/general/UserCard.vue'
 import LogoDark from '@/components/icons/LogoDark.vue'
 import { logout } from '@/services/authorization'
 import { useStore } from 'vuex'
@@ -58,7 +58,7 @@ function toggleBurger() {
 function toggleUserCard() {
   showUserCard.value = !showUserCard.value
 }
-app?.addEventListener('scroll', (e) => {
+app?.addEventListener('scroll', () => {
   if (app.scrollTop > 0) {
     shrinked.value = true
     setTimeout(() => {
@@ -89,10 +89,11 @@ app?.addEventListener('scroll', (e) => {
 
   &-logo {
     align-self: flex-start;
-    grid-column: 1 / 3;
-    position: relative;
-    height: 100%;
     color: variables.$color-neutral__dark;
+    grid-column: 1 / 3;
+    height: 100%;
+    position: relative;
+
     transition: all 0.8s;
     &:hover {
       color: white;
@@ -101,14 +102,12 @@ app?.addEventListener('scroll', (e) => {
   }
   @media screen and (min-width: 768px) {
     grid-template-rows: 60px auto;
-    // padding-inline: calc(2 * #{variables.$padding-body});
   }
   @media screen and (min-width: 1024px) {
     grid-template-rows: 80px auto;
     padding-inline: calc(2 * #{variables.$padding-body});
     &-logo {
       grid-column: 1;
-      padding-top: variables.$padding-x-large;
     }
   }
   &-nav {
@@ -117,13 +116,10 @@ app?.addEventListener('scroll', (e) => {
     display: flex;
     grid-column: 5 / 9;
     height: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     text-align: center;
     top: 0;
     transition: all 0.6s;
-    @media screen and (min-width: 1024px) {
-      grid-column: 6 / 8;
-    }
     &-link {
       font-weight: 700;
       text-align: center;

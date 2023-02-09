@@ -46,10 +46,10 @@
 import type { SETTING_ITEM, SETTING_ITEM_TOGGLE } from '@/models/LIST_ITEM'
 import type { PropType } from 'vue'
 import { toRefs, computed } from 'vue'
-import RotationKnob from '@/components/atoms/RotationKnob.vue'
-import RangeSlider from '@/components/atoms/RangeSlider.vue'
-import MixerButton from '@/components/atoms/MixerButton.vue'
-import ToggleSlider from '../atoms/ToggleSlider.vue'
+import RotationKnob from '@/components/mixer/RotationKnob.vue'
+import RangeSlider from '@/components/mixer/RangeSlider.vue'
+import MixerButton from '@/components/mixer/MixerButton.vue'
+import ToggleSlider from '@/components/mixer/ToggleSlider.vue'
 
 // Props
 const props = defineProps({
