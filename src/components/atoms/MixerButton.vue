@@ -83,6 +83,9 @@ const emits = defineEmits<{
   }
   @media screen and (min-width: 769px) {
     width: 70px;
+    &_small {
+      width: 60px;
+    }
   }
 }
 </style>

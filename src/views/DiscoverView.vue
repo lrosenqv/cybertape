@@ -66,48 +66,52 @@ function toggleOverlay() {
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
   gap: 20px;
+  height: 100%;
   grid-template-columns: 100%;
-  grid-template-rows: 20vh 60vh 10vh;
-  padding-top: 10vh;
+  grid-template-rows: variables.$grid-rows-template-mobile;
   padding-inline: variables.$padding-body;
 
   &-header {
-    align-self: flex-end;
-    grid-row: 1;
+    grid-row: 2;
     h2 {
       @include variables.font-size-title;
     }
   }
   &-main {
-    grid-row: 2;
+    grid-row: 3 / 8;
     height: 100%;
   }
   @media screen and (min-width: 768px) {
-    grid-template-rows: 15vh 70vh 10vh;
-    &-header h2 {
-      @include variables.font-size-h2;
+    grid-template-rows: variables.$grid-rows-template-tablet;
+    &-header {
+      align-self: flex-end;
+      grid-row: 1 / 3;
+      h2 {
+        @include variables.font-size-h2;
+      }
+    }
+    &-main {
+      grid-row: 3 / 7;
     }
   }
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
-    grid-template-rows: 15vh 20vh 55vh 15vh;
-    padding-inline: calc(2 * #{variables.$padding-body});
-    padding-top: 0;
+    grid-template-rows: variables.$grid-rows-template-standard;
+    padding-inline: variables.$padding-body;
+    gap: 0;
+    padding-bottom: calc(#{variables.$padding-body} + #{variables.$padding-medium});
 
     &-header {
       grid-column: 2 / 6;
-      grid-row: 2 / 3;
+      grid-row: 1 / 3;
       scroll-snap-align: center none;
-      p {
-        width: 70%;
-      }
     }
     &-main {
       align-self: flex-end;
-      grid-column: 1 / 12;
-      grid-row: 3 / 4;
+      flex-basis: content;
+      grid-column: 3 / 13;
+      grid-row: 3 / 8;
       height: fit-content;
-      margin-left: auto;
       padding: 0;
     }
   }

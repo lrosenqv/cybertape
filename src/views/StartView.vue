@@ -45,13 +45,13 @@ onBeforeMount(() => {
     padding-block: 80px;
     gap: 15px;
   }
-
   &-text {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding-inline: variables.$padding-large;
+
     @media screen and (min-width: 768px) {
       padding-inline: variables.$padding-body;
       gap: 40px;

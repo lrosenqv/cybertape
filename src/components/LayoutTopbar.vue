@@ -1,10 +1,7 @@
 <template>
   <div class="topbar" :class="{ topbar__shrinked: shrinked }">
-    <RouterLink to="/" class="topbar-logo__link">
-      <div class="topbar-logo">
-        <div>Cyber</div>
-        <div>Tape</div>
-      </div>
+    <RouterLink to="/" class="topbar-logo">
+      <LogoDark />
     </RouterLink>
 
     <div v-if="mobileView" class="topbar-mobile-wrapper" :class="{ __collapsed: !menuOpen }">
@@ -41,6 +38,7 @@
 import { ref, computed } from 'vue'
 import IconUser from '@/components/icons/IconUser.vue'
 import UserCard from '@/components/atoms/UserCard.vue'
+import LogoDark from '@/components/icons/LogoDark.vue'
 import { logout } from '@/services/authorization'
 import { useStore } from 'vuex'
 const store = useStore()
@@ -60,9 +58,9 @@ function toggleBurger() {
 function toggleUserCard() {
   showUserCard.value = !showUserCard.value
 }
-
-app?.addEventListener('scroll', () => {
-  if (app.scrollTop > 80) {
+app?.addEventListener('scroll', (e) => {
+  console.log(e)
+  if (app.scrollTop > 0) {
     shrinked.value = true
     setTimeout(() => {
       hideNav.value = true
@@ -78,50 +76,55 @@ app?.addEventListener('scroll', () => {
 @use '@/style/variables.scss';
 
 .topbar {
-  align-content: center;
   align-items: center;
   color: variables.$color-neutral__dark;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
-  padding: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
+  grid-template-rows: 40px auto;
+  padding: variables.$padding-x-large variables.$padding-body 0;
+
   position: fixed;
   width: 100vw;
   z-index: 999;
   @include variables.font-size-paragraph;
 
   &-logo {
-    display: flex;
-    flex-direction: column;
-    transition: all 1s;
-    width: 100px;
-
-    &__link {
-      grid-column: 1 / 5;
-      position: relative;
+    align-self: flex-start;
+    grid-column: 1 / 3;
+    position: relative;
+    height: 100%;
+    color: variables.$color-neutral__dark;
+    transition: all 0.8s;
+    &:hover {
+      color: white;
+      transform: scale(1.1, 1.1);
     }
-    div {
-      line-height: 0.8;
-      transition: all 0.8s;
-      width: fit-content;
-      @include variables.font-size-label;
-    }
-
-    div:nth-child(2) {
-      align-self: flex-end;
-      position: relative;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-rows: 60px auto;
+    // padding-inline: calc(2 * #{variables.$padding-body});
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-rows: 80px auto;
+    padding-inline: calc(2 * #{variables.$padding-body});
+    &-logo {
+      grid-column: 1;
+      padding-top: variables.$padding-x-large;
     }
   }
   &-nav {
     align-items: center;
     color: transparent;
     display: flex;
-    grid-column: 6 / 8;
+    grid-column: 5 / 9;
     height: 100%;
     justify-content: space-between;
     text-align: center;
     top: 0;
     transition: all 0.6s;
-
+    @media screen and (min-width: 1024px) {
+      grid-column: 6 / 8;
+    }
     &-link {
       font-weight: 700;
       text-align: center;
@@ -155,23 +158,14 @@ app?.addEventListener('scroll', () => {
     }
     &-card {
       grid-column: 8 / 13;
-      @media screen and (min-width: 1024px) {
-        grid-column: 11 / 13;
-      }
+      justify-self: flex-end;
     }
   }
 
   &__shrinked {
     .topbar-logo {
-      width: 75px;
-      &__link {
-        grid-column: 1;
-      }
-      div {
-        color: variables.$color-neutral__light;
-        width: 60%;
-        @include variables.font-size-paragraph;
-      }
+      color: white;
+      transform: scale(0.9, 0.9);
     }
     .topbar-mobile-wrapper span {
       background-color: variables.$color-neutral__light;

@@ -27,59 +27,12 @@ $color__yellow-light: #EDBE87;
 
 // flex
 
-//font mixins
-@mixin font-size-h1 {
-  font-size: 5.6rem;
-  @media screen and (min-width: 768px) {
-    font-size: 7.5rem;
-  }
-}
-@mixin font-size-h2 {
-  font-size: 4.1rem;
-  @media screen and (min-width: 768px) {
-    font-size: 5.6rem;
-  }
-}
-@mixin font-size-h3 {
-  font-size: 3.1rem;
-  @media screen and (min-width: 768px) {
-    font-size: 4.1rem;
-  }
-}
-@mixin font-size-title {
-  font-size: 2.35rem;
-  @media screen and (min-width: 768px) {
-    font-size: 3.1rem;
-  }
-}
-@mixin font-size-subtitle {
-  font-size: 1.75rem;
-  @media screen and (min-width: 768px) {
-    font-size: 2.35rem;
-  }
-}
-@mixin font-size-label {
-  font-size: 1.3rem;
-  @media screen and (min-width: 768px) {
-    font-size: 1.75rem;
-  }
-}
-@mixin font-size-paragraph {
-  font-size: 1rem;
-  @media screen and (min-width: 768px) {
-    font-size: 1.3rem;
-  }
-}
-@mixin font-size-paragraph__small {
-  font-size: 0.75rem;
-  @media screen and (min-width: 768px) {
-    font-size: 1rem;
-  }
-}
-
 // grid
 $grid-template-standard: repeat(12, 1fr);
-$grid-template-standard__row: repeat(10, 65px);
+$grid-rows-template-standard: 20vh repeat(5, 1fr);
+$grid-rows-template-tablet: 15vh repeat(6, 1fr);
+$grid-rows-template-mobile: 12vh auto repeat(6, 1fr);
+
 $column-gap-standard: 30px;
 
 // margins & paddings
@@ -94,7 +47,7 @@ $padding-small: 8px;
 $padding-medium: 12px;
 $padding-large: 16px;
 $padding-x-large: 20px;
-$padding-body: 24px;
+$padding-body: 40px;
 
 // height & widths
 $input-height: 35px;
@@ -153,5 +106,55 @@ $shadow-2: 1px 2px 2px rgba(29, 32, 35, 0.104), 0px 1px 1px rgba(33, 37, 41, 0.0
     background-color: variables.$color-neutral__greige;
     border-radius: variables.$border-radius-large;
     width: 3px;
+  }
+}
+
+//font mixins
+@mixin font-size-h1 {
+  font-size: 5.6rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 7.5rem;
+  }
+}
+@mixin font-size-h2 {
+  font-size: 4.1rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 5.6rem;
+  }
+}
+@mixin font-size-h3 {
+  font-size: 3.1rem;
+  @media screen and (min-width: 1024px) {
+    font-size: 4.1rem;
+  }
+}
+@mixin font-size-title {
+  font-size: 2.35rem;
+  @media screen and (min-width: 768px) {
+    font-size: 3.1rem;
+  }
+}
+@mixin font-size-subtitle {
+  font-size: 1.75rem;
+  @media screen and (min-width: 768px) {
+    font-size: 2.35rem;
+  }
+}
+@mixin font-size-label {
+  font-size: 1.3rem;
+  @media screen and (min-width: 768px) {
+    font-size: 1.75rem;
+  }
+}
+@mixin font-size-paragraph {
+  font-size: 1rem;
+  @media screen and (min-width: 768px) {
+    font-size: 1.3rem;
+  }
+}
+@mixin font-size-paragraph__small {
+  font-size: 0.75rem;
+  @media screen and (min-width: 768px) {
+    font-size: 1rem;
   }
 }

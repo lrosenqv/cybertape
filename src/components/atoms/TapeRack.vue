@@ -36,7 +36,7 @@ const { list } = toRefs(props)
 .tape-rack {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-auto-rows: auto;
+  grid-auto-rows: 1fr;
   gap: 6px;
   padding-right: variables.$padding-large;
   height: 100%;
@@ -61,24 +61,22 @@ const { list } = toRefs(props)
     background-color: rgb(220, 220, 214);
     border-radius: variables.$border-radius-medium;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.36);
-    gap: 8px 10px;
-    grid-template-columns: repeat(4, 25%);
-    height: fit-content;
-    width: fit-content;
-    justify-content: center;
+    gap: 8px 9px;
+    grid-template-columns: repeat(5, 20%);
+    justify-content: space-around;
     margin-right: auto;
     overflow: initial;
     padding-block: variables.$padding-medium;
-    padding-inline: variables.$padding-x-large calc(2 * #{variables.$padding-x-large});
-    transform: rotateX(10deg) rotateY(-20deg) skewX(-5deg) perspective(1000px);
+    padding-inline: calc(2 * #{variables.$padding-x-large});
+    transform: rotateX(5deg) rotateY(-20deg) skewX(-5deg);
     transform-origin: left center 5em;
     transform-style: preserve-3d;
 
     &-wrapper {
       background-color: transparent;
       padding: 0;
-      perspective: 100em;
       overflow: initial;
+      perspective: 1000em;
     }
   }
 }

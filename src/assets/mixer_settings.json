@@ -18,14 +18,6 @@
   ], 
   "toggles": [
     {
-      "title": "limit",
-      "min": 10,
-      "max": 20,
-      "steps": 5,
-      "step_labels": ["10", "15", "20"],
-      "description": "Choose how many tracks to add to your mix from the recommendations."
-    },
-    {
       "title": "target_mode",
       "min": 0,
       "max": 2,
@@ -33,6 +25,14 @@
       "step_labels": ["Minor", "Major"],
       "description":
         "The modality of a track, the type of scale from which its melodic content is derived."
+    },
+    {
+      "title": "limit",
+      "min": 10,
+      "max": 20,
+      "steps": 5,
+      "step_labels": ["10", "15", "20"],
+      "description": "Choose how many tracks to add to your mix from the recommendations."
     }
   ]
 }

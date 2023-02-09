@@ -1,7 +1,5 @@
 <template>
-  <div class="top">
-    <LayoutTopbar />
-  </div>
+  <LayoutTopbar />
   <RouterView />
   <footer>
     <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
@@ -20,10 +18,10 @@ const store = useStore()
 onMounted(() => {
   const accessToken = sessionStorage.getItem('access_token') || ''
   if (accessToken) getUserName(accessToken)
-  if (window.innerWidth <= 768) store.commit('setMobileView', true)
+  if (window.innerWidth < 768) store.commit('setMobileView', true)
 })
 window.addEventListener('resize', () => {
-  if (window.innerWidth <= 768) store.commit('setMobileView', true)
+  if (window.innerWidth < 768) store.commit('setMobileView', true)
   else store.commit('setMobileView', false)
 })
 </script>

@@ -144,23 +144,28 @@ function resetSettings() {
 @use '@/style/variables.scss';
 #mixer-settings {
   display: grid;
-  grid-template-columns: variables.$grid-template-standard;
-  grid-template-rows: auto;
-  height: 100%;
-  gap: 10px;
+  row-gap: 40px;
+  grid-template-columns: 66% 33%;
+  grid-template-rows: repeat(4, auto);
+  height: fit-content;
+  justify-content: center;
+  justify-items: center;
+
   &__knobs {
+    column-gap: 10px;
     display: flex;
     justify-content: space-between;
     grid-area: 1 / 1 / 2 / -1;
   }
   &__sliders {
+    column-gap: 10px;
     display: flex;
     justify-content: space-between;
     grid-row: 2;
     grid-column: 1 / -1;
   }
   &__toggles {
-    align-items: center;
+    column-gap: 40px;
     display: flex;
     grid-row: 3;
     grid-column: 1 / -1;
@@ -168,39 +173,40 @@ function resetSettings() {
   }
   &__buttons {
     align-items: flex-end;
+    align-self: flex-start;
     justify-content: flex-end;
+    justify-self: flex-end;
     display: flex;
     gap: 24px;
     grid-row: 4;
     grid-column: 1 / -1;
-    padding: 0 variables.$padding-medium variables.$padding-medium 0;
+    padding: 0 variables.$padding-body variables.$padding-body;
   }
-  @media screen and (min-width: 769px) {
-    column-gap: 25px;
-    grid-template-rows: repeat(6, 1fr);
+  @media screen and (min-width: 768px) {
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: normal;
+    gap: 0;
+    height: 100%;
 
     &__knobs {
-      display: flex;
-      justify-content: space-between;
-      grid-area: 1 / 1 / 3 / 9;
+      grid-area: 1 / 1 / 2 / 2;
     }
     &__sliders {
-      display: flex;
-      justify-content: space-between;
-      grid-area: 3 / 1 / 7 / 9;
+      grid-area: 2 / 1 / 4 / 2;
     }
     &__toggles {
-      justify-content: space-between;
-      justify-self: end;
-      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      justify-self: flex-end;
       flex-direction: column;
-      grid-area: 1 / 10 / 4 / 13;
+      grid-area: 1 / 2 / 3 / 3;
+      row-gap: 72px;
     }
     &__buttons {
-      align-items: flex-end;
-      display: flex;
-      gap: 24px;
-      grid-area: 5 / 10 / 6 / 13;
+      align-self: flex-end;
+      justify-self: flex-end;
+      padding: 0 0 variables.$padding-medium;
+      grid-area: 3 / 2 / 4 / 3;
     }
   }
 }

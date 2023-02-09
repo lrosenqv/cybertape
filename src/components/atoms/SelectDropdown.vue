@@ -85,7 +85,7 @@ watch(
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 35px;
+  height: 100%;
   margin: 0;
   width: 100%;
 
@@ -95,7 +95,7 @@ watch(
     position: absolute;
     z-index: 2;
     right: 0;
-    bottom: 35%;
+    bottom: 40%;
     transition: all 0.3s;
 
     &_up {
@@ -104,14 +104,8 @@ watch(
     }
   }
   &-content {
+    height: 100%;
     position: relative;
-
-    input {
-      position: relative;
-    }
-    &-list {
-      position: relative;
-    }
   }
 }
 </style>

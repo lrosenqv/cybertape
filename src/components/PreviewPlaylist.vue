@@ -225,7 +225,7 @@ async function createList() {
       grid-template-rows: 1fr;
       width: 70vw;
       &-wrapper {
-        padding: calc(2 * #{variables.$padding-body});
+        padding: calc(#{variables.$padding-medium} + #{variables.$padding-body});
       }
       &-save {
         grid-column: 1;
