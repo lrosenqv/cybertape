@@ -74,6 +74,7 @@ function toggleOverlay() {
   padding-inline: variables.$padding-large;
 
   &-header {
+    align-self: flex-end;
     grid-column: 1 / -1;
     grid-row: 2;
     scroll-snap-align: center none;

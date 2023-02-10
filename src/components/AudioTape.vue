@@ -65,7 +65,6 @@ function scrollText(e: MouseEvent) {
   text-overflow: clip;
   width: 100%;
   max-width: 260px;
-  z-index: 1;
 
   &-label {
     align-items: center;

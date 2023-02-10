@@ -67,14 +67,14 @@ const mobileView = computed(() => store.state.mobileView)
   justify-content: center;
   scroll-snap-align: start none;
   h1 {
-    bottom: -24px;
+    bottom: -18px;
     color: variables.$color-neutral__dark;
     font-weight: 600;
     grid-column: 1 / -1;
     display: inline-block;
     grid-row: 2 / 4;
     margin: 0;
-    z-index: 1;
+    @include variables.font-size-h2;
   }
   &-stripes {
     grid-column: 1 / -1;
@@ -138,7 +138,7 @@ const mobileView = computed(() => store.state.mobileView)
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: variables.$grid-rows-template-tablet;
   padding: 0 variables.$padding-body variables.$padding-body;
-  height: 80vh;
+  height: 100vh;
   scroll-snap-align: start none;
 
   &-title {
@@ -151,10 +151,11 @@ const mobileView = computed(() => store.state.mobileView)
   }
   .flip-tile {
     &-container {
+      align-self: center;
       display: flex;
       flex-direction: column;
       grid-column: 2 / 12;
-      grid-row: 4 / 8;
+      grid-row: 4 / 7;
       padding-top: variables.$padding-large;
       row-gap: 20px;
     }
@@ -167,6 +168,7 @@ const mobileView = computed(() => store.state.mobileView)
   }
   @media screen and (min-width: 768px) {
     grid-template-rows: variables.$grid-rows-template-standard;
+    height: 80vh;
     &-title {
       grid-column: 2 / 6;
       grid-row: 2 / 3;

@@ -1,5 +1,5 @@
 <template>
-  <div class="infobox" @click="onHover" @mouseenter="onHover" @mouseleave="onHover">
+  <div class="infobox" @click.self="onHover" @mouseenter="onHover" @mouseleave="onHover">
     <img src="@/assets/IconInfo.svg" alt="information icon" />
     <div v-if="showTooltip" class="infobox-text">
       <p>{{ text }}</p>

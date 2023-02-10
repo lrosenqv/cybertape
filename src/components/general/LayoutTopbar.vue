@@ -4,8 +4,13 @@
       <LogoDark />
     </RouterLink>
 
-    <div v-if="mobileView" class="topbar-mobile-wrapper" :class="{ __collapsed: !menuOpen }">
-      <div ref="burgerMenu" class="topbar-mobile-burger" @click="toggleBurger">
+    <div
+      v-if="mobileView"
+      ref="menu"
+      class="topbar-mobile-wrapper"
+      :class="{ __collapsed: !menuOpen }"
+    >
+      <div ref="burgerMenu" class="topbar-mobile-burger" @click.stop="toggleBurger">
         <span></span>
       </div>
       <template v-if="menuOpen">
@@ -35,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import IconUser from '@/components/icons/IconUser.vue'
 import UserCard from '@/components/general/UserCard.vue'
 import LogoDark from '@/components/icons/LogoDark.vue'
@@ -46,6 +51,7 @@ const store = useStore()
 const shrinked = ref<boolean>(false)
 const hideNav = ref<boolean>(false)
 const burgerMenu = ref<HTMLDivElement>()
+const menu = ref<HTMLDivElement>()
 const menuOpen = ref<boolean>(false)
 const showUserCard = ref<boolean>(false)
 const mobileView = computed(() => store.state.mobileView)
@@ -68,6 +74,16 @@ app?.addEventListener('scroll', () => {
     shrinked.value = false
     hideNav.value = false
   }
+})
+watch(menuOpen, (isOpen) => {
+  if (isOpen)
+    document.body.addEventListener(
+      'click',
+      (e) => {
+        if (e.target !== menu.value) toggleBurger()
+      },
+      { once: true }
+    )
 })
 </script>
 
@@ -231,7 +247,6 @@ app?.addEventListener('scroll', () => {
       z-index: 20;
       span {
         background-color: variables.$color-neutral__dark;
-        background-blend-mode: difference;
         border-radius: variables.$border-radius-small;
         display: block;
         height: 3px;

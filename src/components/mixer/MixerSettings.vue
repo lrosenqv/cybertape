@@ -154,6 +154,7 @@ function resetSettings() {
     gap: 10px;
   }
   &__buttons {
+    align-items: flex-end;
     align-self: flex-end;
     display: flex;
     gap: 24px;
@@ -184,8 +185,6 @@ function resetSettings() {
       padding-left: variables.$padding-x-small;
     }
     &__buttons {
-      align-items: flex-end;
-      align-self: flex-end;
       grid-row: 3;
       grid-column: 2;
       padding-top: 0;

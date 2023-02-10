@@ -38,6 +38,7 @@ onMounted(() => {
   display: flex;
   gap: 10px;
   padding-top: variables.$padding-medium;
+  z-index: 10;
 
   img {
     border-radius: 50%;
