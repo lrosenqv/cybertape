@@ -130,8 +130,8 @@ const mobileView = computed(() => store.state.mobileView)
   }
 }
 .home-main {
-  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__blue, 5%);
-  background-blend-mode: soft-light;
+  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__blue-light, 40%);
+  background-blend-mode: overlay;
   border-radius: variables.$border-radius-medium;
   box-shadow: variables.$shadow-1;
   display: grid;
