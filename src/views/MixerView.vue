@@ -96,9 +96,7 @@ async function createMix() {
 @use '@/style/variables.scss';
 
 .mixer {
-  background: url('@/assets/TextureLight.jpg'), darken(variables.$color__red-light, 26%);
-
-  background-blend-mode: overlay;
+  background: url('@/assets/TextureRed.jpg'), variables.$color__red;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
