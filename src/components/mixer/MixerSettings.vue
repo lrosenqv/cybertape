@@ -74,7 +74,8 @@ const emits = defineEmits<{
 
 // Composables
 const { knobs, sliders, toggles } = toRefs(props)
-// To catch changes through v-model
+
+// Catch changes through v-model
 const settings = computed(() => {
   const knobSettings = knobs.value.map((knob) => {
     return {
@@ -140,24 +141,24 @@ function resetSettings() {
   width: 100%;
   &__knobs {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   &__sliders {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   &__toggles {
     display: flex;
     padding-left: variables.$padding-small;
+    justify-content: space-around;
     gap: 10px;
   }
   &__buttons {
-    align-items: flex-end;
     align-self: flex-end;
     display: flex;
     gap: 24px;
     justify-self: flex-end;
-    padding: 0 variables.$padding-medium variables.$padding-medium;
+    padding: variables.$padding-medium;
   }
   @media screen and (min-width: 595px) {
     align-items: stretch;
@@ -174,6 +175,7 @@ function resetSettings() {
       grid-column: 1 / 2;
     }
     &__toggles {
+      align-self: flex-start;
       display: flex;
       flex-direction: column;
       justify-self: flex-end;
@@ -183,7 +185,7 @@ function resetSettings() {
     }
     &__buttons {
       align-items: flex-end;
-      align-self: flex-start;
+      align-self: flex-end;
       grid-row: 3;
       grid-column: 2;
       padding-top: 0;

@@ -55,14 +55,16 @@ function scrollText(e: MouseEvent) {
   border-radius: 2px;
   border-right: 1px solid variables.$color-neutral__dark;
   border-bottom: 1px solid variables.$color-neutral__dark;
-  box-shadow: 2px 2px 2px #bcbcbc;
+  box-shadow: 2px 2px 2px #9d9d9d;
   color: variables.$color-neutral__light;
   cursor: pointer;
+  display: flex;
   list-style-type: none;
-  padding: variables.$padding-small variables.$padding-x-small;
+  padding-inline: variables.$padding-small;
   transition: all 0.25s linear;
   text-overflow: clip;
   width: 100%;
+  max-width: 260px;
   z-index: 1;
 
   &-label {
@@ -73,7 +75,8 @@ function scrollText(e: MouseEvent) {
     background-position: center;
     border-radius: 3px;
     display: flex;
-    height: 100%;
+    height: 70%;
+    margin-block: auto;
     overflow: hidden;
     width: 100%;
     p {
@@ -84,16 +87,17 @@ function scrollText(e: MouseEvent) {
       overflow: hidden;
       padding-inline: 20px;
       text-overflow: ellipsis;
-
       width: fit-content;
       white-space: nowrap;
     }
   }
   @media screen and (min-width: 768px) {
-    padding: variables.$padding-x-small variables.$padding-medium;
+    padding-inline: variables.$padding-large;
+    max-width: unset;
   }
   @media screen and (min-width: 1024px) {
     border-radius: 0;
+    max-width: 170px;
     padding: variables.$padding-x-small variables.$padding-small;
     &-label {
       height: initial;

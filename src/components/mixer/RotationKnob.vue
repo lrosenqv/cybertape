@@ -102,7 +102,8 @@ watch(dragging_knob, (isDragging) => {
   grid-template-columns: auto 1fr auto;
   height: fit-content;
   row-gap: 10px;
-  width: 120px;
+  width: 100%;
+  max-width: 120px;
   label {
     color: variables.$color-neutral__greige-light;
     grid-row: 1;

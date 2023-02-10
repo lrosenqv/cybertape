@@ -100,9 +100,10 @@ async function createMix() {
   background-blend-mode: soft-light;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
-  height: 100vh;
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: variables.$grid-rows-template-mobile;
+  justify-items: center;
+  min-height: 100vh;
   padding: 0 variables.$padding-large variables.$padding-x-large;
 
   &-header {
@@ -111,6 +112,9 @@ async function createMix() {
     flex-direction: column;
     grid-column: 1 / -1;
     grid-row: 2 / 3;
+    max-width: 1200px;
+    padding-bottom: variables.$padding-medium;
+    width: 100%;
     scroll-snap-align: center none;
     h2 {
       @include variables.font-size-title;
@@ -122,16 +126,17 @@ async function createMix() {
     gap: 10px;
     grid-row: 3 / 9;
     grid-column: 1 / -1;
-    max-height: 100%;
+    max-width: 1200px;
+    width: 100%;
 
     &-section {
       border-radius: variables.$border-radius-medium;
       box-shadow: variables.$shadow-1;
       grid-row: 1;
-      height: 100%;
       padding: variables.$padding-large;
       h3 {
         font-size: 20px;
+        font-weight: 500;
       }
       &__left {
         background-color: variables.$color-neutral__greige-light;
@@ -142,10 +147,10 @@ async function createMix() {
         padding: variables.$padding-small variables.$padding-x-large;
         &.-collapsed {
           gap: 0;
-          height: 5vh;
+          height: 40px;
         }
         &.-expanded {
-          height: 25vh;
+          height: 250px;
           gap: 8px;
           .main-mixer-section__left-header svg {
             transform: rotate(180deg);
@@ -159,66 +164,46 @@ async function createMix() {
         }
       }
       &__right {
-        align-self: center;
         background-color: variables.$color-neutral__dark;
         background-image: url('@/assets/TextureLeather.jpg');
         background-size: cover;
-
-        width: 100%;
+        height: fit-content;
       }
     }
   }
   @media screen and (min-width: 769px) {
-    gap: 0;
     grid-template-columns: variables.$grid-template-standard;
     grid-template-rows: variables.$grid-rows-template-tablet;
-    padding: 0 variables.$padding-body;
+    padding: 0 variables.$padding-body variables.$padding-body;
 
     &-header {
       align-self: flex-end;
-      grid-column: 1 / 12;
+      grid-column: 1 / -1;
       height: fit-content;
-      padding-bottom: variables.$padding-body;
+      h2 {
+        @include variables.font-size-h2;
+      }
     }
     &-main {
-      display: flex;
       gap: 20px;
-      grid-row: 3 / 7;
-      grid-column: 1 / -1;
-      flex-direction: row;
       &-section {
         height: 100%;
-        padding: variables.$padding-x-large variables.$padding-large;
-        &__left {
-          min-width: 30%;
-        }
+        padding: variables.$padding-x-large;
       }
     }
   }
   @media screen and (min-width: 1024px) {
+    height: 100vh;
     grid-template-rows: variables.$grid-rows-template-standard;
-    padding: 0 0 variables.$padding-body variables.$padding-body;
 
-    &-header {
-      grid-column: 2 / 12;
-    }
     &-main {
       flex-direction: row;
-      grid-row: 3 / 7;
-      grid-column: 2 / 12;
+      display: grid;
+      height: fit-content;
       &-section {
+        padding: variables.$padding-body;
         h3 {
-          font-size: 26px;
-          font-weight: 500;
-        }
-        &__left {
-          height: 100%;
-          min-width: 40%;
-        }
-        &-right {
-          padding: variables.$padding-body;
-          width: 50%;
-          width: fit-content;
+          @include variables.font-size-subtitle;
         }
       }
     }

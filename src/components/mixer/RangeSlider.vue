@@ -103,7 +103,8 @@ function selectLimit(e: Event) {
     height: fit-content;
     row-gap: 10px;
     touch-action: none;
-    width: 120px;
+    width: 100%;
+    max-width: 120px;
     .infobox {
       align-self: flex-end;
       grid-column: 3;

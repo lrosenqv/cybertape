@@ -2,7 +2,7 @@
   <div class="discover">
     <header class="discover-header">
       <h2>Discover</h2>
-      <p>Pick a category to generate a mix of its' most popular tracks!</p>
+      <p>Pick a category to mix some of its' most popular tracks!</p>
     </header>
     <main class="discover-main">
       <TapeRack :list="categories" @on-clicked="handleClick" />
@@ -68,24 +68,28 @@ function toggleOverlay() {
   background-blend-mode: overlay;
   border-radius: variables.$border-radius-large variables.$border-radius-large 0 0;
   display: grid;
-  gap: 20px;
-  height: 100%;
-  grid-template-columns: 100%;
+  height: 100vh;
+  grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: variables.$grid-rows-template-mobile;
-  padding-inline: variables.$padding-body;
+  padding-inline: variables.$padding-large;
 
   &-header {
+    grid-column: 1 / -1;
     grid-row: 2;
+    scroll-snap-align: center none;
     h2 {
       @include variables.font-size-title;
     }
+    padding-bottom: variables.$padding-medium;
   }
   &-main {
+    grid-column: 1 / -1;
     grid-row: 3 / 8;
     height: 100%;
   }
   @media screen and (min-width: 768px) {
     grid-template-rows: variables.$grid-rows-template-tablet;
+    padding: 0 variables.$padding-body variables.$padding-body;
     &-header {
       align-self: flex-end;
       grid-row: 1 / 3;
@@ -100,22 +104,24 @@ function toggleOverlay() {
   @media screen and (min-width: 1024px) {
     grid-template-columns: variables.$grid-template-standard;
     grid-template-rows: variables.$grid-rows-template-standard;
-    padding-inline: variables.$padding-body;
-    gap: 0;
-    padding-bottom: variables.$padding-medium;
+    justify-items: center;
+    padding: 0 variables.$padding-body variables.$padding-body;
 
     &-header {
-      grid-column: 2 / 6;
-      grid-row: 1 / 3;
+      align-self: flex-end;
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
       scroll-snap-align: center none;
+      max-width: 1200px;
+      padding-bottom: 40px;
+      width: 100%;
     }
     &-main {
-      align-self: flex-end;
-      flex-basis: content;
-      grid-column: 3 / 13;
-      grid-row: 3 / 8;
+      grid-column: 1 /12;
+      grid-row: 3 / 7;
       height: fit-content;
-      padding: 0;
+      max-width: 1000px;
+      margin-left: auto;
     }
   }
 }

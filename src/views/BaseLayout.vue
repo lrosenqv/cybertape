@@ -1,12 +1,10 @@
 <template>
-  <div id="app-grid">
-    <LayoutTopbar />
-    <RouterView />
-    <footer>
-      <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
-      <a href="#">Github Repo</a>
-    </footer>
-  </div>
+  <LayoutTopbar />
+  <RouterView />
+  <footer>
+    <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
+    <a href="#">Github Repo</a>
+  </footer>
 </template>
 
 <script setup lang="ts">

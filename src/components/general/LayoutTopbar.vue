@@ -80,7 +80,7 @@ app?.addEventListener('scroll', () => {
   display: grid;
   grid-template-columns: variables.$grid-template-standard;
   grid-template-rows: 40px auto;
-  padding: variables.$padding-x-large variables.$padding-body 0;
+  padding: variables.$padding-large variables.$padding-large 0;
 
   position: fixed;
   width: 100vw;
@@ -90,8 +90,9 @@ app?.addEventListener('scroll', () => {
   &-logo {
     align-self: flex-start;
     color: variables.$color-neutral__dark;
-    grid-column: 1;
+    grid-column-start: 1;
     height: 100%;
+    width: 60px;
     position: relative;
 
     transition: all 0.8s;
@@ -102,6 +103,7 @@ app?.addEventListener('scroll', () => {
   }
   @media screen and (min-width: 768px) {
     grid-template-rows: 60px auto;
+    padding: variables.$padding-x-large variables.$padding-body 0;
   }
   @media screen and (min-width: 1024px) {
     grid-template-rows: 80px auto;
@@ -222,11 +224,10 @@ app?.addEventListener('scroll', () => {
     &-burger {
       align-self: flex-start;
       cursor: pointer;
-      height: 24px;
       position: absolute;
       top: 22px;
-      right: 20px;
-      width: 32px;
+      right: 6px;
+      width: 35px;
       z-index: 20;
       span {
         background-color: variables.$color-neutral__dark;
@@ -248,10 +249,10 @@ app?.addEventListener('scroll', () => {
           width: 100%;
         }
         &::before {
-          transform: translateY(-10px);
+          transform: translateY(-12px);
         }
         &::after {
-          transform: translateY(10px);
+          transform: translateY(12px);
           margin-top: -3px;
         }
       }

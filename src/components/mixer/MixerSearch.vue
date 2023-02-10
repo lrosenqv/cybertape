@@ -202,7 +202,7 @@ const resultsTracks = computed(() => {
     }
     &__artists,
     &__tracks {
-      width: 33%;
+      flex-grow: 1;
     }
   }
   &__selected {
@@ -252,28 +252,10 @@ const resultsTracks = computed(() => {
     &-selected {
       gap: 12px;
     }
-    &-input {
-      &-wrapper {
-        flex-wrap: wrap;
-      }
-      &__artists,
-      &__tracks {
-        width: 100%;
-      }
-    }
   }
   @media screen and (min-width: 1024px) {
     grid-template-rows: auto 1fr 5%;
     gap: 20px;
-    &-input {
-      &-wrapper {
-        flex-wrap: nowrap;
-      }
-      &__artists,
-      &__tracks {
-        width: fit-content;
-      }
-    }
   }
 }
 </style>

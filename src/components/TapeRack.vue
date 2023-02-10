@@ -41,12 +41,12 @@ $colors: variables.$color__red-light, variables.$color__blue, variables.$color__
   background: $bg;
 }
 .tape-rack {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-auto-rows: 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
-  padding-right: variables.$padding-large;
   height: 100%;
+  justify-content: space-evenly;
+  padding-right: variables.$padding-large;
   overflow-x: hidden;
   overflow-y: scroll;
   @include scrollbar-standard;
@@ -69,39 +69,41 @@ $colors: variables.$color__red-light, variables.$color__blue, variables.$color__
     }
   }
   &-wrapper {
-    background-color: rgb(220, 220, 214);
+    background-color: variables.$color-neutral__greige-light;
     border-radius: variables.$border-radius-medium;
     height: 100%;
     overflow: hidden;
-    padding: variables.$padding-large 0 variables.$padding-small variables.$padding-large;
+    padding: variables.$padding-medium 0 variables.$padding-small variables.$padding-small;
   }
 
   @media screen and (min-width: 768px) {
+    display: grid;
+    justify-items: center;
     background-color: transparent;
     grid-template-columns: repeat(3, 33%);
-    margin: 0;
   }
 
   @media screen and (min-width: 1024px) {
-    background-color: rgb(220, 220, 214);
+    background-color: variables.$color-neutral__greige-light;
     border-radius: variables.$border-radius-medium;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.36);
     gap: 8px 9px;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(6, 1fr);
     justify-content: space-around;
     margin-right: auto;
     overflow: initial;
     padding-block: variables.$padding-medium;
-    padding-inline: calc(2 * #{variables.$padding-x-large});
+    padding-inline: variables.$padding-medium variables.$padding-x-large;
     transform: rotateX(5deg) rotateY(-20deg) skewX(-5deg);
     transform-origin: left center 5em;
     transform-style: preserve-3d;
+    width: fit-content;
 
     &-wrapper {
       background-color: transparent;
-      padding: 0;
       overflow: initial;
       perspective: 1000em;
+      padding: 0;
     }
   }
 }
