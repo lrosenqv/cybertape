@@ -129,6 +129,7 @@ async function createMix() {
       box-shadow: variables.$shadow-1;
       grid-row: 1;
       height: 100%;
+      padding: variables.$padding-large;
       h3 {
         font-size: 20px;
       }
@@ -162,7 +163,6 @@ async function createMix() {
         background-color: variables.$color-neutral__dark;
         background-image: url('@/assets/TextureLeather.jpg');
         background-size: cover;
-        padding: variables.$padding-large variables.$padding-medium;
 
         width: 100%;
       }
@@ -178,7 +178,7 @@ async function createMix() {
       align-self: flex-end;
       grid-column: 1 / 12;
       height: fit-content;
-      padding-bottom: variables.$padding-x-large;
+      padding-bottom: variables.$padding-body;
     }
     &-main {
       display: flex;
@@ -188,6 +188,7 @@ async function createMix() {
       flex-direction: row;
       &-section {
         height: 100%;
+        padding: variables.$padding-x-large variables.$padding-large;
         &__left {
           min-width: 30%;
         }
@@ -206,7 +207,6 @@ async function createMix() {
       grid-row: 3 / 7;
       grid-column: 2 / 12;
       &-section {
-        padding: variables.$padding-large;
         h3 {
           font-size: 26px;
           font-weight: 500;
@@ -216,6 +216,7 @@ async function createMix() {
           min-width: 40%;
         }
         &-right {
+          padding: variables.$padding-body;
           width: 50%;
           width: fit-content;
         }

@@ -251,6 +251,7 @@ const resultsTracks = computed(() => {
   @media screen and (min-width: 769px) {
     gap: 10px;
     grid-template-rows: auto 1fr 10%;
+    height: 100%;
     &-selected {
       gap: 12px;
     }
@@ -266,7 +267,7 @@ const resultsTracks = computed(() => {
   }
   @media screen and (min-width: 1024px) {
     grid-template-rows: auto 1fr 5%;
-    gap: 36px;
+    gap: 20px;
     &-input {
       &-wrapper {
         flex-wrap: nowrap;

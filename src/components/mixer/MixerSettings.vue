@@ -134,6 +134,8 @@ function resetSettings() {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-around;
   row-gap: 10px;
   width: 100%;
   &__knobs {
