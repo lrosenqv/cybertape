@@ -90,15 +90,13 @@ const emits = defineEmits<{
 }>()
 // Composables
 const { genres, mobileView, searchOpen } = toRefs(props)
-const results_artists = ref<IArtist[]>([])
-const results_tracks = ref<ITrack[]>([])
-const show_results_artists = ref<boolean>(false)
-const show_results_tracks = ref<boolean>(false)
-const search_string = ref<string>('')
-const selected = ref<any[]>([])
 const searchStringArtist = ref<string>('')
 const searchStringTrack = ref<string>('')
-
+const show_results_artists = ref<boolean>(false)
+const show_results_tracks = ref<boolean>(false)
+const selected = ref<any[]>([])
+const results_artists = ref<IArtist[]>([])
+const results_tracks = ref<ITrack[]>([])
 const results_genres = computed(() => {
   return genres.value.map((genre) => {
     return {
@@ -119,7 +117,6 @@ async function searchForArtist(searchString: string) {
   }
 }
 async function searchForTrack(searchString: string) {
-  search_string.value = searchString
   if (searchString.length >= 2) {
     const result = await searchTracks(searchString)
     results_tracks.value = result.items

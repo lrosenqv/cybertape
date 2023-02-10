@@ -13,7 +13,6 @@
         @update:modelValue="searchInDropdown"
       />
       <SearchResults
-        class="dropdown-content-list"
         v-if="show_dropdown_results"
         :list="results"
         @selectItem="onSelect"
