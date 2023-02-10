@@ -84,7 +84,7 @@ app?.addEventListener('scroll', () => {
 
   position: fixed;
   width: 100vw;
-  z-index: 999;
+  z-index: 1;
   @include variables.font-size-paragraph;
 
   &-logo {

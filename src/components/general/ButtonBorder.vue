@@ -30,8 +30,10 @@ const emits = defineEmits<{
 
 .button-border {
   background-color: transparent;
-  border-radius: variables.$border-radius-x-small;
+  border-radius: variables.$border-radius-small;
   border: 1px solid;
+  line-height: 1;
+  text-align: center;
   overflow: hidden;
   width: fit-content;
   @include variables.font-size-paragraph;
@@ -65,7 +67,6 @@ const emits = defineEmits<{
       transform: scale(1, 1);
     }
   }
-
   &::after {
     aspect-ratio: 1 / 1;
     content: '';

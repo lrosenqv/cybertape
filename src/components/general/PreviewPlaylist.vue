@@ -1,44 +1,47 @@
 <template>
   <div class="overlay-modal" @click.self="handleClick">
-    <div class="playlist-preview-wrapper">
-      <template v-if="!success">
-        <div class="playlist-preview">
-          <div class="playlist-preview-save">
-            <h3>Save to Spotify?</h3>
-            <div class="playlist-preview-save-form">
-              <TextInput
-                v-model="playlistName"
-                class="playlist-preview-save__input"
-                placeholder="Playlist name"
-                :light-color="true"
-              />
-              <ButtonBorder text="Save" @on-click="createList" />
-            </div>
+    <template v-if="!success">
+      <div class="playlist-preview">
+        <div class="playlist-preview-save">
+          <h3>Save to Spotify?</h3>
+          <div class="playlist-preview-save-form">
+            <TextInput
+              v-model="playlistName"
+              class="playlist-preview-save__input"
+              placeholder="Playlist name"
+              :light-color="true"
+            />
+            <ButtonBorder text="Save" @on-click="createList" />
           </div>
+        </div>
 
-          <div class="playlist-preview-list-wrapper">
-            <h4>Preview</h4>
-            <ul class="playlist-preview-list">
-              <li v-for="track in tracks" :key="track.id" class="playlist-preview-list__item">
-                <img :src="track.album.images[2].url" />
-                <div class="playlist-preview-list__item-text">
-                  {{ track.name }}<span>{{ track.artists[0].name }}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
+        <div class="playlist-preview-list-wrapper">
+          <h4>Preview</h4>
+          <ul class="playlist-preview-list">
+            <li v-for="track in tracks" :key="track.id" class="playlist-preview-list__item">
+              <img :src="track.album.images[2].url" />
+              <div class="playlist-preview-list__item-text">
+                {{ track.name }}<span>{{ track.artists[0].name }}</span>
+              </div>
+            </li>
+          </ul>
         </div>
-      </template>
-      <template v-if="success">
-        <div class="playlist-preview__success">
-          <p>
-            Successfully added tracks to <span>{{ playlistName }}</span>
-          </p>
-          <a :href="playlistUrl">Listen on Spotify</a>
-        </div>
-      </template>
-      <button class="playlist-preview__close-btn" @click="handleClick">X</button>
-    </div>
+        <ButtonBorder
+          text="x"
+          :secondary="true"
+          class="playlist-preview__close-btn"
+          @on-click="handleClick"
+        />
+      </div>
+    </template>
+    <template v-if="success">
+      <div class="playlist-preview__success">
+        <p>
+          Successfully added tracks to <span>{{ playlistName }}</span>
+        </p>
+        <a :href="playlistUrl">Listen on Spotify</a>
+      </div>
+    </template>
   </div>
 </template>
 <script lang="ts" setup>
@@ -85,8 +88,7 @@ async function createList() {
 @use '@/style/variables.scss';
 @import '@/style/variables.scss';
 .overlay-modal {
-  align-items: center;
-  background-color: rgba(11, 11, 11, 0.544);
+  background-color: #0b0b0b8b;
   backdrop-filter: blur(50px);
   display: flex;
   height: 100vh;
@@ -95,9 +97,14 @@ async function createList() {
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 999;
+  z-index: 1;
+  button {
+    z-index: 2;
+  }
 
   .playlist-preview {
+    background-color: variables.$color-neutral__dark;
+    border-radius: variables.$border-radius-medium;
     display: grid;
     gap: 20px;
     grid-template-rows: auto 1fr;
@@ -105,38 +112,35 @@ async function createList() {
     max-height: 70vh;
     height: fit-content;
     overflow: hidden;
-    position: relative;
-    z-index: 999;
-    width: 80vw;
+    padding: variables.$padding-x-large;
+    padding-top: 70px;
+    width: 90vw;
     transition: all 0.2s;
+    top: 10vh;
 
-    &-wrapper {
-      background-color: variables.$color-neutral__dark;
-      backdrop-filter: blur(30px);
-      border-radius: variables.$border-radius-medium;
-      min-height: 20vh;
-      overflow: hidden;
-      padding: variables.$padding-body;
-    }
     &-save {
       align-self: center;
       display: flex;
       flex-direction: column;
       gap: 20px;
       grid-column: 1 / -1;
-
+      h3 {
+        font-weight: 500;
+        @include variables.font-size-title;
+      }
       &__input {
-        flex-grow: 2;
+        flex-grow: 1;
+        height: 100%;
+        width: fit-content;
       }
       &-form {
         display: flex;
         gap: 10px;
-        justify-content: space-between;
       }
     }
-
     h4 {
       color: variables.$color-neutral__greige;
+      font-weight: 500;
       grid-column: 2;
       grid-row: 1;
       margin: 0;
@@ -190,7 +194,6 @@ async function createList() {
       margin-top: auto;
       max-width: 80vw;
       text-align: center;
-
       p {
         @include variables.font-size-subtitle;
         span {
@@ -216,17 +219,22 @@ async function createList() {
       position: absolute;
       top: variables.$padding-large;
       right: variables.$padding-x-large;
+      z-index: 2;
       @include variables.font-size-label;
     }
 
+    @media screen and (min-width: 768px) {
+      padding-inline: variables.$padding-body;
+      padding-bottom: variables.$padding-body;
+    }
     @media screen and (min-width: 1024px) {
       gap: 60px;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr;
+      padding: calc(#{variables.$padding-medium} + #{variables.$padding-body});
+      padding-right: 0;
       width: 70vw;
-      &-wrapper {
-        padding: calc(#{variables.$padding-medium} + #{variables.$padding-body});
-      }
+
       &-save {
         grid-column: 1;
         &__input {
