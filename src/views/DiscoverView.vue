@@ -35,7 +35,7 @@ onMounted(async () => {
 })
 async function handleClick(item: any) {
   const playlists = await getCategoryPlaylists(item.id)
-  console.log(playlists)
+
   const shuffle = playlists.items.sort(() => 0.5 - Math.random())
   const selected = shuffle.slice(0, 5)
 

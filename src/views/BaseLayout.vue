@@ -1,10 +1,12 @@
 <template>
-  <LayoutTopbar />
-  <RouterView />
-  <footer>
-    <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
-    <a href="#">Github Repo</a>
-  </footer>
+  <div id="app-grid">
+    <LayoutTopbar />
+    <RouterView />
+    <footer>
+      <p>Front End Development degree project 2023 - <a href="#">lrosenqv</a></p>
+      <a href="#">Github Repo</a>
+    </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -35,6 +37,7 @@ footer {
   gap: 16px;
   height: 20vh;
   padding: variables.$padding-body 48px;
+  scroll-snap-align: center none;
 
   a {
     color: variables.$color__green-light;

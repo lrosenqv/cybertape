@@ -78,7 +78,8 @@ const { title, stepLabels, min, max, steps, modelValue } = toRefs(props)
 
 function toggleSelection(e: Event) {
   const toggle = e.target as HTMLInputElement
-  emits('update:modelValue', toggle.value)
+  if (toggle.value === '0.5') emits('update:modelValue', '')
+  else emits('update:modelValue', toggle.value)
 }
 </script>
 <style lang="scss" scoped>

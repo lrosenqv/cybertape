@@ -28,9 +28,9 @@
         :key="i"
         :title="toggle.title"
         :description="toggle.description"
-        :min="i === 0 ? 10 : 0"
-        :max="i === 0 ? 20 : 1"
-        :steps="i === 0 ? 5 : 1"
+        :min="toggle.min"
+        :max="toggle.max"
+        :steps="toggle.steps"
         :step-labels="toggle.step_labels"
         @update:model-value="updateSettings"
       />
@@ -88,10 +88,10 @@ const settings = computed(() => {
       value: ''
     }
   })
-  const toggleSettings = toggles.value.map((toggle, i) => {
+  const toggleSettings = toggles.value.map((toggle) => {
     return {
       name: toggle.title,
-      value: i === 0 ? '15' : ''
+      value: toggle.title === 'limit' ? '15' : ''
     }
   })
   return { knobSettings, sliderSettings, toggleSettings }
