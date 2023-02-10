@@ -191,7 +191,7 @@ async function createList() {
       display: flex;
       flex-direction: column;
       gap: 30px;
-      margin-top: auto;
+      margin-top: 30%;
       max-width: 80vw;
       text-align: center;
       p {
