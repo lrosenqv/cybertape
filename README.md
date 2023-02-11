@@ -7,7 +7,10 @@ There's a discover page where you can pick one of Spotify's categories to create
 
 Deployed on [Vercel](https://cybertape.vercel.app/login) 
 --
-*Disclaimer: Cybertape is still in development on Spotify, so I only have a limited set of slots for user access. Hit me up with your Spotify account's email if you want to test it out :)*
+*Disclaimer: Cybertape is still in development on Spotify, so I only have a limited set of slots for user access. Hit me up with your Spotify account's email if you want to test it out :)
+
+Instrumental- range slider value does not work at the moment, so please don't use that one :)
+*
 
 ---
 
