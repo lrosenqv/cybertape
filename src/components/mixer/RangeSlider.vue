@@ -7,9 +7,9 @@
         :value="modelValue"
         type="range"
         :id="title"
-        min="0"
-        max="1"
-        step="0.01"
+        :min="values.min"
+        :max="values.max"
+        :step="values.step"
         class="slider"
         @change="(e) => selectLimit(e)"
       />
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { toRefs, computed } from 'vue'
 import InfoTooltip from '@/components/general/InfoTooltip.vue'
 
 const props = defineProps({
@@ -49,10 +49,25 @@ const emits = defineEmits<{
 const { title, label, description, modelValue } = toRefs(props)
 
 function selectLimit(e: Event) {
+  let rangeValue
   const range = e.target as HTMLInputElement
-  const rangeValue = range.valueAsNumber.toPrecision(1)
+
+  if (title.value === 'target_popularity') rangeValue = range.value
+  else rangeValue = range.valueAsNumber.toPrecision(1)
   emits('update:modelValue', rangeValue)
 }
+
+const values = computed(() => {
+  let min = '0'
+  let max = '1'
+  let step = '0.1'
+
+  if (title.value === 'target_popularity') {
+    max = '100'
+    step = '1'
+  }
+  return { min, max, step }
+})
 </script>
 
 <style lang="scss" scoped>
