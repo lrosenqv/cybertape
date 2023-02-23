@@ -1,6 +1,6 @@
 <template>
   <div class="toggle-slider">
-    <label>{{ title.replace('target_', '') }}</label>
+    <label>{{ label }}</label>
     <div class="toggle-wrapper">
       <div class="toggle-indicator">
         <div class="toggle-indicator__labels">
@@ -48,6 +48,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  label: {
+    type: String,
+    required: true
+  },
   stepLabels: {
     type: Array as PropType<string[]>,
     default: () => [],
@@ -74,7 +78,7 @@ const props = defineProps({
 const emits = defineEmits<{
   (e: 'update:modelValue', value: String): void
 }>()
-const { title, stepLabels, min, max, steps, modelValue } = toRefs(props)
+const { stepLabels, min, max, steps, modelValue } = toRefs(props)
 
 function toggleSelection(e: Event) {
   const toggle = e.target as HTMLInputElement

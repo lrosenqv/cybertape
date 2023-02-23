@@ -1,6 +1,6 @@
 <template>
   <div class="slider-range">
-    <label :for="title">{{ title.replace('target_', '') }}</label>
+    <label :for="title">{{ label }}</label>
     <div class="slider-wrapper">
       <span class="slider-wrapper-line"></span>
       <input
@@ -32,6 +32,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  label: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: false,
@@ -42,7 +46,7 @@ const emits = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 
-const { title, description, modelValue } = toRefs(props)
+const { title, label, description, modelValue } = toRefs(props)
 
 function selectLimit(e: Event) {
   const range = e.target as HTMLInputElement

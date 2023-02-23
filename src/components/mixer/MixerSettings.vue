@@ -6,6 +6,7 @@
         v-model="settings.knobSettings[index].value"
         :key="index"
         :title="knob.title"
+        :label="knob.label"
         :description="knob.description"
         @update:model-value="updateSettings"
       />
@@ -16,6 +17,7 @@
         v-model="settings.sliderSettings[index].value"
         :key="index"
         :title="slider.title"
+        :label="slider.label"
         :description="slider.description"
         @update:model-value="updateSettings"
       />
@@ -27,6 +29,7 @@
         :name="`target_${toggle.title}`"
         :key="i"
         :title="toggle.title"
+        :label="toggle.label"
         :description="toggle.description"
         :min="toggle.min"
         :max="toggle.max"
@@ -151,7 +154,7 @@ function resetSettings() {
     display: flex;
     padding-left: variables.$padding-small;
     justify-content: space-around;
-    gap: 10px;
+    gap: 20px;
   }
   &__buttons {
     align-items: flex-end;

@@ -6,10 +6,12 @@ export interface LIST_ITEM {
 }
 export interface SETTING_ITEM {
   title: string
+  label: string
   description: string
 }
 export interface SETTING_ITEM_TOGGLE {
   title: string
+  label: string
   description: string
   min: number
   max: number

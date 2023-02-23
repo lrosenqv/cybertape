@@ -1,6 +1,6 @@
 <template>
   <div class="rotation-knob">
-    <label>{{ title.replace('target_', '') }}</label>
+    <label>{{ label }}</label>
     <div class="knob-wrapper">
       <div
         ref="knob"
@@ -31,6 +31,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  label: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: false,
@@ -44,7 +48,7 @@ const emits = defineEmits<{
 const knob = ref<HTMLElement>()
 const current_rotation = ref<string>('')
 const dragging_knob = ref<boolean>(false)
-const { title, description } = toRefs(props)
+const { label, description } = toRefs(props)
 
 function drag_start() {
   dragging_knob.value = true
@@ -108,8 +112,8 @@ watch(dragging_knob, (isDragging) => {
     color: variables.$color-neutral__greige-light;
     grid-row: 1;
     grid-column: 1 / 3;
-    justify-self: center;
     text-transform: capitalize;
+    text-align: center;
     @include variables.font-size-paragraph__small;
   }
   .knob {
